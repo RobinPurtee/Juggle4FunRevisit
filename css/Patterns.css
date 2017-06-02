@@ -25,7 +25,7 @@ article h2 {
   margin: 5pt;
 }
 
-#sailor {
+.song {
   text-align: center;
   border-collapse: collapse;
   border-style: solid;
@@ -33,11 +33,14 @@ article h2 {
   border-color: black;
 }
 
-#sailor tr:nth-child(odd) {
+.song tr:nth-child(odd) {
   margin: 0;
   text-align: center;
   background-color: cyan;
-  border-bottom: 1pt solid red;
+}
+
+.song tr:nth-child(even) {
+  border-bottom: 1pt solid black;
 }
 
 .firstLine {

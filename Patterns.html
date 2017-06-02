@@ -3,106 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <title>Rick Purtee's version of the old Juggle4Fun.com website</title>    
-    <!--<link href="Content/bootstrap.min.css" rel="stylesheet" />-->
-    <link href="Content/Patterns.css" rel="stylesheet"/>
+    <link href="css/Patterns.css" rel="stylesheet"/>
 </head>
 <body>
-    <div>
-        <h1>Juggler 4 Fun Passing Patterns</h1>
-        <p>
-            Most the patterns on this site where developed by Dave Davis, Ralph Tippin, Chuck Fernald, and a handful of other folks primarily during some post IJA festival camp-outs between 2002, and 2006. Ralph had placed these patterns on a website he used to maintain but since has dropped from the juggling community and the site went away. Before it did he notified a few of use and copies where make. In 2017 while look for some content to work on to learn web development with I found the files of that site. The HTML used for the site was basic for 2005 and has not faired well with age and the formatting used on the site was inconsistant. So this is an updated and cleaned up version of patterns on that website.
-        </p>
-        <p>
-            The formatting of the pages was not the only thing that was not inconsistant. The way the patterns where describe also varied a little. To clean this up I formalized a notation to describe the rhythm of a pattern.  
-        </p>
-    </div>
-    <div>
-        <p>
-            Multi-Siteswap terms <b>pattern</b> is used to describe the en, it can mean the physical position of the jugglers, or the count the clubs are passed by. In this document;
-        </p>
-        <ul>
-            <li><b>Pattern:</b> the physical positions, and movements, of the jugglers and objects over time. </li>
-            <li><b>Hand:</b> a hand of a juggler. A Hand is a node of the graph
-            <li><b>Rhythm:</b> the sequence of throws among the hands in the pattern. </li>
-        </ul>
-    </div>
-
-    <main>
-        <h2>Multi-Siteswap Notation</h2>
-        <p>I know just what the world needs, yet another juggling notation.</p>
-        
-        <p>
-            The type of juggling patterns described by this notation are multi-juggler synchronous passing patterns. The problem with trying to use Siteswap to describe these patterns is Siteswap only defines patterns in a single dimension, giving only the magnitude of each throw. Multi-juggler is the same has multi-Siteswap. Thus we need a direction to indicate destination hand has well has a magnitude to define a throw. There are a number of other notations that have addressed this issue however, most of these where developed to solve a computer programming challenge thus suffer from taking some visualization skills to understand, nor are they easy write out by hand (unless you just think that way).
-        </p>
-        <p>
-            Sequence notation comes from the way most jugglers think about the pattern they are currently throwing. It only addresses the description of the rhythm of the pattern, which is independent of the number of jugglers, the number of objects, the physical location of the jugglers. in the pattern. It is simply a list of the jugglers with a row of that juggler's throws. Jugglers are named using capital letters A through Z in alphabetical order. Throws are defined has a line from the hand making the throw to the hand receiving the throw at a given magnitude.
-        </p>
-        <div>
-            <h3>Throw Notation</h3>
-            <p>
-                The throw consist of 2 parts, magnitude, and direction.
-            </p>
-            <div>
-                <h4>Magnitude</h4>
-                <p>
-                    The magnitude is the same has for Siteswap;
-                </p>
-                <ul class="nobullet">
-                    <li>0 = empty hand</li>
-                    <li>1 = hand-across</li>
-                    <li>2 = hold</li>
-                    <li>3 = normal height pass</li>
-                    <li>4 = double height pass</li>
-                    <li>and so on</li>
-                </ul>
-                <p>Because a magnitude of 3 is the common case, it can be assumed when writing a rhythm</p>
-            </div>
-            <div>
-                <h4>Direction</h4>
-                <p>
-                    The direction is defined relative to the current hand and is based in a 2 juggler pattern. In a 2 juggler pattern there are 4 possible directions that a throw can go and each is represented by a single letter;
-                </p>
-                <ul style="list-style-type:none;">
-                    <li><b>P</b> - throw to other juggler&rsquo;s opposite hand (A straight Pass, right-to-left or left-to-right)<br><img src="Content/Pass.svg"  alt="Straight pass from right to left hand"/></li>
-                    <li><b>D</b> - throw to other juggler&rsquo;s same hand (A Diagonal pass, right-to-right, or left-to-left)<br><img src="Content/Diagonal.svg" alt="Diagonal pass from right to right hand"/></li>
-                    <li><b>S</b> - throw to other hand (a Self throw)<br><img src="Content/Self.svg" alt="Self pass from right to left hand"/></li>
-                    <li><b>H</b> - throw to same hand (a Heff)<br><img src="Content/Heff.svg" alt="Heff in the right hand"/></li>
-                </ul>
-                <p>
-                    For more patterns with more than 2 Jugglers in the pattern, append the letter of the destination juggler.
-                </p>
-            </div>
-            <ul class="nobullet"><li>3PB</li></ul>
-            <p>
-                This throw notation can be farther simplified because a magnitude of 3 will be the normal, the magnitude value can be dropped. Also, the juggler designation can be dropped
-            </p>
-            <ol>
-                <li>The number of jugglers </li>
-                <li>The initial physical location and orientation of each juggler</li>
-                <li>A description of how the jugglers move through the pattern</li>
-                <li>The location that each object starts from</li>
-                <li>A description of how objects move between hands over time</li>
-            </ol>
-            <p>
-                From the point of view of a juggler in the pattern what you want a list of where each object is at, or where it is going, or where is coming from, at some regular occurring point of time and that is independent of physical location of the hands are traveling between. The most widely known notation Siteswap side steps the issue of physical location a There are a number of parts that work together to fully describe a pattern;
-            </p>
-            <ul>
-                <li> The <b>topology</b> is the locations of the</li>
-            </ul>
-
-            <p>
-                In order to fully describe a throw requires a vector, an entity that has both a magnitude and a direction. Siteswap the most well known juggling rhythm notation only gives the magnitude of the throw by defining a 1 dimensional .    there
-            </p>
-       </div>
     </main>
     <div>
         <h1>Rhythms</h1>
+        <p>
+            Rhythms are 2 jugglers patterns that can be used has the has the rhythm part of many Multi-Siteswap pattern.
+        </p>
         <article>
             <h1>A Sailor</h1>
             <h2>Number of Jugglers: 2</h2>
             <h2>Number of Objects: 6</h2>
-            <p><b>Start:</b> Two clubs in left hand (left handed start)</p>
-            <table id="sailor">
+            <h2><b>Start:</b> Two clubs in left hand (left handed start)</h2>
+            <table class="song">
                 <tr><td>A</td>  <td>Sail-</td>    <td>or</td>   <td>went</td>    <td>to</td>   <td>sea</td><td>sea</td><td>sea</td></tr>
                 <tr><td>S</td>  <td>D</td>        <td>S</td>    <td>D</td>       <td>S</td>    <td>P</td>  <td>P</td>  <td>P</td></tr>
                 <tr><td>to</td> <td>see</td>      <td>what</td> <td>he</td>      <td>could</td><td>see</td><td>see</td><td>see</td></tr>
