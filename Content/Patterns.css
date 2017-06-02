@@ -11,25 +11,33 @@ article {
   margin: 3em 1em 3em 1em;
 }
 
-h2 {
-  margin: 5pt 10pt 5pt 10pt;
-}
-
-p {
+article h1 {
+  font-size: 125%;
+  font-weight: bold; 
+  width: 70%;
   margin: 5pt;
 }
 
+article h2 {
+  font-size: 100%;
+  font-weight: normal;
+  width: 70%;
+  margin: 5pt;
+}
 
 #sailor {
+  text-align: center;
+  border-collapse: collapse;
   border-style: solid;
   border-width: 1pt;
   border-color: black;
 }
 
-#sailor tr {
-  background-color: grey;
-  border: 1pt solid red;
-
+#sailor tr:nth-child(odd) {
+  margin: 0;
+  text-align: center;
+  background-color: cyan;
+  border-bottom: 1pt solid red;
 }
 
 .firstLine {
