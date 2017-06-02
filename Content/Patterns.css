@@ -1,0 +1,49 @@
+body {
+  margin: 1em;
+}
+article {
+  padding: 5pt;
+  border-width: 3pt;
+  border-spacing: 2em;
+  border-style: solid;
+  border-radius: 2ch;
+  border-color: #3900ff;
+  margin: 3em 1em 3em 1em;
+}
+
+h2 {
+  margin: 5pt 10pt 5pt 10pt;
+}
+
+p {
+  margin: 5pt;
+}
+
+
+#sailor {
+  border-style: solid;
+  border-width: 1pt;
+  border-color: black;
+}
+
+#sailor tr {
+  background-color: grey;
+  border: 1pt solid red;
+
+}
+
+.firstLine {
+  color: darkred;
+}
+.secondLine {
+  color: darkblue;
+}
+.thirdLine {
+  color: darkgreen;
+}
+.fourthLine {
+  color: darkcyan;
+}
+ul.nobullet {
+  list-style-type: none;
+}

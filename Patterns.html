@@ -1,0 +1,1231 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Rick Purtee's version of the old Juggle4Fun.com website</title>    
+    <!--<link href="Content/bootstrap.min.css" rel="stylesheet" />-->
+    <link href="Content/Patterns.css" rel="stylesheet"/>
+</head>
+<body>
+    <div>
+        <h1>Juggler 4 Fun Passing Patterns</h1>
+        <p>
+            Most the patterns on this site where developed by Dave Davis, Ralph Tippin, Chuck Fernald, and a handful of other folks primarily during some post IJA festival camp-outs between 2002, and 2006. Ralph had placed these patterns on a website he used to maintain but since has dropped from the juggling community and the site went away. Before it did he notified a few of use and copies where make. In 2017 while look for some content to work on to learn web development with I found the files of that site. The HTML used for the site was basic for 2005 and has not faired well with age and the formatting used on the site was inconsistant. So this is an updated and cleaned up version of patterns on that website.
+        </p>
+        <p>
+            The formatting of the pages was not the only thing that was not inconsistant. The way the patterns where describe also varied a little. To clean this up I formalized a notation to describe the rhythm of a pattern.  
+        </p>
+    </div>
+    <div>
+        <p>
+            Multi-Siteswap terms <b>pattern</b> is used to describe the en, it can mean the physical position of the jugglers, or the count the clubs are passed by. In this document;
+        </p>
+        <ul>
+            <li><b>Pattern:</b> the physical positions, and movements, of the jugglers and objects over time. </li>
+            <li><b>Hand:</b> a hand of a juggler. A Hand is a node of the graph
+            <li><b>Rhythm:</b> the sequence of throws among the hands in the pattern. </li>
+        </ul>
+    </div>
+
+    <main>
+        <h2>Multi-Siteswap Notation</h2>
+        <p>I know just what the world needs, yet another juggling notation.</p>
+        
+        <p>
+            The type of juggling patterns described by this notation are multi-juggler synchronous passing patterns. The problem with trying to use Siteswap to describe these patterns is Siteswap only defines patterns in a single dimension, giving only the magnitude of each throw. Multi-juggler is the same has multi-Siteswap. Thus we need a direction to indicate destination hand has well has a magnitude to define a throw. There are a number of other notations that have addressed this issue however, most of these where developed to solve a computer programming challenge thus suffer from taking some visualization skills to understand, nor are they easy write out by hand (unless you just think that way).
+        </p>
+        <p>
+            Sequence notation comes from the way most jugglers think about the pattern they are currently throwing. It only addresses the description of the rhythm of the pattern, which is independent of the number of jugglers, the number of objects, the physical location of the jugglers. in the pattern. It is simply a list of the jugglers with a row of that juggler's throws. Jugglers are named using capital letters A through Z in alphabetical order. Throws are defined has a line from the hand making the throw to the hand receiving the throw at a given magnitude.
+        </p>
+        <div>
+            <h3>Throw Notation</h3>
+            <p>
+                The throw consist of 2 parts, magnitude, and direction.
+            </p>
+            <div>
+                <h4>Magnitude</h4>
+                <p>
+                    The magnitude is the same has for Siteswap;
+                </p>
+                <ul class="nobullet">
+                    <li>0 = empty hand</li>
+                    <li>1 = hand-across</li>
+                    <li>2 = hold</li>
+                    <li>3 = normal height pass</li>
+                    <li>4 = double height pass</li>
+                    <li>and so on</li>
+                </ul>
+                <p>Because a magnitude of 3 is the common case, it can be assumed when writing a rhythm</p>
+            </div>
+            <div>
+                <h4>Direction</h4>
+                <p>
+                    The direction is defined relative to the current hand and is based in a 2 juggler pattern. In a 2 juggler pattern there are 4 possible directions that a throw can go and each is represented by a single letter;
+                </p>
+                <ul style="list-style-type:none;">
+                    <li><b>P</b> - throw to other juggler&rsquo;s opposite hand (A straight Pass, right-to-left or left-to-right)</li>
+                    <li><b>D</b> - throw to other juggler&rsquo;s same hand (A Diagonal pass, right-to-right, or left-to-left)</li>
+                    <li><b>S</b> - throw to other hand (a Self throw)</li>
+                    <li><b>H</b> - throw to same hand (a Heff)</li>
+                </ul>
+                <p>
+                    For more patterns with more than 2 Jugglers in the pattern, append the letter of the destination juggler.
+                </p>
+            </div>
+            <ul class="nobullet"><li>3PB</li></ul>
+            <p>
+                This throw notation can be farther simplified because a magnitude of 3 will be the normal, the magnitude value can be dropped. Also, the juggler designation can be dropped
+            </p>
+            <ol>
+                <li>The number of jugglers </li>
+                <li>The initial physical location and orientation of each juggler</li>
+                <li>A description of how the jugglers move through the pattern</li>
+                <li>The location that each object starts from</li>
+                <li>A description of how objects move between hands over time</li>
+            </ol>
+            <p>
+                From the point of view of a juggler in the pattern what you want a list of where each object is at, or where it is going, or where is coming from, at some regular occurring point of time and that is independent of physical location of the hands are traveling between. The most widely known notation Siteswap side steps the issue of physical location a There are a number of parts that work together to fully describe a pattern;
+            </p>
+            <ul>
+                <li> The <b>topology</b> is the locations of the</li>
+            </ul>
+
+            <p>
+                In order to fully describe a throw requires a vector, an entity that has both a magnitude and a direction. Siteswap the most well known juggling rhythm notation only gives the magnitude of the throw by defining a 1 dimensional .    there
+            </p>
+       </div>
+    </main>
+    <article>
+        <h2>A Sailor</h2><br>
+        <h3>Two Person, 6 Clubs</h3>
+        <p><b>Start:</b> Two clubs in left hand (left handed start)</p>
+        <table id="sailor">
+            <tr><td>A</td>  <td>Sail-</td>    <td>or</td>   <td>went</td>    <td>to</td>   <td>sea</td><td>sea</td><td>sea</td></tr>
+            <tr><td>S</td>  <td>D</td>        <td>S</td>    <td>D</td>       <td>S</td>    <td>P</td>  <td>P</td>  <td>P</td></tr>
+            <tr><td>to</td> <td>see</td>      <td>what</td> <td>he</td>      <td>could</td><td>see</td><td>see</td><td>see</td></tr>
+            <tr><td>S</td>  <td>D</td>        <td>S</td>    <td>D</td>       <td>S</td>    <td>P</td>  <td>P</td>  <td>P</td></tr>
+            <tr><td>But</td><td>all</td>      <td>that</td> <td>he</td>      <td>could</td><td>see</td><td>see</td><td>see</td></tr>
+            <tr><td>S</td>  <td>D</td>	      <td>S</td>    <td>D</td>       <td>S</td>    <td>P</td>  <td>P</td>  <td>P</td></tr>
+            <tr><td>was</td><td>the bott-</td><td>om of</td><td>the deep</td><td>blue</td> <td>sea</td><td>sea</td><td>sea</td></tr>
+            <tr><td>S</td>  <td>D</td>        <td>S</td>    <td>D</td>       <td>S</td>    <td>P</td>  <td>P</td>  <td>6P</td></tr>
+        </table>
+    </article>
+    <article>
+        <p>Every Other Every Others Feed<br> Three-Person, 9 Clubs </p>
+        <p>
+            S - Self<br> A - Feeder<br> B - Feedee, to the left of the feeder<br> C - Feedee, to the right of the feeder
+        </p>
+        <table>
+            <tr><td>B</td><td> </td><td>C</td></tr>
+            <tr><td> </td><td>A</td><td> </td></tr>
+        </table>
+
+        <p>
+            A: P<sub>B</sub>SP<sub>C</sub>SP<sub>B</sub> P<sub>B</sub>P<sub>C</sub>P<sub>C</sub>
+            <br> B: P<sub>A</sub>SSSP<sub>A</sub>P<sub>A</sub>SS<br> C: SSP<sub>A</sub>SSSP<sub>A</sub>P<sub>A</sub>
+        </p>
+    </article>
+    <article>
+        <p>Every Other Every Others Parker 4-3 Feed<br> Three-Person, 9 Clubs </p>
+        <p> P - Pass<br> S - Self </p>
+        <p> A - Feeder<br> B - Feedee, to the left of the feeder<br> C - Feedee, to the right of the feeder</p>
+        <table>
+            <tr>
+                <td>B</td>
+                <td></td>
+                <td>C</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>A</td>
+                <td></td>
+            </tr>
+        </table>
+        <p>
+            A: P<sub>B</sub>SP<sub>C</sub>SP<sub>B</sub> P<sub>B</sub>P<sub>C</sub>P<sub>C</sub>P<sub>B</sub>SP<sub>C</sub>SP<sub>B</sub>P<sub>C</sub>S
+            | P<sub>B</sub>SP<sub>C</sub>SP<sub>B</sub> P<sub>B</sub>P<sub>C</sub>P<sub>C</sub>P<sub>B</sub>SP<sub>C</sub>SP<sub>B</sub>P<sub>C</sub>S<br>
+            B: P<sub>A</sub>SSSP<sub>A</sub>P<sub>A</sub>SSP<sub>A</sub>SSSP<sub>A</sub>SS | P<sub>A</sub>SSSP<sub>A</sub>P<sub>A</sub>SSP<sub>A</sub>SSSP<sub>A</sub>SS<br>
+            C: SSP<sub>A</sub>SSSP<sub>A</sub>P<sub>A</sub>SSP<sub>A</sub>SSP<sub>A</sub>S | SSP<sub>A</sub>SSSP<sub>A</sub>P<sub>A</sub>SSP<sub>A</sub>SSP<sub>A</sub>S
+        </p>
+    </article>
+    <article>
+        <p>Fast Slow<br> Two-Person, 6 Clubs</p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        P - Straight Pass<br>S - Self<br>D - Diagonal Pass
+                    </td>
+                    <td>
+                        <p> A - Fast Position<br> B - Slow Position </p>
+                    </td>
+                    <td>
+                        <p> A: PS DS<br> B: P D </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            Note: A s PSDS takes place during the same time frame as B s PD so A needs to speed up a little (that s why it is called
+            the fast part) and B needs to slow down a little (hence, the slow position). B s passes should be lofty but still a single
+            spin.
+        </p>
+    </article>
+    <article>
+        <p> Fast Slow Slow Fast (and ... Slow Fast Fast Slow)<br> Two-Person, 6 Clubs </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> P - Straight Pass<br> S - Self<br> D - Diagonal Pass </p>
+                    </td>
+                    <td>
+                        <p> A - Fast Slow Slow Fast<br> B - Slow Fast Fast Slow </p>
+                    </td>
+                    <td>
+                        <p>A: PS DS | S | P  D  | S | P  D  | S | PS DS | S |</p>
+                        <p>B: P  D  | S | PS DS | S | PS DS | S | P  D  | S |</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        Notes:
+                        <ol>
+                            <li>
+                                A s PSDS takes place during the same time frame as B s PD so A needs to speed up a little (that s why it is called
+                                the fast part) and B needs to slow down a little (hence, the slow position). B s passes would be lofty but still
+                                a single spin)
+                            </li>
+                            <li>After the transitional self ( | S | ) it is the Fast Slow pattern on the other side. </li>
+                            <li>You might also try replacing the transitional self with a Reading Romp. </li>
+                            <li>
+                                Instead of repeating after finishing, you could switch positions at the end and so on ... Or switch to another pattern
+                                ... of course you have to have agreed to what you will switch!?!?
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <p>No Apparent Reason</p>
+        <p>Two Person, 6 Clubs</p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p>P - Straight Pass</p>
+                        <p>D - Diagonal Pass</p>
+                        <p>S - Self</p>
+                        <p>H - Hand Across</p>
+                    </td>
+                    <td>
+                        <p>Right Handed Start</p>
+                        <p>
+                            <span>     </span>Right<span>          </span>Left<span>         </span>Left<span>              </span>Right<span>      </span>Right<span>       </span>Left<span>        </span>Left<span>              </span>Right
+                        </p>
+                        <p>
+                            A: PD<span>      </span>S<span>    </span>DDS<span>      </span>S<span>   </span>PSDS<span>   </span>S<span>      </span>PPHS<span>      </span>PSDS
+                            S<span>   </span>PPS S<span>       </span>PD<span>      </span>S<span>    </span>DDS<span>      </span>S
+                        </p>
+                        <p>B: PSDS<span>  </span>S<span>     </span>PPHS<span>        </span>PD<span>      </span>S<span>    </span>DDS<span>      </span>S<span>   </span>PD<span>    </span>S<span>     </span>DDS<span>   </span>S<span>  </span>PSDS<span>    </span>S<span>  </span>PPHS</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <p> Parker 4-3 (Feedee)<br> Two-Person, 6 Clubs </p>
+        <p> P - Pass<br> S - Self </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>A</td>
+                    <td>PSSSPSS</td>
+                    <td>PSSSPSS</td>
+                </tr>
+                <tr>
+                    <td>Feeder</td>
+                    <td>PSPSPPS</td>
+                    <td>PSPSPPS</td>
+                </tr>
+                <tr>
+                    <td>B</td>
+                    <td>SSPSSPS</td>
+                    <td>SSPSSPS</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <p> Parker 4-3 (Feeder)<br> Two-Person, 6 Clubs </p>
+        <p> P - Pass<br> S - Self </p>
+        <p>PSPSPPS | PSPSPPS</p>
+    </article>
+    <article>
+        <p> Parker 4-3 Feed<br> Three-Person, 9 Clubs </p>
+        <p> P - Pass<br> S - Self </p>
+        <p> A - Feeder<br> B - Feedee to the left of Feeder<br> C - Feedee to the right of Feeder </p>
+        <p>B  C</p>
+        <p>	A</p>
+        <p>A: P<sub>B</sub>SP<sub>A</sub>SP<sub>B</sub>P<sub>A</sub>S | P<sub>B</sub>SP<sub>A</sub>SP<sub>B</sub>P<sub>A</sub>S</p>
+        <p>B: P<sub>A</sub>SSSP<sub>A</sub>SS | P<sub>A</sub>SSSP<sub>A</sub>SS</p>
+        <p>C: SSP<sub>A</sub>SSP<sub>A</sub>S | SSP<sub>A</sub>SSP<sub>A</sub>S</p>
+    </article>
+    <article>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> Ralph and Bryan s Catalina Three Count Flurry<br> Two Person, 6 Clubs </p>
+                        <p> P - Straight Pass<br> S - Self </p>
+                        <p> Right Handed Start<br> PSSPSSPPSPPS | S | PSSPSSPPSPPS | S | </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> Ralph and Bryan s Catalina Three Count Flurry With a Reading Romp Transition<br> Two Person, 6 Clubs </p>
+                        <p> D - Diagonal Pass<br> P - Straight Pass<br> S - Self </p>
+                        <p> Right-Handed Start<br> PSSPSSPPSPPS | DPPP | PSSPSSPPSPPS | DPPP | </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <p> Un-Named Reading Pattern #1<br> Two Person, 6 Clubs </p>
+        <p> D - Diagonal Pass<br> P - Straight Pass<br> S - Self </p>
+        <p>PPSDSDS | PPSDSDS</p>
+    </article>
+    <article>
+        <p> Un-named Reading Pattern #2<br> Two Person, 6 Clubs </p>
+        <p> D - Diagonal Pass<br> P - Straight Pass<br> S - Self </p>
+        <p> PSSPSPPS | S | PSSPSPPS | S |<br> Could replace | S | with Reading Romp (DPPP) </p>
+    </article>
+    <article>
+        <p> Un-named Reading Pattern #3<br> Two Person, 6 Clubs </p>
+        <p> D - Diagonal Pass<br> P - Straight Pass<br> S - Self </p>
+        <p>PPDSD | PPDSD</p>
+    </article>
+    <article>
+        <p> Reading Romp<br> Two Person, 6 Clubs </p>
+        <p> D - Diagonal Pass<br> P - Straight Pass<br> R - Right Hand<br> L - Left Hand </p>
+        <p> R<sub>D</sub>R<sub>P</sub>L<sub>P</sub>R<sub>P</sub> | L<sub>D</sub>L<sub>P</sub>R<sub>P</sub>L<sub>P</sub> </p>
+    </article>
+    <article>
+        <p> Reading Romp Feed<br> a.k.a Martin Meadows<br> a.k.a Chuck Fernald s Feedee Response To a Reading Romp Feeder </p>
+        <p>Three Person, 9 Clubs</p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A: Feeder<br> B: Feedee, to the left of the feeder<br> C: Feedee, to the right of the feeder </p>
+                    </td>
+                    <td>
+                        <p> <span> </span>B<span>    </span>C<br> <span>     </span>A </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> D - Diagonal Pass<br> P - Straight Pass<br> S - Self<br> R - Right Hand<br> L - Left Hand </p>
+                    </td>
+                    <td>
+                        <p>
+                            A: R<sub>DB</sub>R<sub>PC</sub>L<sub>PB</sub>R<sub>PC</sub> | L<sub>DC</sub>L<sub>PB</sub>R<sub>PC</sub>L<sub>PB</sub>
+                        </p>
+                        <p>
+                            B: R<sub>DA</sub>R<sub>S</sub>L<sub>PA</sub>R<sub>S </sub>| L<sub>S</sub>R<sub>DA</sub>R<sub>S</sub>L<sub>PA</sub>
+                        </p>
+                        <p>
+                            C: R<sub>S</sub>L<sub>DA</sub>L<sub>S</sub>R<sub>PA </sub>| L<sub>DA</sub>L<sub>S</sub>R<sub>PA</sub>L<sub>S</sub>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <p> Three-Count Accommodation<br> Four Person, 12 Clubs </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> P - Straight Pass<br> S - Self </p>
+                    </td>
+                    <td>
+                        <p> <span>        </span>D<span>    </span>C<br> <br> <span>      </span>A<span>         </span>B </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A: Three Count<br> B: Two-Thirds Count<br> C: Right-Handed Two Count<br> D: Left-Handed Two Count </p>
+                    </td>
+                    <td>
+                        <p>
+                            A: P<sub>C</sub>SSP<sub>D</sub>SS<br> B: SP<sub>D</sub>P<sub>C</sub>SP<sub>C</sub>P<sub>D</sub>
+                            <br> C: P<sub>A</sub>SP<sub>B</sub>SP<sub>B</sub>S<br> D: SP<sub>B</sub>SP<sub>A</sub>SP<sub>B</sub>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <p> Turlock Fast Slow<br> Two-Person, 6 Clubs </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> P - Straight Pass<br> S - Self<br> D - Diagonal Pass </p>
+                    </td>
+                    <td>
+                        <p> A - Fast Position<br> B - Slow Position </p>
+                    </td>
+                    <td>
+                        <p> A: PS DS | S | PS DS | S |<br> B: P D | S | P D | S | </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p>Notes: </p>
+                        <ol>
+                            <li>
+                                A s PSDS takes place during the same time frame as B s PD so A needs to speed up a little (that s why it is called
+                                the fast part) and B needs to slow down a little (hence, the slow position). B s passes would be lofty but still
+                                a single spin)
+                            </li>
+                            <li>Chuck Fernald notes that it is heplful if the the Slow person start a tad bit earlier. </li>
+                            <li>After the transitional self ( | S | ) it is the Fast Slow pattern on the other side. </li>
+                            <li>You might also try replacing the transitional self with a Reading Romp. </li>
+                            <li>
+                                Instead of repeating after finishing, you could switch positions at the end and so on ... Or switch to another pattern
+                                ... of course you have to have agreed to what you will switch!?!?
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <p>Alternating Box Feed</p>
+        <p>Four Person, 12 Clubs</p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        C<span>      </span>B<br>
+                        <br> A<span>      </span>D
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        A and B start feeding ... That is, A feeds C and B (starting with C) and B feeds D and A (Starting with D). After
+                        a complete cycle (two passes), C and D take over feeding.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - CSBS CSSS<br> B - DSAS DSSS<br> C - ASSS ASDS<br> D - BSSS BSCS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>Once everyone is comfortable with the above try adding Ho-Hos! </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <p>Alternating Box Feed with Ho-Hos on the Diagonal</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        C<span>      </span>B<br>
+                        <br> A<span>      </span>D
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        A and B start feeding ... That is, A feeds C and B (starting with C) and B feeds D and A (Starting with D). It is
+                        a standard two-count feed except after the pass along the diagonal (A and B or C and D) follow with a left pass.
+                        After a complete cycle (two passes and the ho-ho), C and D take over feeding.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        A - CSBB CSSS<br> B - DSAA DSSS<br> C - ASSS ASDD<br> D - BSSS BSCC
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        Note: A Ho-Ho is an extra pass not associated with the base pattern. A Pre-Ho is an extra pass immediately before
+                        a normal pass and a Post-Ho is an extra pass immediately after a normal pass.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+
+        <p>Alternating Box Feed with Ho-Hos Everywhere</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        C<span>      </span>B<br>
+                        <br> A<span>      </span>D
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        A and B start feeding ... That is, A feeds C and B (starting with C) and B feeds D and A (Starting with D). It is
+                        a standard two-count feed except after each pass follow with a left pass. After a complete cycle (two passes and
+                        the ho-hos), C and D take over feeding.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        A - CCBB CCSS<br> B - DDAA DDSS<br> C - AASS AADD<br> D - BBSS BBCC
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        Note: A Ho-Ho is an extra pass not associated with the base pattern. A Pre-Ho is an extra pass immediately before
+                        a normal pass and a Post-Ho is an extra pass immediately after a normal pass.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+
+        <p>Alternating Box Feed with Ho-Hos on the Straight</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        C<span>      </span>B<br>
+                        <br> A<span>      </span>D
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        A and B start feeding ... That is, A feeds C and B (starting with C) and B feeds D and A (Starting with D). It is
+                        a standard two-count feed except after the straight pass (A and C or B and D) follow with a left pass. After a complete
+                        cycle (two passes and the ho-ho), C and D take over feeding.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        A - CCBS CCSS<br> B - DDAS DDSS<br> C - AASS AADS<br> D - BBSS BBCS
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        Note: A Ho-Ho is an extra pass not associated with the base pattern. A Pre-Ho is an extra pass immediately before
+                        a normal pass and a Post-Ho is an extra pass immediately after a normal pass.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Alternating Triangles</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - Feeder<br> B - Sub-Feeder<br> C - Feedee (To the right of Feeder)<br> D - Feedee (To the left of Feeder </p>
+                    </td>
+                    <td> <span>     </span>B<br> D<span>       </span>C<br> <span>     </span>A </td>
+                </tr>
+            </tbody>
+        </table> <br>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>
+                            A - CSDS ( A right-handed two-count alternating with C and D )<br> B - ASAS ( A right-handed two-count always passing
+                            to A )<br> C - BSSS ( A right-handed four-count always passing to B )<br> D - SSBS ( A right-handed four-count, starting
+                            with a self, always passing to B )
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Alternating Triangles with Flips</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - Feeder<br> B - Feeder<br> C - Feedee<br> D - Feedee </p>
+                    </td>
+                    <td> <span>     </span>B<br> D<span>       </span>C<br> <span>     </span>A </td>
+                </tr>
+            </tbody>
+        </table> <br> This is the Alternating Triangles pattern but A and B switch every four counts.
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - CSDS BSBS<br> B - ASAS DSCS<br> C - BSSS SSAS<br> D - SSBS ASSS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Alternating Triangles with Rotations</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td> <span>     </span>B<br> D<span>       </span>C<br> <span>     </span>A </td>
+                </tr>
+            </tbody>
+        </table> <br> This is the Alternating Triangles pattern but now everyone gets to feed. We rotate the feed to the right.<br> Note:
+        The feeder for each block is across the top in <b>BOLD</b>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>
+                            <b>
+                                <span>          </span>A<span>        </span>C<span>        </span>B<span>        </span>D<br>
+                            </b> A - CSDS SSCS BSBS CSSS<br> B - ASAS CSSS DSCS SSCS<br> C - BSSS BSAS SSAS DSDS<br> D - SSBS CSCS ASSS ASBS
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>April's Rotating Triangles of Doom</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td> <span>     </span>B<br> D<span>       </span>C<br> <span>     </span>A </td>
+                </tr>
+            </tbody>
+        </table> <br> This is the Alternating Triangles pattern but now we alternate between flips and rotations.<br> Note: The feeder
+        for each block is across the top in <b>BOLD</b>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>
+                            <b>
+                                <span>          </span>A<span>       </span>B<span>         </span>D<span>       </span>C<span>        </span>B<span>        </span>A<span>        </span>C<span>        </span>D<br>
+                            </b> A - CSDS BSBS CSSS SSDS BSBS CSDS SSDS CSSS<br> B - ASAS DSCS SSCS DSSS DSCS ASAS DSSS SSCS<br> C - BSSS SSAS
+                            DSDS BSAS SSAS BSSS BSAS DSDS<br> D - SSBS ASSS ASBS CSCS ASSS SSBS CSCS ASBS
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p> Chuck's 4-3-2<br> Two-Person, 6 Clubs </p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> P - Straight Pass<br> S - Self<br> </p>
+                    </td>
+                    <td>
+                        <p> PSPSPPSPP | PSPSPPSPP </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Chuck's 4-3-2 Feed</p>
+        <p>Three Person, 9 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        B<span>      </span>C
+                        <p> <span>     </span>A </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - BSCSBCSBC | BSCSBCSBC<br> B - ASSSASSAS | ASSSASSAS<br> C - SSASSASSA | SSASSASSA </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Dave's Rotating Triangles of Bliss</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td> <span>     </span>C<br> D<span>       </span>B<br> <span>     </span>A </td>
+                </tr>
+            </tbody>
+        </table> <br> This is <b>an</b> Alternating Triangles pattern suggested by Dave ... Right and Left handed passes. Fast, but not
+        as much to remember as April's Rotating Triangles of Doom.<br>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - CDBDBCSS<br> B - SSDACACD<br> C - DASSABDB<br> D - ACABSSBC </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Dave and Ralph's Endless Patter Pattern</p>
+        <p>Two or More People (People Can Come And Go At Will - And They Usually Do)</p>
+        <p>
+            Any Number Of Clubs (It Is Important To Have Some Clubs So That People Coming Into The "Pattern" Think That Juggling Will
+            Be Starting Soon, But Under No Circumstances Should Any Clubs Be Thrown While Doing This Pattern)
+        </p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>P - Straight Pass</p>
+                        <p>D - Diagonal Pass (Could Also Mean Double - And Sometimes means Double-Diagonal)</p>
+                        <p>S - Self (or single)</p>
+                        <p>H - Hand Across (also hold, hurry, or hairbrained-idea)</p>
+                        <p>
+                            N - Nod (as in agreement - usually by two or more people agreeing to go somewhere else after they realize that the
+                            patter is actually the pattern)
+                        </p>
+                        <p>A - Argument (We are not argling!)</p>
+                        <p>N<sub>C</sub> - Notation Change (It is important to change the meaning of notation in the middle of the conversation)</p>
+                        <p>T - Transition, Taxing, Tempting, ...</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Right Handed Start (Usually - Sometimes You Can Start In The Middle Of The Pattern and Then You Might Start With The Left
+            Hand)
+        </p>
+        <p>
+            Now Try Any Combination Of The Above.<br>
+            <br> Notes:
+        </p>
+    </article>
+    <article>
+
+        <p>Feedee Revolt</p>
+        <p>Three Person, 9 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>    </span>A<br>
+                        <br> C<span>      </span>B
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>A is the feeder and is doing a 3-count, feeding B and C starting with B. </td>
+                </tr>
+                <tr>
+                    <td>B and C respond to A's 3-count with additional passes with each other just after either pass with A. </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - BSSCSS<br> B - ACSSCS<br> C - SBSABS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>After everyone is comfortable with each position try Rotating Revolt. </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+
+        <p>Lodi Low-Down</p>
+        <p>Five Person, 15 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>          </span>A<br> D<span>                  </span>E
+                        <p> <span>      </span>B<span>       </span>C </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - BSSSCSSS<br> B - ASDSDEDS<br> C - EDESASES<br> D - SCBSBSBS<br> E - CSCSSBCS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>... Then Try Lodi Down-Town</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - BSSBCSSC<br> B - ASDADEDD<br> C - EDEEASEA<br> D - SCBSBSBB<br> E - CSCCSBCS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+        <p> Mildness-Madness<br> Two-Person, 6 Clubs </p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> P - Straight Pass<br> S - Self<br> D - Diagonal Pass<br> H - Hand-Across </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - PPHS | PPS<br> B - DDS | DDHS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+
+        <p>Reversed Rotating Revolt</p>
+        <p>Three Person, 9 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>    </span>A<br>
+                        <br> C<span>      </span>B
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>A is the feeder and is doing a 3-count, feeding B and C starting with B. </td>
+                </tr>
+                <tr>
+                    <td>B and C respond to A's 3-count with additional passes with each other just after either pass with A. </td>
+                </tr>
+                <tr>
+                    <td>Now, positions shift (rotate) to the right (counter-clockwise). </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - BSSCSS CBSSBS SCSBCS<br> B - ACSSCS SASCAS CSSASS<br> C - SBSABS ASSBSS BASSAS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Rotating Revolt</p>
+        <p>Three Person, 9 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>    </span>A<br>
+                        <br> C<span>      </span>B
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>A is the feeder and is doing a 3-count, feeding B and C starting with B. </td>
+                </tr>
+                <tr>
+                    <td>B and C respond to A's 3-count with additional passes with each other just after either pass with A. </td>
+                </tr>
+                <tr>
+                    <td>Now, positions shift (rotate) to the left (clockwise). </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - BSSCSS SCSACS CBSSBC<br> B - ACSSCS CSSASS SASCAS<br> C - SBSABS BASSAS ASSBSS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>After everyone is comfortable with each position try Reversed Rotating Revolt. </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Row Row Row Your Boat</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>          </span>C<br>
+                        <br> B<span>                 </span>D<br>
+                        <br> <span>          </span>A
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th>Position A </th>
+                    <th>Position B </th>
+                    <th>Position C </th>
+                    <th>Position D </th>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <span class="firstLine">Row, Row, Row Your Boat <br>PC S  S  S  S  S  PC S</span>
+                        </p>
+                        <p>
+                            <span class="secondLine">Gently down the stream.<br>S  S  PB S  PB S  S  S</span>
+                        </p>
+                        <p>
+                            <span class="thirdLine">Merrily, merrily, merrily, merrily,<br>PC S  PD S  PD S  PC S</span>
+                        </p>
+                        <p>
+                            <span class="fourthLine">Life is but a dream.<br>S  S  S  S  S  S  S  S</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <span class="secondLine">Gently down the stream.<br>S  S  PC S  PC S  S  S</span>
+                        </p>
+                        <p>
+                            <span class="thirdLine">Merrily, merrily, merrily, merrily,<br>PD S  PA S  PA S  PD S</span>
+                        </p>
+                        <p>
+                            <span class="fourthLine">
+                                Life is but a dream.<br> S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S
+                            </span>
+                        </p>
+                        <p>
+                            <span class="firstLine">
+                                Row, Row, Row Your Boat<br> D<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>D<span>   </span>S
+                            </span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <span class="thirdLine">
+                                Merrily, merrily, merrily, merrily,<br> A<span>    </span>S<span>    </span>B<span>    </span>S<span>    </span>B<span>    </span>S<span>    </span>A<span>    </span>S
+                            </span>
+                        </p>
+                        <p>
+                            <span class="fourthLine">
+                                Life is but a dream.<br> S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S
+                            </span>
+                        </p>
+                        <p>
+                            <span class="firstLine">
+                                Row, Row, Row Your Boat<br> A<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>A<span>   </span>S
+                            </span>
+                        </p>
+                        <p>
+                            <span class="secondLine">
+                                Gently down the stream.<br> S<span>   </span>S<span>   </span>D<span>   </span>S<span>   </span>D<span>   </span>S<span>   </span>S<span>   </span>S
+                            </span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <span class="fourthLine">
+                                Life is but a dream.<br> S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S
+                            </span>
+                        </p>
+                        <p>
+                            <span class="firstLine">
+                                Row, Row, Row Your Boat<br> B<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>S<span>   </span>B<span>   </span>S
+                            </span>
+                        </p>
+                        <p>
+                            <span class="secondLine">
+                                Gently down the stream.<br> S<span>   </span>S<span>   </span>A<span>   </span>S<span>   </span>A<span>   </span>S<span>   </span>S<span>   </span>S
+                            </span>
+                        </p>
+                        <p>
+                            <span class="thirdLine">
+                                Merrily, merrily, merrily, merrily,<br> B<span>    </span>S<span>    </span>C<span>    </span>S<span>    </span>C<span>    </span>S<span>    </span>B<span>    </span>S
+                            </span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Two Harbor Why</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        C<span>      </span>D<br> <span>     </span>B<br> <span>  </span>
+                        <span style="color:gray">A...A</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - DSDSS CSCSS<br> B - CSASS DSASS<br> C - BSSSS ASBSS<br> D - ASBSS BSSSS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>Notes: A needs to move a little (rock) to either side of B. All of B's drop-backs should be straight back. </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Veteran's Star</p>
+        <p>Five Person, 15 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>       </span>D<br> C<span>             </span>
+                        <sup>E</sup>
+                        <br> <span>      </span>
+                        <sub>B</sub>
+                        <span>     </span>A
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>
+                            A - DSSCSSBSSCSSDSSESS<br> B - ESSDSSCSSDSSESSDSS<br> C - ASSESSDSSESSASSBSS<br> D - BSSASSESSASSBSSCSS<br> E - CSSBSSASSBSSCSSDSS
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Juggle Java Jam</p>
+        <p>Two Person, 6 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> P - Straight Pass<br> S - Self<br> D - Diagonal Pass </p>
+                    </td>
+                    <td>
+                        <p> PSSPPSPPDPPP | PSSPPSPPDPPP </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+    <article>
+
+        <p>Alternating Box Feed</p>
+        <p>Four Person, 12 Clubs</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        C<span>      </span>B<br>
+                        <br> A<span>      </span>D
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        A and B start feeding ... That is, A feeds C and B (starting with C) and B feeds D and A (Starting with D). After
+                        a complete cycle (two passes), C and D take over feeding.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p> A - CSBS CSSS<br> B - DSAS DSSS<br> C - ASSS ASDS<br> D - BSSS BSCS </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>Once everyone is comfortable with the above try adding Ho-Hos! </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </article>
+
+
+    <!--<script src="Scripts/jquery-1.9.1.min.js"></script>-->
+    <!--<script src="Scripts/bootstrap.min.js"></script>-->
+</body>
+</html>
