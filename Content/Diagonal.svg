@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="95.000015"
-   height="290.40317"
-   viewBox="0 0 95.000015 290.40317"
+   width="290.40317"
+   height="95.000015"
+   viewBox="0 0 290.40317 95.000016"
    id="svg5407"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -21,30 +21,32 @@
     <marker
        inkscape:stockid="Arrow1Mend"
        orient="auto"
-       refY="0.0"
-       refX="0.0"
+       refY="0"
+       refX="0"
        id="Arrow1Mend"
-       style="overflow:visible;"
+       style="overflow:visible"
        inkscape:isstock="true">
       <path
          id="path6160"
-         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#ebebeb;fill-opacity:1"
-         transform="scale(0.4) rotate(180) translate(10,0)" />
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
     </marker>
     <marker
        inkscape:stockid="Arrow2Mend"
        orient="auto"
-       refY="0.0"
-       refX="0.0"
+       refY="0"
+       refX="0"
        id="Arrow2Mend"
-       style="overflow:visible;"
+       style="overflow:visible"
        inkscape:isstock="true">
       <path
          id="path6178"
-         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#ebebeb;fill-opacity:1"
-         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
-         transform="scale(0.6) rotate(180) translate(0,0)" />
+         style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6,-0.6)"
+         inkscape:connector-curvature="0" />
     </marker>
     <inkscape:path-effect
        effect="powerstroke"
@@ -52,7 +54,7 @@
        is_visible="true"
        offset_points="0,4.5"
        sort_points="true"
-       interpolator_type="CubicBezierJohan"
+       interpolator_type="Linear"
        interpolator_beta="0.2"
        start_linecap_type="zerowidth"
        linejoin_type="round"
@@ -68,8 +70,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.2674722"
-     inkscape:cx="47.500013"
-     inkscape:cy="144.2016"
+     inkscape:cx="-8.5065844"
+     inkscape:cy="133.65053"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -116,96 +118,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-162.67103,-528.04999)">
-    <circle
-       style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="head-5"
-       cx="-210.33833"
-       cy="-796.09442"
-       r="11.858736"
-       inkscape:label="HeadCircle"
-       onmouseout="HeadMouseOutEvent"
-       onmousedown="HeadMouseDownEvent"
-       onmouseup="HeadMouseUpEvent"
-       onmousemove="HeadMouseMoveEvent"
-       transform="scale(-1,-1)">
-      <desc
-         id="desc5306-0">Head of the juggler</desc>
-      <title
-         id="title4169-0">Head</title>
-    </circle>
-    <path
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.61196733;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 240.36317,568.72684 c 0.12323,-13.5892 -5.75796,-18.4926 -18.68745,-18.6912"
-       id="leftArm"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:label="LeftArm">
-      <desc
-         id="desc5288">The left arm of the juggler</desc>
-      <title
-         id="title5286">Left Arm</title>
-    </path>
-    <path
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.61196738;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 179.97891,568.95444 c -0.12323,-13.5892 5.75796,-18.4926 18.68745,-18.6912"
-       id="rightArm"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:label="RightArm">
-      <desc
-         id="desc5292">The right arm of the juggler</desc>
-      <title
-         id="title5290">Right Arm</title>
-    </path>
-    <circle
-       style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="head"
-       cx="209.00375"
-       cy="552.40869"
-       r="11.858736"
-       inkscape:label="HeadCircle"
-       onmouseout="HeadMouseOutEvent"
-       onmousedown="HeadMouseDownEvent"
-       onmouseup="HeadMouseUpEvent"
-       onmousemove="HeadMouseMoveEvent">
-      <desc
-         id="desc5306">Head of the juggler</desc>
-      <title
-         id="title4169">Head</title>
-    </circle>
-    <circle
-       style="fill:#00e800;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99298185;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rightHand"
-       cx="180.17104"
-       cy="575.45709"
-       inkscape:label="RightHandCircle"
-       onmouseout="RigMouseOutEvent"
-       onmousedown="RightMouseDownEvent"
-       onmouseup="RightMouseUpEvent"
-       onmousemove="RightMouseMoveEvent"
-       r="7.003509">
-      <desc
-         id="desc5304">The right hand of the juggler</desc>
-      <title
-         id="title4167">Right Hand</title>
-    </circle>
-    <circle
-       style="fill:#e80000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99465901;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="leftHand"
-       cx="240.17104"
-       cy="575.45709"
-       onmouseout="LeftMouseOutEvent"
-       onmousedown="LeftMouseDownEvent"
-       inkscape:label="leftHandCircle"
-       onmouseup="LeftMouseUpEvent"
-       onmousemove="LeftMouseMoveEvent"
-       r="7.0026703">
-      <desc
-         id="desc5302">The left hand of the juggler</desc>
-      <title
-         id="title4165">Left Hand</title>
-    </circle>
+     transform="translate(-162.67103,-723.45314)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -220,95 +133,190 @@
          id="tspan5296-6"
          x="228.31425"
          y="803.38452" /></text>
-    <path
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.61196733;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 179.97891,777.7763 c -0.12324,13.5892 5.75796,18.4926 18.68745,18.6912"
-       id="leftArm-8"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:label="LeftArm">
-      <desc
-         id="desc5288-1">The left arm of the juggler</desc>
-      <title
-         id="title5286-8">Left Arm</title>
-    </path>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="203.5024"
-       y="803.38446"
-       id="jugglerName"
-       sodipodi:linespacing="125%"
-       inkscape:label="JugglerName"><desc
-         id="desc5300">The single letter name of the juggler</desc><title
-         id="title5298">Juggler Name</title><tspan
-         sodipodi:role="line"
-         id="tspan5296"
-         x="203.5024"
-         y="803.38446">A</tspan></text>
-    <path
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.61196738;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 240.36317,777.5487 c 0.12323,13.5892 -5.75796,18.4926 -18.68745,18.6912"
-       id="rightArm-9"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:label="RightArm">
-      <desc
-         id="desc5292-5">The right arm of the juggler</desc>
-      <title
-         id="title5290-4">Right Arm</title>
-    </path>
-    <circle
-       style="fill:#00e800;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99298185;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rightHand-3"
-       cx="-240.17105"
-       cy="-771.04602"
-       inkscape:label="RightHandCircle"
-       onmouseout="RigMouseOutEvent"
-       onmousedown="RightMouseDownEvent"
-       onmouseup="RightMouseUpEvent"
-       onmousemove="RightMouseMoveEvent"
-       r="7.003509"
-       transform="scale(-1,-1)">
-      <desc
-         id="desc5304-7">The right hand of the juggler</desc>
-      <title
-         id="title4167-1">Right Hand</title>
-    </circle>
-    <circle
-       style="fill:#e80000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99465901;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="leftHand-1"
-       cx="-180.17104"
-       cy="-771.04602"
-       onmouseout="LeftMouseOutEvent"
-       onmousedown="LeftMouseDownEvent"
-       inkscape:label="leftHandCircle"
-       onmouseup="LeftMouseUpEvent"
-       onmousemove="LeftMouseMoveEvent"
-       r="7.0026703"
-       transform="scale(-1,-1)">
-      <desc
-         id="desc5302-4">The left hand of the juggler</desc>
-      <title
-         id="title4165-7">Left Hand</title>
-    </circle>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="201.86996"
-       y="559.69873"
-       id="text6070"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan6072"
-         x="201.86996"
-         y="559.69873">B</tspan></text>
-    <path
-       style="opacity:1;fill:#ebebeb;fill-opacity:1;stroke:#000000;stroke-width:2.00671268;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
-       d="M 240.14291,763.9768 181.71133,583.73545"
-       id="path6145"
-       inkscape:connector-curvature="0"
-       inkscape:transform-center-x="29.154519"
-       inkscape:transform-center-y="-89.991136" />
+    <g
+       id="g4215"
+       transform="matrix(0,1,-1,0,982.12417,560.7821)">
+      <circle
+         transform="scale(-1,-1)"
+         onmousemove="HeadMouseMoveEvent"
+         onmouseup="HeadMouseUpEvent"
+         onmousedown="HeadMouseDownEvent"
+         onmouseout="HeadMouseOutEvent"
+         inkscape:label="HeadCircle"
+         r="11.858736"
+         cy="-796.09442"
+         cx="-210.33833"
+         id="head-5"
+         style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+        <desc
+           id="desc5306-0">Head of the juggler</desc>
+        <title
+           id="title4169-0">Head</title>
+      </circle>
+      <path
+         inkscape:label="LeftArm"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="leftArm"
+         d="m 240.36317,568.72684 c 0.12323,-13.5892 -5.75796,-18.4926 -18.68745,-18.6912"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.61196733;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">
+        <desc
+           id="desc5288">The left arm of the juggler</desc>
+        <title
+           id="title5286">Left Arm</title>
+      </path>
+      <path
+         inkscape:label="RightArm"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="rightArm"
+         d="m 179.97891,568.95444 c -0.12323,-13.5892 5.75796,-18.4926 18.68745,-18.6912"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.61196738;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">
+        <desc
+           id="desc5292">The right arm of the juggler</desc>
+        <title
+           id="title5290">Right Arm</title>
+      </path>
+      <circle
+         onmousemove="HeadMouseMoveEvent"
+         onmouseup="HeadMouseUpEvent"
+         onmousedown="HeadMouseDownEvent"
+         onmouseout="HeadMouseOutEvent"
+         inkscape:label="HeadCircle"
+         r="11.858736"
+         cy="552.40869"
+         cx="209.00375"
+         id="head"
+         style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+        <desc
+           id="desc5306">Head of the juggler</desc>
+        <title
+           id="title4169">Head</title>
+      </circle>
+      <circle
+         r="7.003509"
+         onmousemove="RightMouseMoveEvent"
+         onmouseup="RightMouseUpEvent"
+         onmousedown="RightMouseDownEvent"
+         onmouseout="RigMouseOutEvent"
+         inkscape:label="RightHandCircle"
+         cy="575.45709"
+         cx="180.17104"
+         id="rightHand"
+         style="fill:#00e800;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99298185;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+        <desc
+           id="desc5304">The right hand of the juggler</desc>
+        <title
+           id="title4167">Right Hand</title>
+      </circle>
+      <circle
+         r="7.0026703"
+         onmousemove="LeftMouseMoveEvent"
+         onmouseup="LeftMouseUpEvent"
+         inkscape:label="leftHandCircle"
+         onmousedown="LeftMouseDownEvent"
+         onmouseout="LeftMouseOutEvent"
+         cy="575.45709"
+         cx="240.17104"
+         id="leftHand"
+         style="fill:#e80000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99465901;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+        <desc
+           id="desc5302">The left hand of the juggler</desc>
+        <title
+           id="title4165">Left Hand</title>
+      </circle>
+      <path
+         inkscape:label="LeftArm"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="leftArm-8"
+         d="m 179.97891,777.7763 c -0.12324,13.5892 5.75796,18.4926 18.68745,18.6912"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.61196733;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">
+        <desc
+           id="desc5288-1">The left arm of the juggler</desc>
+        <title
+           id="title5286-8">Left Arm</title>
+      </path>
+      <text
+         transform="matrix(0,-1,1,0,0,0)"
+         inkscape:label="JugglerName"
+         sodipodi:linespacing="125%"
+         id="jugglerName"
+         y="217.32233"
+         x="-803.54248"
+         style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><desc
+           id="desc5300">The single letter name of the juggler</desc><title
+           id="title5298">Juggler Name</title><tspan
+           y="217.32233"
+           x="-803.54248"
+           id="tspan5296"
+           sodipodi:role="line">A</tspan></text>
+      <path
+         inkscape:label="RightArm"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="rightArm-9"
+         d="m 240.36317,777.5487 c 0.12323,13.5892 -5.75796,18.4926 -18.68745,18.6912"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.61196738;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">
+        <desc
+           id="desc5292-5">The right arm of the juggler</desc>
+        <title
+           id="title5290-4">Right Arm</title>
+      </path>
+      <circle
+         transform="scale(-1,-1)"
+         r="7.003509"
+         onmousemove="RightMouseMoveEvent"
+         onmouseup="RightMouseUpEvent"
+         onmousedown="RightMouseDownEvent"
+         onmouseout="RigMouseOutEvent"
+         inkscape:label="RightHandCircle"
+         cy="-771.04602"
+         cx="-240.17105"
+         id="rightHand-3"
+         style="fill:#00e800;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99298185;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+        <desc
+           id="desc5304-7">The right hand of the juggler</desc>
+        <title
+           id="title4167-1">Right Hand</title>
+      </circle>
+      <circle
+         transform="scale(-1,-1)"
+         r="7.0026703"
+         onmousemove="LeftMouseMoveEvent"
+         onmouseup="LeftMouseUpEvent"
+         inkscape:label="leftHandCircle"
+         onmousedown="LeftMouseDownEvent"
+         onmouseout="LeftMouseOutEvent"
+         cy="-771.04602"
+         cx="-180.17104"
+         id="leftHand-1"
+         style="fill:#e80000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99465901;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+        <desc
+           id="desc5302-4">The left hand of the juggler</desc>
+        <title
+           id="title4165-7">Left Hand</title>
+      </circle>
+      <text
+         transform="matrix(0,-1,1,0,0,0)"
+         sodipodi:linespacing="125%"
+         id="text6070"
+         y="216.29379"
+         x="-559.54248"
+         style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="216.29379"
+           x="-559.54248"
+           id="tspan6072"
+           sodipodi:role="line">B</tspan></text>
+      <path
+         inkscape:transform-center-y="-89.991136"
+         inkscape:transform-center-x="29.154519"
+         inkscape:connector-curvature="0"
+         id="path6145"
+         d="M 240.14291,763.9768 181.71133,583.73545"
+         style="opacity:1;fill:#ebebeb;fill-opacity:1;stroke:#000000;stroke-width:2.00671268;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow2Mend)" />
+    </g>
   </g>
 </svg>
