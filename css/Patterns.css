@@ -1,6 +1,3 @@
-body {
-  margin: 1em;
-}
 article {
   padding: 5pt;
   border-width: 3pt;
@@ -54,7 +51,4 @@ article h2 {
 }
 .fourthLine {
   color: darkcyan;
-}
-ul.nobullet {
-  list-style-type: none;
 }
