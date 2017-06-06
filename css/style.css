@@ -1,0 +1,22 @@
+body {
+  margin: 1em;
+}
+
+ul.nobullet {
+  list-style-type: none;
+}
+
+main {
+}
+
+aside {
+    background-color: antiquewhite;
+    border:groove;
+    border-width: 0.2em;
+    border-radius: 1em;
+}
+
+code{
+    display:block;
+    white-space:pre-wrap;
+}
