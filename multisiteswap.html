@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Multi-Siteswap Notation</title>
@@ -8,12 +8,38 @@
     </head>
     <body>
     <main>
-        <h2>Multi-Siteswap Notation</h2>
-        <p>I know just what the world needs, yet another juggling notation.</p>
-        
+        <h1>Multi-Siteswap Notation</h1>
+        <p>Just what the world needs, yet another juggling notation.</p>
         <p>
-            The type of juggling patterns described by this notation are multi-juggler synchronous passing patterns. The problem with trying to use Siteswap to describe these patterns is Siteswap only defines patterns in a single dimension, giving only the magnitude of each throw. Multi-juggler is the same has multi-Siteswap. Thus we need a direction to indicate destination hand has well has a magnitude to define a throw. There are a number of other notations that have addressed this issue however, most of these where developed to solve a computer programming challenge thus suffer from taking some visualization skills to understand, nor are they easy write out by hand (unless you just think that way).
+            Siteswap notation uses a list of magnitude of throws to represent the rhythm of a juggling pattern. The magnitude indicates a number of units of time before the object reaches its destination. Throws happen at a rate of one per unit of time by the next hand in the pattern, when all hands in the pattern have thrown, start back with the first hand. This works fine for single juggler where there are only 2 hands and it is easy figure out the destination hand. It also works for multiple jugglers, referred to has Multi-handed Siteswap, but because the magnitudes a siteswap are split among the jugglers in the pattern, it requires a fair bit to calculation to determine both the magnitude and direction of each throw. Also the nature of Multi-handed Siteswap patterns are not what are &quot;normal&quot; passing patterns.  
         </p>
+        <p>
+            The type of juggling patterns described by Multi-Siteswap Notation (MSN) are patterns where there are multiple jugglers each maintaining a siteswap synchronized with all others in the pattern. In order to fully describe this type of pattern requires not only knowing the magnitude of each throw but also direction, which means the location of the destination hand relative to hand making the throw must be known.  Given that Siteswap notation does not contain information about the direction of throw it enough information about the throws let alone a full pattern.
+        </p>
+        <p>
+            In order to fully describe a pattern requires 2 components;
+        </p> 
+            <ol>
+                <li><b>Layout</b> - Contains the number of jugglers, where each is located, what their orientation is, and possibly movement information </li>
+                <li><b>Rhythm</b> - Contains information about how objects move through hands over time. </li>
+            </ol>
+        <p>
+            Both components are needed to describe a multi-siteswap pattern. However they are independent of the other. The layout provides the physical framework that the rhythm plays out across.     
+        </p>
+        <h2>Layout</h2>
+        <p>
+            The layout component defines information about the jugglers, the number, the location of each, and what there orientation is. The way MSN does this is to draw a picture and labeling each juggler in the layout with a capital letter starting with &rsquo;A&rsquo; and proceeding through the alphabet. The figure we will be using on this site is;<br />
+            <embed width="75" src="resources/Juggler.svg"/>
+        </p>
+        
+            
+
+
+
+
+
+
+
         <p>
             Sequence notation comes from the way most jugglers think about the pattern they are currently throwing. It only addresses the description of the rhythm of the pattern, which is independent of the number of jugglers, the number of objects, the physical location of the jugglers. in the pattern. It is simply a list of the jugglers with a row of that juggler's throws. Jugglers are named using capital letters A through Z in alphabetical order. Throws are defined has a line from the hand making the throw to the hand receiving the throw at a given magnitude.
         </p>
@@ -56,13 +82,6 @@
             <p>
                 This throw notation can be farther simplified because a magnitude of 3 will be the normal, the magnitude value can be dropped. Also, the juggler designation can be dropped
             </p>
-            <ol>
-                <li>The number of jugglers </li>
-                <li>The initial physical location and orientation of each juggler</li>
-                <li>A description of how the jugglers move through the pattern</li>
-                <li>The location that each object starts from</li>
-                <li>A description of how objects move between hands over time</li>
-            </ol>
             <p>
                 From the point of view of a juggler in the pattern what you want a list of where each object is at, or where it is going, or where is coming from, at some regular occurring point of time and that is independent of physical location of the hands are traveling between. The most widely known notation Siteswap side steps the issue of physical location a There are a number of parts that work together to fully describe a pattern;
             </p>
@@ -79,7 +98,7 @@
         <h4>Multi-Siteswap terms</h4>
         </p>
         <ul class="nobullet">
-            <li><b>Pattern:</b> the physical positions, and movements, of the jugglers and objects over time. </li>
+            <li><b>Pattern:</b> the full description of the  physical positions, and movements, of the jugglers and objects over time. </li>
             <li><b>Hand:</b> a hand of a juggler. A Hand is a node of the graph
             <li><b>Rhythm:</b> the sequence of throws among the hands in the pattern. </li>
         </ul>
