@@ -8,92 +8,103 @@
     </head>
     <body>
         <main>
-            <h1>Multi-Siteswap Notation</h1>
-            <p>Just what the world needs, yet another juggling notation.</p>
-            <p>
-                Siteswap notation uses a list of magnitude of throws to represent the rhythm of a juggling pattern. The magnitude indicates a number of units of time before the object reaches its destination. Throws happen at a rate of one per unit of time by the next hand in the pattern, when all hands in the pattern have thrown, start back with the first hand. This works fine for single juggler where there are only 2 hands and it is easy figure out the destination hand. It also works for multiple jugglers, referred to has Multi-handed Siteswap, but because the magnitude a siteswap is split among the jugglers in the pattern, it requires a fair bit to calculation to determine both the magnitude and direction of each throw. Also the nature of Multi-handed Siteswap patterns are not &quot;normal&quot; passing patterns.
-            </p>
-            <p>
-                The type of juggling patterns described by Multi-Siteswap Notation (MSN) are patterns where there are multiple jugglers each maintaining their own siteswap synchronized with all others in the pattern. Because throws are made simultaneously in multiple separate sites its destination cannot be calculated therefore it must be given.             </p>
-            <p>
-                In order to fully describe a pattern requires 2 components;
-            </p>
-            <ol>
-                <li><b>Layout</b> - Contains the number of jugglers, where each is located, what their orientation is, and possibly movement information </li>
-                <li><b>Rhythm</b> - Contains information about how objects move through hands over time. </li>
-            </ol>
-            <p>
-                Both components are needed to describe a multi-siteswap pattern. However they are independent of the other. The layout provides the physical framework that the rhythm plays out across.
-            </p>
-            <p>
-                One of the goals of this notation is to make it easy for this pattern to be hand written.
-            </p>
-            <h2>Layout</h2>
-            <p>
-                The layout component defines information about the jugglers, the number, the location of each, and what there orientation is. The way MSN does this is to draw the layout viewed from overhead with each juggler labeled with a capital letter starting with &rsquo;A&rsquo; and proceeding through the alphabet. The image will show both the relative positions of the jugglers position and their orientation  to each other. If the layout changes over the course of the pattern, a drawing for each position in the pattern and arrows indicating the general direction of movement.
-            </p>
-            <p>
-                The figure we will be using to represent the juggler in layout diagrams on this site is;<br />
-                <embed style="align-content:center;" width="75" src="resources/Juggler.svg" /><br />
-            </p>
-            <h2>Rhythm</h2>
-            <p>
-                Rhythm notation consist of a list of the jugglers, each with a list of throws in the rhythm.
-            </p>
-            <h3>Throw Notation</h3>
-            <p>
-                A throw is describe from the view point of a hand in the pattern. It describes the magnitude and destination hand of the throw relative to the hand that is throwing it. The notation does not define what hand makes the throw. The same assumption that siteswap makes applies to this notation, start with the right hand and alternate hands for each pass from there. However, this can change depending on the destination of the previous throw by another juggler in the pattern. When a throw is in diagonal direction (described below) it may force 2 consecutive throws from the same hand by the juggler receiving the throw, this is known has a Hurry.
-            </p>
-            <h4>Magnitude</h4>
-            <p>
-                The magnitude is the same has for Siteswap;
-            </p>
-            <ul class="nobullet">
-                <li>0 = empty hand</li>
-                <li>1 = hand-across</li>
-                <li>2 = hold</li>
-                <li>3 = normal height pass</li>
-                <li>4 = double height pass</li>
-                <li>and so on</li>
-            </ul>
-            <p>Because a magnitude of 3 is the common case, it can be assumed when writing a rhythm</p>
-            <h4>Destination</h4>
-            <p>
-                The destination is defined relative to the current hand and is only involved with the destination siteswap. In a 2 juggler pattern there are 4 possible directions that a throw can go and each is represented by a single letter as follows ;
-            </p>
-            <ul class="nobullet">
-                <li><b>P</b> - Throw to another juggler&rsquo;s opposite hand (A straight Pass), right-to-left or left-to-right)<br><img src="resources/Pass.svg" alt="Straight pass from right to left hand" /></li>
-                <li><b>D</b> - throw to other juggler&rsquo;s same hand (A Diagonal pass, right-to-right, or left-to-left)<br><img src="resources/Diagonal.svg" alt="Diagonal pass from right to right hand" /></li>
-                <li><b>S</b> - throw to other hand (a Self throw)<br><img src="resources/Self.svg" alt="Self pass from right to left hand" /></li>
-                <li><b>H</b> - throw to same hand (a Heff)<br><img src="resources/Heff.svg" alt="Heff in the right hand" /></li>
-            </ul>
-            <p>
-                For more patterns with more than 2 Jugglers in the pattern, append the letter of the destination juggler.
-            </p>
-
-            <h4>Putting it together</h4>
-            <p>
-                A rhythm is defined by a list of jugglers and their siteswap throws. The throws are sets of 2 parts, magnitude, destination hand and juggler separated by spaces. For example; The rhythm for the common 4-count passing pattern would look something like;
-            </p>
-            <code>
-                A: 3PB 3SA 3SA 3SA
-                B: 3PA 3SB 3SB 3SB
-            </code>
-            <p>
-                This is a bit verbose. To address this issue we use a number of simplification rules for throws.
-            </p>
-            <ol>
-                <li>Magnitude only needs to be present if it is not 3</li>
-                <li>Juggler name is only needed on a throw when a direction is not enough to give the destination</li>
-                <li>If all siteswaps are the same, or only different by destination, then only one siteswap is needed</li>
-            </ol>
-            <p>
-                Using these rules the same 4-count rhythm can be given as;
-            </p>
-            <code>
-                P S S S
-            </code>
-        </main>
-    
+            <section class="introduction">
+                <h1>Multi-Siteswap Notation</h1>
+                <p>Just what the world needs, yet another juggling notation.</p>
+                <p>
+                    Siteswap notation uses a list of magnitude of throws to represent the rhythm of a juggling pattern. The magnitude indicates a number of units of time before the object reaches its destination. Throws happen at a rate of one per unit of time by the next hand in the pattern, when all hands in the pattern have thrown, start back with the first hand. This works fine for single juggler where there are only 2 hands and it is easy figure out the destination hand. It also works for multiple jugglers, referred to has Multi-handed Siteswap, but because the magnitude a siteswap is split among the jugglers in the pattern, it requires a fair bit to calculation to determine both the magnitude and direction of each throw. Also the nature of Multi-handed Siteswap patterns are not &quot;normal&quot; passing patterns.
+                </p>
+                <p>
+                    The type of juggling patterns described by Multi-Siteswap Notation (MSN) are patterns where there are multiple jugglers each maintaining their own siteswap synchronized with all others in the pattern. Because throws are made simultaneously in multiple separate sites its destination cannot be calculated therefore it must be given.
+                </p>
+                <p>
+                    In order to fully describe a pattern requires 2 components;
+                </p>
+                <ol>
+                    <li><b>Layout</b> - Contains the number of jugglers, where each is located, what their orientation is, and possibly movement information </li>
+                    <li><b>Rhythm</b> - Contains information about how objects move through hands over time. </li>
+                </ol>
+                <p>
+                    Both components are needed to describe a multi-siteswap pattern. However they are independent of the other. The layout provides the physical framework that the rhythm plays out across.
+                </p>
+                <p>
+                    One of the goals of this notation is to make it easy for this pattern to be hand written.
+                </p>
+            </section>
+            <section id="notationBreakDown">
+                <section id="layout">
+                    <h2>Layout</h2>
+                    <p>
+                        The layout component defines information about the jugglers, the number, the location of each, and what there orientation is. The way MSN does this is to draw the layout viewed from overhead with each juggler labeled with a capital letter starting with &rsquo;A&rsquo; and proceeding through the alphabet. The image will show both the relative positions of the jugglers position and their orientation  to each other. If the layout changes over the course of the pattern, a drawing for each position in the pattern and arrows indicating the general direction of movement.
+                    </p>
+                    <p>
+                        The figure we will be using to represent the juggler in layout diagrams on this site is;<br />
+                        <embed style="align-content:center;" width="75" src="resources/Juggler.svg" /><br />
+                    </p>
+                </section>
+                <section id="rhythm">
+                    <h2>Rhythm</h2>
+                    <p>
+                        Rhythm notation consist of a list of the jugglers, each with a list of throws in the rhythm.
+                    </p>
+                    <section id="throwNotation">
+                        <h3>Throw Notation</h3>
+                        <p>
+                            A throw is describe from the view point of a hand in the pattern. It describes the magnitude and destination hand of the throw relative to the hand that is throwing it. The notation does not define what hand makes the throw. The same assumption that siteswap makes applies to this notation, start with the right hand and alternate hands for each pass from there. However, this can change depending on the destination of the previous throw by another juggler in the pattern. When a throw is in diagonal direction (described below) it may force 2 consecutive throws from the same hand by the juggler receiving the throw, this is known has a Hurry.
+                        </p>
+                        <h4>Magnitude</h4>
+                        <p>
+                            The magnitude is the same has for Siteswap;
+                        </p>
+                        <ul class="nobullet">
+                            <li>0 = empty hand</li>
+                            <li>1 = hand-across</li>
+                            <li>2 = hold</li>
+                            <li>3 = normal height pass</li>
+                            <li>4 = double height pass</li>
+                            <li>and so on</li>
+                        </ul>
+                        <p>Because a magnitude of 3 is the common case, it can be assumed when writing a rhythm</p>
+                        <h4>Destination</h4>
+                        <p>
+                            The destination is defined relative to the current hand and is only involved with the destination siteswap. In a 2 juggler pattern there are 4 possible directions that a throw can go and each is represented by a single letter as follows ;
+                        </p>
+                        <ul class="nobullet">
+                            <li><b>P</b> - Throw to another juggler&rsquo;s opposite hand (A straight Pass), right-to-left or left-to-right)<br><img src="resources/Pass.svg" alt="Straight pass from right to left hand" /></li>
+                            <li><b>D</b> - throw to other juggler&rsquo;s same hand (A Diagonal pass, right-to-right, or left-to-left)<br><img src="resources/Diagonal.svg" alt="Diagonal pass from right to right hand" /></li>
+                            <li><b>S</b> - throw to other hand (a Self throw)<br><img src="resources/Self.svg" alt="Self pass from right to left hand" /></li>
+                            <li><b>H</b> - throw to same hand (a Heff)<br><img src="resources/Heff.svg" alt="Heff in the right hand" /></li>
+                        </ul>
+                        <p>
+                            For more patterns with more than 2 Jugglers in the pattern, append the letter of the destination juggler.
+                        </p>
+                    </section>
+                </section>
+                <section id="putItTogether">
+                    <h4>Putting it together</h4>
+                    <p>
+                        A rhythm is defined by a list of jugglers and their siteswap throws. The throws are sets of 2 parts, magnitude, destination hand and juggler separated by spaces. For example; The rhythm for the common 4-count passing pattern would look something like;
+                    </p>
+                    <code>
+                        A: 3PB 3SA 3SA 3SA
+                        B: 3PA 3SB 3SB 3SB
+                    </code>
+                    <p>
+                        This is a bit verbose. To address this issue we use a number of simplification rules for throws.
+                    </p>
+                    <ol>
+                        <li>Magnitude only needs to be present if it is not 3</li>
+                        <li>Juggler name is only needed on a throw when a direction is not enough to give the destination</li>
+                        <li>If all siteswaps are the same, or only different by destination, then only one siteswap is needed</li>
+                    </ol>
+                    <p>
+                        Using these rules the same 4-count rhythm can be given as;
+                    </p>
+                    <code>
+                        P S S S
+                    </code>
+                </section>
+            </section>
+        </main>    
     </body>
 </html>
