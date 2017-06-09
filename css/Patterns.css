@@ -22,6 +22,15 @@ article h2 {
   margin: 5pt;
 }
 
+table.rhythm {
+    table-layout: fixed;
+}
+
+table.rhythm td{
+    text-align: center;
+    width: 2em;
+}
+
 .song {
   text-align: center;
   border-collapse: collapse;
