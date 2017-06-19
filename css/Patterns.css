@@ -3,11 +3,6 @@ body {
     color:#dbdbdb;
 }
 
-code {
-    display: block;
-    white-space: pre-wrap;
-}
-
 article {
   padding: 5pt;
   border-width: 3pt;
@@ -36,26 +31,37 @@ img {
     width: 50%;
 }
 
-
-table.rhythm {
-    font-size:larger;
-    margin: 0 auto;
-    white-space:nowrap;
+.rhythmcontainer{
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-table.rhythm td {
-    text-align: center;
+table.rhythm {
+    table-layout: fixed;
+    margin: 0 auto;
     font-size: larger;
-    width: 3em;
+    white-space: nowrap;
+}
+
+table.rhythm th{
+    display: table-caption;
+    font-weight: bold;
+} 
+
+table.rhythm td{
+    display: table-cell;
+    text-align: center;
+    min-width: 3ch;
 }
 
 .song {
   text-align: center;
-  border-collapse: collapse;
+  border-collapse: separate;
   border-style: solid;
   border-width: 1pt;
   border-color: black;
-  font-size:larger;
+  font-size: larger;
 
 }
 
