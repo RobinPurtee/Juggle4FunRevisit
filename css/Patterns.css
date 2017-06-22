@@ -1,6 +1,6 @@
 body {
-    background-color: #2c3355;
-    color:#dbdbdb;
+    /*background-color: #2c3355;
+    color:#dbdbdb;*/
 }
 
 article {
@@ -9,7 +9,6 @@ article {
   border-spacing: 2em;
   border-style: solid;
   border-radius: 2ch;
-  border-color: #0bad8a;
   margin: 3em 1em 3em 1em;
 }
 
@@ -23,6 +22,18 @@ article h2 {
   font-weight: normal;
   font-size: medium;
   margin: 5pt;
+}
+
+.label {
+    font-weight: normal;
+}
+
+.jugglers {
+    font-weight: bold;
+}
+
+.objects{
+    font-weight: bold;
 }
 
 img {
@@ -42,18 +53,25 @@ table.rhythm {
     margin: 0 auto;
     font-size: larger;
     white-space: nowrap;
+    border-width: 2pt;
+    border-style: solid; 
+    border-collapse: collapse;
 }
 
-table.rhythm th{
-    display: table-caption;
-    font-weight: bold;
-} 
+    table.rhythm th {
+        display: table-caption;
+        font-weight: bold;
+    }
 
-table.rhythm td{
-    display: table-cell;
-    text-align: center;
-    min-width: 3ch;
-}
+    table.rhythm td {
+        display: table-cell;
+        text-align: center;
+        min-width: 3ch;
+        padding-left: 0.25em;
+        padding-right: 0.25em;
+        border-width: 2pt;
+        border-style: solid;
+    }
 
 .song {
   text-align: center;
@@ -76,7 +94,7 @@ table.rhythm td{
 }
 
 
-td.syncpoint {
+.syncpoint {
     border-left:solid;
     border-right:solid;
 }
