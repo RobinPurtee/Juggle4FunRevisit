@@ -79,7 +79,7 @@ table.rhythm {
     table.rhythm td {
         display: table-cell;
         text-align: center;
-        min-width: 3ch;
+        min-width: 3em;
         padding-left: 0.25em;
         padding-right: 0.25em;
         border-width: 2pt;
