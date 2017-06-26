@@ -56,20 +56,27 @@ img {
     clear: both;
 }
 
+
 table.rhythm {
     table-layout: fixed;
     margin: 0 auto;
-    font-size: 1.5em;
+    font-size: 1.25em;
     white-space: nowrap;
     border-collapse: collapse;
     clear: both;
 }
 
     table.rhythm th {
-        display: table-caption;
         text-align: right;
         font-weight: bold;
-       
+        min-width: 3em;
+        padding-left: 0.25em;
+        padding-right: 0.25em;
+    }
+
+    table.rhythm th.rhythm-column-header {
+        text-align: center;
+        border: 2pt solid black;
     }
 
     table.rhythm td {
@@ -84,24 +91,32 @@ table.rhythm {
 
 .song {
   text-align: center;
-  border-collapse: separate;
+  border-collapse: collapse;
   border-style: solid;
   border-width: 1pt;
   border-color: black;
-  font-size: 1.5em;
+  font-size: 1.25em;
+  margin: 0 auto;
 
+}
+
+.song td {
+    width: 3em;
 }
 
 .song tr:nth-child(odd) {
   margin: 0;
   text-align: center;
-  background-color: #39478d;
+  background-color: #808080;
 }
 
 .song tr:nth-child(even) {
   border-bottom: 1pt solid black;
 }
 
+.song tr:nth-child(even) td {
+    border-right: 2pt solid black;
+}
 
 .syncpoint {
     border-left:solid;
