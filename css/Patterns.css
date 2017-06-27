@@ -85,49 +85,62 @@ table.rhythm {
         border-style: solid;
     }
 
-.song {
+.sailor {
   text-align: center;
   border-collapse: collapse;
   border-style: solid;
-  border-width: 1pt;
+  border-width: 2pt;
   border-color: black;
   font-size: 1.25em;
   margin: 0 auto;
 
 }
 
-.song td {
-    width: 3em;
+    .sailor td {
+        min-width: 3em;
+    }
+
+    .sailor tr:nth-child(odd) {
+        margin: 0;
+        text-align: center;
+        background-color: #8f8f8f;
+    }
+
+    .sailor tr:nth-child(even) td {
+        border: 2pt solid black;
+        border-top-width: 1pt;
+    }
+
+.rowrow {
+    text-align: center;
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: 2pt;
+    border-color: black;
+    font-size: 1.25em;
+    margin: 0 auto;
 }
 
-.song tr:nth-child(odd) {
-  margin: 0;
-  text-align: center;
-  background-color: #808080;
-}
+    .rowrow td {
+        min-width: 3em;
+    }
 
-.song tr:nth-child(even) {
-  border-bottom: 1pt solid black;
-}
+    .rowrow th {
+        border-bottom-width: 2pt;
+        border-bottom-style: solid;
+        column-span: all;
+        text-align: center;
+        font-size: 1.25em;
+    }
 
-.song tr:nth-child(even) td {
-    border-right: 2pt solid black;
-}
+    .rowrow tr:nth-child(even) {
+        margin: 0;
+        text-align: center;
+        background-color: #8f8f8f;
+    }
 
-.syncpoint {
-    border-left:solid;
-    border-right:solid;
-}
+    .rowrow tr:nth-child(odd) td {
+        border: 2pt solid black;
+        border-top-width: 1pt;
+    }
 
-.firstLine {
-  color: darkred;
-}
-.secondLine {
-  color: darkblue;
-}
-.thirdLine {
-  color: darkgreen;
-}
-.fourthLine {
-  color: darkcyan;
-}
