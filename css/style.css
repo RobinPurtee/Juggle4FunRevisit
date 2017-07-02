@@ -6,6 +6,9 @@ ul.nobullet {
   list-style-type: none;
 }
 
+.nobullet li::first-letter{
+    font-weight:bold;
+}
 
 aside {
     background-color: antiquewhite;

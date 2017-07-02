@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="290.40317"
-   height="220"
+   width="309.76337"
+   height="234.66667"
    viewBox="0 0 290.40317 220"
    id="svg5407"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.1 r15371"
    sodipodi:docname="FeedLayout.svg">
   <defs
      id="defs5409">
@@ -28,8 +28,8 @@
        inkscape:isstock="true">
       <path
          id="path6160"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
-         style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -45,7 +45,7 @@
          id="path6178"
          style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         transform="scale(-0.6,-0.6)"
+         transform="scale(-0.6)"
          inkscape:connector-curvature="0" />
     </marker>
     <inkscape:path-effect
@@ -97,10 +97,10 @@
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:title></dc:title>
         <cc:license
-           rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+           rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/" />
       </cc:Work>
       <cc:License
-         rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+         rdf:about="http://creativecommons.org/licenses/by-nc-nd/4.0/">
         <cc:permits
            rdf:resource="http://creativecommons.org/ns#Reproduction" />
         <cc:permits
@@ -121,24 +121,24 @@
      transform="translate(-162.67103,-598.45316)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="228.31425"
        y="803.38452"
        id="jugglerName-0"
-       sodipodi:linespacing="125%"
        inkscape:label="JugglerName"><desc
          id="desc5300-7">The single letter name of the juggler</desc><title
          id="title5298-7">Juggler Name</title><tspan
          sodipodi:role="line"
          id="tspan5296-6"
          x="228.31425"
-         y="803.38452" /></text>
+         y="806.50171"
+         style="font-size:20px;line-height:1.25" /></text>
     <g
        id="jugglerA"
        transform="translate(0,-62.053172)"
        inkscape:label="Juggler A">
       <circle
-         transform="matrix(0,-1,1,0,0,0)"
+         transform="rotate(-90)"
          onmousemove="HeadMouseMoveEvent"
          onmouseup="HeadMouseUpEvent"
          onmousedown="HeadMouseDownEvent"
@@ -168,18 +168,18 @@
       </path>
       <text
          inkscape:label="JugglerName"
-         sodipodi:linespacing="125%"
          id="jugglerName"
          y="778.41046"
          x="179.19382"
-         style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><desc
            id="desc5300">The single letter name of the juggler</desc><title
            id="title5298">Juggler Name</title><tspan
            y="778.41046"
            x="179.19382"
            id="tspan5296"
-           sodipodi:role="line">A</tspan></text>
+           sodipodi:role="line"
+           style="font-size:20px;line-height:1.25">A</tspan></text>
       <path
          inkscape:label="RightArm"
          sodipodi:nodetypes="cc"
@@ -193,7 +193,7 @@
            id="title5290-4">Right Arm</title>
       </path>
       <circle
-         transform="matrix(0,-1,1,0,0,0)"
+         transform="rotate(-90)"
          r="7.003509"
          onmousemove="RightMouseMoveEvent"
          onmouseup="RightMouseUpEvent"
@@ -210,7 +210,7 @@
            id="title4167-1">Right Hand</title>
       </circle>
       <circle
-         transform="matrix(0,-1,1,0,0,0)"
+         transform="rotate(-90)"
          r="7.0026703"
          onmousemove="LeftMouseMoveEvent"
          onmouseup="LeftMouseUpEvent"
@@ -231,7 +231,7 @@
        id="jugglerC"
        inkscape:transform-center-x="12.573522"
        inkscape:transform-center-y="-2.7678398"
-       transform="matrix(0.98855371,0.15086936,-0.15086936,0.98855371,121.10834,-56.214611)"
+       transform="rotate(8.6773106,431.02625,770.03501)"
        inkscape:label="Juggler C">
       <path
          inkscape:label="LeftArm"
@@ -258,7 +258,7 @@
            id="title5290">Right Arm</title>
       </path>
       <circle
-         transform="matrix(0,1,-1,0,0,0)"
+         transform="rotate(90)"
          onmousemove="HeadMouseMoveEvent"
          onmouseup="HeadMouseUpEvent"
          onmousedown="HeadMouseDownEvent"
@@ -275,7 +275,7 @@
            id="title4169">Head</title>
       </circle>
       <circle
-         transform="matrix(0,1,-1,0,0,0)"
+         transform="rotate(90)"
          r="7.003509"
          onmousemove="RightMouseMoveEvent"
          onmouseup="RightMouseUpEvent"
@@ -292,7 +292,7 @@
            id="title4167">Right Hand</title>
       </circle>
       <circle
-         transform="matrix(0,1,-1,0,0,0)"
+         transform="rotate(90)"
          r="7.0026703"
          onmousemove="LeftMouseMoveEvent"
          onmouseup="LeftMouseUpEvent"
@@ -309,16 +309,16 @@
            id="title4165">Left Hand</title>
       </circle>
       <text
-         sodipodi:linespacing="125%"
          id="text6070"
          y="777.07587"
          x="422.5817"
-         style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
            y="777.07587"
            x="422.5817"
            id="tspan6072"
-           sodipodi:role="line">C</tspan></text>
+           sodipodi:role="line"
+           style="font-size:20px;line-height:1.25">C</tspan></text>
     </g>
     <g
        id="jugglerB"
@@ -349,7 +349,7 @@
            id="title5290-3">Right Arm</title>
       </path>
       <circle
-         transform="matrix(0.11984698,0.99279238,-0.99279238,0.11984698,0,0)"
+         transform="rotate(83.116729)"
          onmousemove="HeadMouseMoveEvent"
          onmouseup="HeadMouseUpEvent"
          onmousedown="HeadMouseDownEvent"
@@ -366,7 +366,7 @@
            id="title4169-7">Head</title>
       </circle>
       <circle
-         transform="matrix(0.11984698,0.99279238,-0.99279238,0.11984698,0,0)"
+         transform="rotate(83.116729)"
          r="7.003509"
          onmousemove="RightMouseMoveEvent"
          onmouseup="RightMouseUpEvent"
@@ -383,7 +383,7 @@
            id="title4167-8">Right Hand</title>
       </circle>
       <circle
-         transform="matrix(0.11984698,0.99279238,-0.99279238,0.11984698,0,0)"
+         transform="rotate(83.116729)"
          r="7.0026703"
          onmousemove="LeftMouseMoveEvent"
          onmouseup="LeftMouseUpEvent"
@@ -400,17 +400,17 @@
            id="title4165-8">Left Hand</title>
       </circle>
       <text
-         transform="matrix(0.99279238,-0.11984698,0.11984698,0.99279238,0,0)"
-         sodipodi:linespacing="125%"
+         transform="rotate(-6.8832714)"
          id="text6070-3"
          y="726.55042"
          x="338.8494"
-         style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
            y="726.55042"
            x="338.8494"
            id="tspan6072-3"
-           sodipodi:role="line">B</tspan></text>
+           sodipodi:role="line"
+           style="font-size:20px;line-height:1.25">B</tspan></text>
     </g>
   </g>
 </svg>

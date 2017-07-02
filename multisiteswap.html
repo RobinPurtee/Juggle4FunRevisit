@@ -4,7 +4,8 @@
         <title>Multi-Siteswap Notation</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet"/>
+        <link href="css/Patterns.css" rel="stylesheet"/>
     </head>
     <body>
         <main>
@@ -62,7 +63,7 @@
                             <li>2 = hold</li>
                             <li>3 = normal height pass</li>
                             <li>4 = double height pass</li>
-                            <li>and so on</li>
+                            <li>... and so on</li>
                         </ul>
                         <p>Because a magnitude of 3 is the common case, it can be assumed when writing a rhythm</p>
                         <h4>Destination</h4>
@@ -83,12 +84,16 @@
                 <section id="putItTogether">
                     <h4>Putting it together</h4>
                     <p>
-                        A rhythm is defined by a list of jugglers and their siteswap throws. The throws are sets of 2 parts, magnitude, destination hand and juggler separated by spaces. For example; The rhythm for the common 4-count passing pattern would look something like;
+                        A rhythm is defined by a list of jugglers and their siteswap throws. The throws are sets of 2 parts, magnitude, destination hand and juggler. For example; The rhythm for the common 4-count passing pattern would look something like;
                     </p>
-                    <code>
-                        A: 3PB 3SA 3SA 3SA
-                        B: 3PA 3SB 3SB 3SB
-                    </code>
+                    <table class="rhythm">
+                        <tr>
+                            <th>A:</th> <td>3PB</td> <td>3SA</td> <td>3SA</td> <td>3SA</td>
+                        </tr>
+                        <tr>
+                            <th>B:</th> <td>3PA</td> <td>3SB</td> <td>3SB</td><td>3SB</td>
+                        </tr>
+                    </table>
                     <p>
                         This is a bit verbose. To address this issue we use a number of simplification rules for throws.
                     </p>
@@ -100,9 +105,11 @@
                     <p>
                         Using these rules the same 4-count rhythm can be given as;
                     </p>
-                    <code>
-                        P S S S
-                    </code>
+                    <table class="rhythm">
+                        <tr>
+                            <td>P</td> <td>S</td><td>S</td> <td>S</td>
+                        </tr>
+                    </table>
                 </section>
             </section>
         </main>    
