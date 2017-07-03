@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 45" id="jugglerImage">
-  <g id="juggler">
-    <path id="leftArm"  d="m 68,31 c 0,-13.6 -5.76,-18.5 -18.7,-18.7" style="fill:none;stroke:#000000;stroke-width:1;"></path>
-    <circle id="leftHand"  r="7"  cy="36" cx="68" style="fill:#e80000;stroke:#000000;stroke-width:1"></circle>
-    <path id="rightArm" d="m 8,31   c 0,-13.6  5.76,-18.5  18.7,-18.7" style="fill:none;stroke:#000000;stroke-width:1;"></path>
-    <circle id="rightHand" r="7"  cy="36"  cx="8" style="fill:#00e800;stroke:#000000;stroke-width:1"></circle>
-    <circle id="head"      r="12" cy="13.5" cx="38" style="fill:#ebebeb;stroke:#000000;stroke-width:1"></circle>
-    <text id="jugglerName" y="18.5" x="33" xml:space="preserve">A</text>
+  <g class="juggler">
+    <path class="leftArm"  d="m 68,31 c 0,-13.6 -5.76,-18.5 -18.7,-18.7" style="fill:none;stroke:#000000;stroke-width:1;"></path>
+    <circle class="leftHand"  r="7"  cy="36" cx="68" style="fill:#e80000;stroke:#000000;stroke-width:1"></circle>
+    <path class="rightArm" d="m 8,31   c 0,-13.6  5.76,-18.5  18.7,-18.7" style="fill:none;stroke:#000000;stroke-width:1;"></path>
+    <circle class="rightHand" r="7"  cy="36"  cx="8" style="fill:#00e800;stroke:#000000;stroke-width:1"></circle>
+    <circle class="head"      r="12" cy="13.5" cx="38" style="fill:#ebebeb;stroke:#000000;stroke-width:1"></circle>
+    <text class="jugglerName" y="18.5" x="33" xml:space="preserve">A</text>
   </g>
 </svg>
