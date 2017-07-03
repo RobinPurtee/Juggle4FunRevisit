@@ -144,6 +144,8 @@ table.rhythm {
     }
 
 button.pleatButton{
+    font-size: 1.5em;
+    font-weight: bold; 
     background-color: #eee;
     color: #444;
     cursor: pointer;
