@@ -1,0 +1,165 @@
+
+article {
+  padding: 5pt;
+  border-width: 3pt;
+  border-spacing: 2em;
+  border-style: solid;
+  border-radius: 2ch;
+  margin: 3em 1em 3em 1em;
+}
+
+article h1 {
+  font-weight: bold;
+  font-size: 1.75em;
+  margin: 5pt;
+  width: 75%;
+}
+
+article h2 {
+    font-weight: normal;
+    font-size: 1em;
+    margin: 5pt;
+}
+
+
+.label {
+    font-weight: normal;
+}
+
+.jugglers, .objects, .layout{
+    font-weight: bold;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.rhythm-layout{
+    width: 25%;
+    float: right;
+}
+
+.rhythm-description{
+    clear: both;
+}
+
+.rhythm-container{
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+    clear: both;
+}
+
+
+table.rhythm {
+    table-layout: fixed;
+    margin: 0 auto;
+    font-size: 1.25em;
+    white-space: nowrap;
+    border-collapse: collapse;
+    clear: both;
+}
+
+    table.rhythm th {
+        text-align: right;
+        font-weight: bold;
+        min-width: 3em;
+        padding-left: 0.25em;
+        padding-right: 0.25em;
+    }
+
+    table.rhythm th.rhythm-column-header {
+        text-align: center;
+        border: 2pt solid black;
+    }
+
+    table.rhythm td {
+        display: table-cell;
+        text-align: center;
+        min-width: 3em;
+        padding-left: 0.25em;
+        padding-right: 0.25em;
+        border-width: 2pt;
+        border-style: solid;
+    }
+
+.sailor {
+  text-align: center;
+  border-collapse: collapse;
+  border-style: solid;
+  border-width: 2pt;
+  border-color: black;
+  font-size: 1.25em;
+  margin: 0 auto;
+
+}
+
+    .sailor td {
+        min-width: 3em;
+    }
+
+    .sailor tr:nth-child(odd) {
+        margin: 0;
+        text-align: center;
+        background-color: #8f8f8f;
+    }
+
+    .sailor tr:nth-child(even) td {
+        border: 2pt solid black;
+        border-top-width: 1pt;
+    }
+
+.rowrow {
+    text-align: center;
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: 2pt;
+    border-color: black;
+    font-size: 1.25em;
+    margin: 0 auto;
+}
+
+    .rowrow td {
+        min-width: 3em;
+    }
+
+    .rowrow th {
+        border-bottom-width: 2pt;
+        border-bottom-style: solid;
+        text-align: center;
+        font-size: 1.25em;
+    }
+
+    .rowrow tr:nth-child(even) {
+        margin: 0;
+        text-align: center;
+        background-color: #8f8f8f;
+    }
+
+    .rowrow tr:nth-child(odd) td {
+        border: 2pt solid black;
+        border-top-width: 1pt;
+    }
+
+button.pleatButton{
+    font-size: 1.5em;
+    font-weight: bold; 
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;   
+}
+
+button.pleatButton.active, button.pleatButton:hover{
+    background-color: darkblue;
+    color: lightgray;
+}
+
+
