@@ -1,83 +1,85 @@
+var accordion;
+var buttonIdName = '-button';
 
-function foldClickHandler(mouseEvt){
-    /* Toggle between adding and removing the "active" class, to highlight the button that controls the panel */
-    this.classList.toggle("active");
+function Pleat(element){
+    this.onFoldHandler = function(buttonEvt){
+        this.classList.toggle("active");
+        let article = this.nextElementSibling;
+        if(article.style.display === "block"){
+            article.style.display = "none";
+            this.isExpanded = false;
+        }
+        else{
+            article.style.display = "block";
+            this.isExpanded = true;
+        }
+    }
 
-    /* Toggle between hiding and showing the active panel */
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-        panel.style.display = "none";
-    } else {
-        panel.style.display = "block";
-    }                       
-}
+    this.expand = function(){
+        this.fold.style.display = "none";
+        this.article.style.display = "block";
+        isExpanded = true;
+    }
 
-var buttonIdName = "-button";
-
-
-class Pleat{
-
-
-    constructor(element){
-        this.article = element;
+    this.contract = function(){
+        this.fold.style.display = "block";
         this.article.style.display = "none";
-        this.article.onclick = this.contract;
-        let title = element.getElementsByTagName("h1");
-        if(0 < title.length){
-            this.fold = document.createElement("Button");
-            this.fold.id = this.article.id + buttonIdName;
-            this.fold.onclick = this.expand;
-            this.fold.onclick =  foldClickHandler;
-            this.fold.style.display = "block";
-
-            this.fold.className = "pleatButton";    
-            this.fold.innerHTML = title[0].innerHTML;
-            element.parentElement.insertBefore(this.fold, element);
-        }
+        isExpanded = false;
     }
 
-    expand(buttonEvt){
-        let pleat = pleats.findArticle(this.id);
-        
-        pleat.fold.toggle("active", true);
-        pleat.article.style.display = "block";
+    this.article = element;
+    let title = element.getElementsByTagName("h1");
+    if(0 < title.length){
+        this.fold = document.createElement("Button");
+        this.fold.id = this.article.id + buttonIdName;
+        this.fold.className = "pleatButton";    
+        this.fold.innerText = title[0].innerHTML;
+        element.parentElement.insertBefore(this.fold, element);
     }
+    this.fold.addEventListener('click', this.onFoldHandler);
 
-    contract(){
-        let pleat = pleats.findArticle(this.id);
-
-        pleat.fold.toggle("active", false);
-        pleat.article.style.display = "none";
-    }
+    this.contract();
 
 }
 
-class Pleats{
-    pleats;
-
-    constructor(articles)
-    {
-        var pleats = new Array();
-        if(0 < articles.length){
-            for(let i = 0; i < articles.length ; ++i){
-                logArticle(articles[i]);
-                let curPleat = new Pleat(articles[i]);
-                curPleat.fold.onclick = curPleat.expand;
-                
-                curPleat.article.onclick = curPleat.contract; 
-                pleats.push(curPleat);
-            }
+function Pleats(articles){
+    this.pleats = new Array();
+    if(0 < articles.length){
+        for(let i = 0; i < articles.length ; ++i){
+            let curPleat = new Pleat(articles[i]);
+            curPleat.fold.addEventListener('click', this.onClickHandler);            
+            curPleat.article.addEventListener('click', this.onClickHandler); 
+            this.pleats.push(curPleat);
         }
     }
 
 
-    findArticle(articleButtonId){
+    this.onClickHandler = function(buttonEvt){
+        let pleat = this.findArticle(this.id);
+        if(pleat.isExpanded){
+            pleat.contract();
+        }
+        else{
+            pleat.expand();
+        }
+    }
+
+
+
+    this.findArticle = function(articleButtonId){
         let isfound = false;
         let i = 0;
+        let articleId = articleButtonId;
+        let lastDash = articleId.lastIndexOf("-");
+        if(buttonIdName === articleId.substring(lastDash)){
+            articleId = articleButtonId.substring(0, lastDash);
+        }
 
-        let articleId = articleButtonId.substring(0, articleButtonId.lastIndexOf("-"));
-        for( ; !isfound && i < this ; ++i){
+        while(!isfound && i < this.pleats.length){
             isfound = this.pleats[i].article.id === articleId;
+            if(!isfound){
+                ++i;
+            }
         }
         if(isfound){
             return this.pleats[i];
@@ -87,19 +89,10 @@ class Pleats{
 
 }
 
-function logArticle(element){
-    console.log(element.id);
-    let title = element.getElementsByTagName("h1");
-    if(0 < title.length){
-        console.log("Article Title = " + title[0].innerHTML);
-    }
-}
-
-
 
 function listArticles(){
     let articles = document.getElementsByTagName("article");
-    pleats = new Pleats(articles);
+    accordion = new Pleats(articles);
 }
 
 
