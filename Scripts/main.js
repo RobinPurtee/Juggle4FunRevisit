@@ -15,12 +15,14 @@ function Pleat(element){
     this.expand = function(){
         this.fold.style.display = "none";
         this.article.style.maxHeight =  this.article.scrollHeight + "px";
+        this.article.style.borderStyle = "solid";
         this.isExpanded = true;
     }
 
     this.contract = function(){
         this.fold.style.display = "block";
         this.article.style.maxHeight = null;
+        this.article.style.borderStyle = "none";
         this.isExpanded = false;
     }
 
