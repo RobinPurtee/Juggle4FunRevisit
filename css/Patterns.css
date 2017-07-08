@@ -1,11 +1,14 @@
 
 article {
-  padding: 5pt;
+  padding: 0pt;
   border-width: 3pt;
   border-spacing: 2em;
-  border-style: solid;
+  border-style: none;
   border-radius: 2ch;
   margin: 3em 1em 3em 1em;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
 }
 
 article h1 {

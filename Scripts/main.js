@@ -1,30 +1,27 @@
 var accordion;
 var buttonIdName = '-button';
 
-function Pleat(element){
-    this.onFoldHandler = function(buttonEvt){
-        this.classList.toggle("active");
-        let article = this.nextElementSibling;
-        if(article.style.display === "block"){
-            article.style.display = "none";
-            this.isExpanded = false;
-        }
-        else{
-            article.style.display = "block";
-            this.isExpanded = true;
-        }
+onFoldHandler = function(buttonEvt){
+    let pleat = accordion.findArticle(this.id);
+    if(pleat.isExpanded){
+        pleat.contract();
     }
+    else{
+        pleat.expand();
+    }
+}
 
+function Pleat(element){
     this.expand = function(){
         this.fold.style.display = "none";
-        this.article.style.display = "block";
-        isExpanded = true;
+        this.article.style.maxHeight =  this.article.scrollHeight + "px";
+        this.isExpanded = true;
     }
 
     this.contract = function(){
         this.fold.style.display = "block";
-        this.article.style.display = "none";
-        isExpanded = false;
+        this.article.style.maxHeight = null;
+        this.isExpanded = false;
     }
 
     this.article = element;
@@ -33,10 +30,11 @@ function Pleat(element){
         this.fold = document.createElement("Button");
         this.fold.id = this.article.id + buttonIdName;
         this.fold.className = "pleatButton";    
-        this.fold.innerText = title[0].innerHTML;
+        this.fold.innerText = title[0].innerText;
         element.parentElement.insertBefore(this.fold, element);
     }
-    this.fold.addEventListener('click', this.onFoldHandler);
+    this.fold.addEventListener('click', onFoldHandler);
+    this.article.addEventListener('click', onFoldHandler);
 
     this.contract();
 
@@ -47,23 +45,9 @@ function Pleats(articles){
     if(0 < articles.length){
         for(let i = 0; i < articles.length ; ++i){
             let curPleat = new Pleat(articles[i]);
-            curPleat.fold.addEventListener('click', this.onClickHandler);            
-            curPleat.article.addEventListener('click', this.onClickHandler); 
-            this.pleats.push(curPleat);
+             this.pleats.push(curPleat);
         }
     }
-
-
-    this.onClickHandler = function(buttonEvt){
-        let pleat = this.findArticle(this.id);
-        if(pleat.isExpanded){
-            pleat.contract();
-        }
-        else{
-            pleat.expand();
-        }
-    }
-
 
 
     this.findArticle = function(articleButtonId){
@@ -90,10 +74,8 @@ function Pleats(articles){
 }
 
 
-function listArticles(){
+window.onload = function(){
     let articles = document.getElementsByTagName("article");
     accordion = new Pleats(articles);
 }
 
-
-window.onload = listArticles;
