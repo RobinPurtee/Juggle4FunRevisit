@@ -1,11 +1,41 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Pattern Animation Test</title>
+    <!--CDN link for  TweenMax-->
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script> -->
 </head>
-<body>
 
+<body>
+    <h2>Animation of a test pattern</h2>
+    <object id="rhythmImage" type="image/svg+xml" data="RhythmLayout.svg"></object>
+
+    <script>
+        function displayToss(toss) {
+            var length = toss.getTotalLength();
+            toss.style.transition = toss.style.WebkitTransition = "none";
+            toss.setAttribute("display", "inline");
+            // Set up hte starting positions
+            toss.style.strokeDasharray = length + " " + length;
+            toss.style.strokeDashoffset = length;
+            // toss.getBoundingClient();
+            toss.style.transition = toss.style.WebkitTransition = "stroke-dashoffset 2s ease-in-out";
+            toss.style.strokeDashoffset = "0";
+        }
+
+        window.onload = function() {
+            var svgObject = document.getElementById("rhythmImage");
+            var svgDoc = svgObject.contentDocument;
+            var tosses = svgDoc.getElementsByClassName("toss");
+            displayToss(tosses["AR-3PB"]);
+            displayToss(tosses["BR-3PA"]);
+
+
+        }
+    </script>
 </body>
+
 </html>

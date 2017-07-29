@@ -26,22 +26,26 @@
       .leftHand {fill:#e80000;stroke:#000000;stroke-width:1}
       .rightHand {fill:#00e800;stroke:#000000;stroke-width:1}
     ]]></style>
-  </defs>
-  <path id="AR-3DB" d="M 43,72 168,13" class="toss"/>
-  <g>
-    <g id="juggler-a" transform="translate(15,38)">
+
+    <g id="juggler" >
       <g transform="rotate(-90)">
-        <path class="arm leftArm "  d="m 30,18 c 0,-13.6 -5.76,-18.5 -18.7,-18.7"></path>
-        <circle class="leftHand" r="7"  cx="30" cy="23" style=""></circle>
-        <path class="arm rightArm"    d="m -30,18   c 0,-13.6  5.76,-18.5  18.7,-18.7"></path>
+        <path class="arm leftArm " d="m 30,18 c 0,-13.6 -5.76,-18.5 -18.7,-18.7"></path>
+        <circle class="leftHand"   r="7"  cx="30" cy="23" style=""></circle>
+        <path class="arm rightArm" d="m -30,18   c 0,-13.6  5.76,-18.5  18.7,-18.7"></path>
         <circle class="rightHand"  r="7"   cx="-30" cy="23" style=""></circle>
       </g>
       <circle class="head"      r="12" cy="0" cx="0"></circle>
       <text class="name" y="4" x="-4" xml:space="preserve">A</text>
-      </g>
-      
+    </g>
 
-    <g id="juggler-b" transform="translate(200,38)">
+
+
+  </defs>
+  <path id="AR-3DB" d="M 43,72 168,13" class="toss"/>
+  <g>
+      
+    <use id="juggler-a" href="#juggler" transform="translate(15,38)"/>
+     <g id="juggler-b" transform="translate(200,38)">
       <g transform="rotate(90)">
         <path class="arm leftArm" d="m 30,18 c 0,-13.6 -5.76,-18.5 -18.7,-18.7"></path>
         <circle class="leftHand" r="7"  cx="30" cy="23"></circle>
@@ -51,7 +55,7 @@
       <circle class="head"      r="12" cy="0" cx="0"></circle>
       <text class="name" y="4" x="-4" xml:space="preserve">B</text>
     </g>
-  </g>
+  </g> 
 
 
 </svg>
