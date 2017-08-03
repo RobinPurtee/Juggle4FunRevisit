@@ -11,13 +11,28 @@
          />
     </marker>
     <style type="text/css"><![CDATA[
-      .toss {stroke:#000000;stroke-opacity:1;stroke-width:2;marker-end:url(#Arrow2Mend); fill:none}
+      .toss {
+        stroke:#000000;
+        stroke-opacity:1;
+        stroke-width:2;
+        marker-end:url(#Arrow2Mend); 
+        fill:none;
+      } 
       .arm {fill:none;stroke:#000000;stroke-width:1}
       .head {fill:#ebebeb;stroke:#000000;stroke-width:1}
       .leftHand {fill:#e80000;stroke:#000000;stroke-width:1}
       .rightHand {fill:#00e800;stroke:#000000;stroke-width:1}
     ]]></style>
-  </defs>
+      <!-- 
+        stroke-dasharray:"62, 125"
+        stroke-dashoffset:62;
+        transition-property: stroke-dashoffset;
+        transition-duration = 5s;
+        transition-timing-function: ease-in-out;
+        transition-delay: 0.5s;
+          -->
+</defs>
+
   <path id="AR-3PB" d="M  43,87 168,87"   class="toss" display="none" />
   <path id="AR-3DB" d="M  43,87 168,26"   class="toss" display="none"/>
   <path id="AR-3SA" d="M  43,85  43,26"   class="toss" display="none"/>

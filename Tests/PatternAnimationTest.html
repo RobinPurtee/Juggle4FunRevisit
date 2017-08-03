@@ -12,26 +12,30 @@
 <body>
     <h2>Animation of a test pattern</h2>
     <object id="rhythmImage" type="image/svg+xml" data="RhythmLayout.svg"></object>
-
+    <p id="errorDisplay"></p>
+    <script src="../Scripts/juggler.js"></script>
     <script>
         function displayToss(toss) {
             var length = toss.getTotalLength();
-            toss.style.transition = toss.style.WebkitTransition = "none";
             toss.setAttribute("display", "inline");
-            // Set up hte starting positions
-            toss.style.strokeDasharray = length + " " + length;
-            toss.style.strokeDashoffset = length;
-            // toss.getBoundingClient();
-            toss.style.transition = toss.style.WebkitTransition = "stroke-dashoffset 2s ease-in-out";
-            toss.style.strokeDashoffset = "0";
+            //toss.style.strokeDashoffset = "0";
         }
 
+        var svgObject;
+        var svgDoc;
         window.onload = function() {
-            var svgObject = document.getElementById("rhythmImage");
-            var svgDoc = svgObject.contentDocument;
-            var tosses = svgDoc.getElementsByClassName("toss");
-            displayToss(tosses["AR-3PB"]);
-            displayToss(tosses["BR-3PA"]);
+            svgObject = document.getElementById("rhythmImage");
+            svgDoc = svgObject.contentDocument;
+            if (svgDoc == null) {
+                let errElement = document.getElementById("errorDisplay");
+                errElement.textContent = "Unable to load the image";
+                return;
+            }
+            let tossElements = svgDoc.getElementsByClassName("toss");
+            let toss = new Toss(tossElements["AR-3PB"]);
+            toss.Show();
+            toss = new Toss(tossElements["BR-3PA"]);
+            toss.Show();
 
 
         }
