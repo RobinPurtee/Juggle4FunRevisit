@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Toss String Tests</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.4.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-2.4.0.js"></script>
+    <script src="../Scripts/Juggler.js"></script>
+    <script>
+        QUnit.test("Toss Tests", function(assert) {
+            var toss = new Toss();
+            assert.equal(toss.shortDestinationString(), "S");
+            assert.equal(toss.destinationString(), "S");
+            assert.equal(toss.toString(), "3SA");
+
+            toss.originJuggler = new Juggler("A");
+            assert.equal(toss.toString(), "AR-3PA");
+            toss.originHand = RightHand;
+            toss.juggler = "B"
+            assert.equal(toss.toString(), "AR-3PB");
+
+
+            var toss = new Toss(Pass);
+            assert.equal(toss.shortDestinationString(), "P");
+            assert.equal(toss.destinationString(), "P");
+            assert.equal(toss.toString(), "3PA");
+
+            toss = new Toss(Heff, 4);
+            assert.equal(toss.shortDestinationString(), "4H");
+            assert.equal(toss.destinationString(), "4H");
+            assert.equal(toss.toString(), "4HA");
+
+            toss = new Toss(Diagonal, 4, "B");
+            assert.equal(toss.shortDestinationString(), "4D");
+            assert.equal(toss.destinationString(), "4DB");
+            assert.equal(toss.toString(), "4DB");
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="qunit"></div>
+
+</body>
+
+</html>
