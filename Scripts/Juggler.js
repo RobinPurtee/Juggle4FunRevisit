@@ -26,23 +26,23 @@ function Toss(direction_, magnitude_, juggler_) {
         let i = 0;
         // if the Toss string has more than 3 charaters then it has an origin section
         if (length > 3) {
-            this.originJuggler = direction_[i];
+            this.originJuggler = direction_[i].toUpperCase();
             ++i;
-            this.originHand = direction_[i];
+            this.originHand = direction_[i].toUpperCase();
             ++i;
             ++i; // increment past the "-"
         }
         // if the next charater is a not a number
         this.magnitude = Number.parseInt(direction_[i]);
-        if (Number.isNaN(this.magnitude.isNaN)) {
+        if (Number.isNaN(this.magnitude)) {
             this.magnitude = 3; // set the magnitude to default
         } else {
             ++i; // go to the next charater to get the direction
         }
-        this.direction = direction_[i];
+        this.direction = direction_[i].toUpperCase();
         ++i;
         if (i < length) {
-            this.juggler = direction_[i];
+            this.juggler = direction_[i].toUpperCase();
         }
     } else {
         if (direction_ === undefined) {
@@ -59,22 +59,6 @@ function Toss(direction_, magnitude_, juggler_) {
             this.juggler = null;
         }
     }
-}
-
-
-Toss.prototype.SetDisplay = function(show) {
-    let state = "none";
-    if (show === true) {
-        state = "inline";
-    }
-    this.tossPath.setAttribute("display", state);
-}
-
-Toss.prototype.Show = function() {
-    this.SetDisplay(true);
-}
-Toss.prototype.Hide = function() {
-    this.SetDisplay(false);
 }
 
 Toss.prototype.shortDestinationString = function() {
@@ -112,6 +96,8 @@ Toss.prototype.toString = function() {
     }
     return retStr;
 }
+
+
 
 
 function Juggler(name_, patternRow_) {

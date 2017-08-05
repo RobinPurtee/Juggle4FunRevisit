@@ -11,9 +11,11 @@
     <script>
         QUnit.test("Toss Tests", function(assert) {
             var toss = new Toss();
+            // default construction should be 3S
             assert.equal(toss.shortDestinationString(), Self);
             assert.equal(toss.destinationString(), Self);
             assert.equal(toss.toString(), "3S");
+            // set a destination Juggler
             toss.juggler = "B"
             assert.equal(toss.shortDestinationString(), Self);
             assert.equal(toss.destinationString(), Self);
@@ -74,6 +76,29 @@
             assert.equal(toss.shortDestinationString(), "4D");
             assert.equal(toss.destinationString(), "4DB");
             assert.equal(toss.toString(), "4DB");
+
+            toss = new Toss("PB");
+            assert.equal(toss.shortDestinationString(), Pass);
+            assert.equal(toss.destinationString(), "PB");
+            assert.equal(toss.toString(), "3PB");
+
+            toss = new Toss("4PB");
+            assert.equal(toss.shortDestinationString(), "4P");
+            assert.equal(toss.destinationString(), "4PB");
+            assert.equal(toss.toString(), "4PB");
+
+            toss = new Toss("AL-3PB");
+            assert.equal(toss.shortDestinationString(), "P");
+            assert.equal(toss.destinationString(), "PB");
+            assert.equal(toss.toString(), "AL-3PB");
+
+            toss = new Toss("AR-3SB");
+            assert.equal(toss.shortDestinationString(), Self);
+            assert.equal(toss.destinationString(), Self);
+            assert.equal(toss.toString(), "AR-3SA");
+
+
+
         });
     </script>
 </head>
