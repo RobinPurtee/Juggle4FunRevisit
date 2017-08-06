@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Toss String Tests</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.4.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-2.4.0.js"></script>
+    <script src="../Scripts/Juggler.js"></script>
+    <script>
+        QUnit.test("Toss Tests", function(assert) {
+            let club = "club";
+            let ball = "ball";
+            let hand = new Hand("A");
+            assert.ok(hand.isVacant(), "The default Hand is vacant");
+            assert.throws(hand.Toss, "Exception to Toss from an empty Hand");
+            hand.Catch(club);
+            assert.ok(!hand.isVacant(), "A club was caught");
+            assert.equal(hand.Toss(), club, "A club was tossed");
+            assert.ok(hand.isVacant(), "And the hand is vacant");
+            hand.Catch(club);
+            hand.Catch(ball);
+            assert.equal(hand.props.length, 2, "Both a club and ball where caught");
+            assert.equal(hand.Toss(), club, "The club was tossed");
+            assert.equal(hand.Toss(), ball, "The ball was tossed");
+            assert.ok(hand.isVacant(), "The hand is vacant")
+
+            hand = new Hand("B", club);
+            assert.equal(hand.props.length, 1, "Hand started with 1 objects");
+            assert.ok(!hand.isVacant(), "it is not vacant");
+            assert.equal(hand.Toss(), club, "The club was tossed");
+            assert.ok(hand.isVacant(), "The hand is vacant")
+
+            let props = [club, ball];
+            hand = new Hand("C", props);
+            assert.equal(hand.props.length, 2, "Hand started with 2 objects");
+            assert.ok(!hand.isVacant(), "it is not vacant");
+            assert.equal(hand.Toss(), club, "The club was tossed");
+            assert.equal(hand.Toss(), ball, "The ball was tossed");
+            assert.ok(hand.isVacant(), "The hand is vacant")
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="qunit"></div>
+
+</body>
+
+</html>

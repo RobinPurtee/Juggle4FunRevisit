@@ -97,19 +97,96 @@ Toss.prototype.toString = function() {
     return retStr;
 }
 
+// Manager for the state of a hand
+// Properties:
+//  hand - the hand id under each juggler (value should be RightHand or LeftHand)
+//  props - an array of objects currently held by the hand
+// Methods:
+//  isVacant() - test if the prop array is empty
+//  Toss() - returns the prop it removes from the top of the prop array
+//  Catch(prop_) - causes the prop to be added the bottom of the prop array
+// Remarks:
+//  The state of the hand toggles based 
+// Parameters:
+//      hand_ - the hand of this object
+//      props_ - optional list of the props that are currently held by the hand
+function Hand(hand_, props_) {
+    this.hand = hand_;
+    this.props = new Array();
+    if (props_ != undefined) {
+        if (Array.isArray(props_)) {
+            this.props = this.props.concat(props_);
+        } else {
+            this.props.push(props_);
+        }
+    }
+}
+
+Hand.prototype.isVacant = function() {
+    return (this.props.length === 0);
+}
+
+Hand.prototype.Toss = function() {
+    return this.props.shift();
+}
+
+Hand.prototype.Catch = function(prop_) {
+    this.props.push(prop_);
+}
 
 
+// Object that represents a Juggler
+// parameters:
+//  id_ - single charater Id of the juggler used 
+//  tossRow_ - the DOM Table Row element containing the list of tosses for this juggler
+//  name_ - optional name for the juggler
 
-function Juggler(name_, patternRow_) {
+// A Juggler waits for a "catch" with a Toss parameter, then executes a toss by incrementing 
+// the currentToss indexer, then based on the Toss in the catch will toggle the current hand. 
+function Juggler(id_, tossRow_, name_) {
+    this.id = id_;
     this.name = name_;
     this.tossHand = RightHand;
-    if (patternRow_ != null) {
-        this.tosses = new Array(patternRow_.cells.length);
-    }
+    this.cycleLength = tossRow_.cells.length;
+    this.currentToss = 0;
+    this.inComingToss = null;
+    this.isTossing = true;
+    this.inHurry = false;
+    this.tosses = new Array(this.cycleLength);
+    tossRow_.cells.array.forEach(function(element) {
+        let tossStr = element.child[0].innerText();
+        let toss = new Toss(tossStr);
+        toss.originJuggler = this.id;
+        this.tosses.push(toss);
 
-    this.toString = function() {
-        let ret = this.name + this.tossHand;
-        return ret;
-    }
+    });
+}
 
+Juggler.prototype.toggleHand = function() {
+    this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
+}
+
+// called to tell the juggler what hand the pass headed toward so he can clear that hand
+Juggler.prototype.catch = function(toss_) {
+    this.toss();
+    if (toss_.direction != Diagonal) {
+        this.toggleHand()
+    }
+}
+
+Juggler.prototype.getCurrentToss = function() {
+    return this.tosses[this.currentToss];
+}
+
+Juggler.prototype.toss = function() {
+    this.tosses[this.currentToss].originHand = this.tossHand;
+    ++this.currentToss;
+    if (this.currentToss === this.cycleLength) {
+        this.currentToss = 0;
+    }
+}
+
+Juggler.prototype.toString = function() {
+    let ret = this.id + this.tossHand;
+    return ret;
 }
