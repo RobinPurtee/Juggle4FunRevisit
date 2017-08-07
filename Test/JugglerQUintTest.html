@@ -10,8 +10,13 @@
     <script src="../Scripts/Juggler.js"></script>
     <script>
         QUnit.test("Toss Tests", function(assert) {
-            let table = document.getElementsByClassName("rhythm");
-            let juggler = new Juggler("A", table);
+            let tableList = document.getElementsByClassName("rhythm");
+            let juggler = new Juggler("A", tableList[0].rows[0].cells, "fred");
+
+            assert.equal(juggler.id, "A", "The Juggler id is " + juggler.id);
+            assert.equal(juggler.name, "fred", "The Jugger name is " + juggler.name);
+            assert.equal(juggler.cycleLength, tableList[0].rows[0].cells.length, "Juggler has the correct number of tosses: " + juggler.cycleLength);
+
         });
     </script>
 </head>

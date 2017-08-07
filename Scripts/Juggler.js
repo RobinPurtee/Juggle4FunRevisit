@@ -7,6 +7,13 @@ var Diagonal = "D";
 var Self = "S";
 var Heff = "H";
 
+
+function TossException(toss_, message_) {
+    this.toss = toss_;
+    this.message = message_;
+}
+
+
 // The object that represents a Toss 
 // parameters:
 //      direction_ - A Toss direction string (maybe a full Toss string)
@@ -61,6 +68,17 @@ function Toss(direction_, magnitude_, juggler_) {
     }
 }
 
+Toss.prototype.destinationHand = function() {
+    let hand = undefined;
+    if (this.originJuggler != undefined) {
+        if (this.direction == Pass || this.direction == Self) {
+            hand = (this.originHand === RightHand) ? LeftHand : RightHand;
+        } else {
+            hand = this.originHand;
+        }
+    }
+    return hand;
+}
 Toss.prototype.shortDestinationString = function() {
     let retStr = new String();
     if (this.magnitude != 3) {
@@ -76,7 +94,6 @@ Toss.prototype.destinationString = function() {
         retStr += this.juggler;
     return retStr;
 }
-
 
 Toss.prototype.toString = function() {
     let retStr = new String();
@@ -146,32 +163,43 @@ Hand.prototype.Catch = function(prop_) {
 function Juggler(id_, tossRow_, name_) {
     this.id = id_;
     this.name = name_;
+    this.hands = new Map();
+    this.hands.set(RightHand, new Hand(RightHand));
+    this.hands.set(LeftHand, new Hand(LeftHand));
     this.tossHand = RightHand;
-    this.cycleLength = tossRow_.cells.length;
+    this.cycleLength = tossRow_.length;
     this.currentToss = 0;
-    this.inComingToss = null;
+    this.inComingToss = new Array();
     this.isTossing = true;
-    this.inHurry = false;
+    this.hasHurrys = false;
+    this.isHanded = true;
     this.tosses = new Array(this.cycleLength);
-    tossRow_.cells.array.forEach(function(element) {
-        let tossStr = element.child[0].innerText();
+    for (var i = 0; i < this.cycleLength; ++i) {
+        let tossStr = tossRow_[i].innerText;
         let toss = new Toss(tossStr);
+        toss.originHand = this.tossHand;
+        this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
         toss.originJuggler = this.id;
-        this.tosses.push(toss);
-
-    });
+        this.tosses[i] = toss;
+    }
+    this.tossHand = RightHand;
 }
 
-Juggler.prototype.toggleHand = function() {
-    this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
+Juggler.prototype.pickup = function(hand_, prop_) {
+    this.hands[hand_].Catch(prop_);
 }
 
 // called to tell the juggler what hand the pass headed toward so he can clear that hand
-Juggler.prototype.catch = function(toss_) {
-    this.toss();
-    if (toss_.direction != Diagonal) {
-        this.toggleHand()
+Juggler.prototype.inComingToss = function(toss_) {
+    if (this.inComingToss[toss_.magnitude] != undefined) {
+        throw new TossException(toss_, "Toss from " + toss_.toString() + " and " + this.inComingToss[toss_.magnitude] + " will arrive at the same time");
     }
+    this.inComingToss[toss_.magnitude] = toss_;
+}
+
+Juggler.prototype.catch = function(prop_) {
+    let curToss = this.inComingToss.shift();
+    this.hands[curToss.hand].Catch(prop_);
 }
 
 Juggler.prototype.getCurrentToss = function() {
@@ -179,7 +207,17 @@ Juggler.prototype.getCurrentToss = function() {
 }
 
 Juggler.prototype.toss = function() {
-    this.tosses[this.currentToss].originHand = this.tossHand;
+    let isHurry = false;
+    if (this.inComingToss.length > 0 && this.inComingToss[0].destinationHand != undefined) {
+        isHurry = this.inComingToss[0].destinationHand === this.tossHand;
+    }
+    if (this.tosses[this.currentToss].originHand != this.tossHand) {
+        this.tosses[this.currentToss].originHand = this.tossHand;
+    }
+    this.hands[this.currentToss].Toss();
+    if (!isHurry) {
+        this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
+    }
     ++this.currentToss;
     if (this.currentToss === this.cycleLength) {
         this.currentToss = 0;
