@@ -16,6 +16,24 @@
             assert.equal(juggler.id, "A", "The Juggler id is " + juggler.id);
             assert.equal(juggler.name, "fred", "The Jugger name is " + juggler.name);
             assert.equal(juggler.cycleLength, tableList[0].rows[0].cells.length, "Juggler has the correct number of tosses: " + juggler.cycleLength);
+            juggler.setPartnerId("B");
+
+            let jugglerAPasses = ["AR-3PB", "AL-3SA", "AR-3SA", "AL-3SA", "AR-3PB", "AL-3PB", "AR-3SA", "AL-3SA"];
+            let jugglerBPasses = ["BR-3PA", "BL-3SB", "BR-3SB", "BL-3SB", "BR-3PA", "BL-3PA", "BR-3SB", "BR-3SB"];
+            for (var i = 0; i < juggler.cycleLength; ++i) {
+                assert.equal(juggler.tosses[i].toString(), jugglerAPasses[i], "Pass " + i + " is " + juggler.tosses[i].toString());
+            }
+
+            // juggler.pickup(RightHand, "a");
+            // juggler.pickup(LeftHand, "b");
+            // Juggler.pickup(RightHand, "c");
+
+            // for(var i = 0 ; i < (juggler.cycleLength * 2) ; ++i){
+            //     let toss = juggler.Toss();
+            //     assert.equal(toss, jugglerAPasses[i], "Tossed " + toss.toString());
+            //     juggler.inComingToss(jugglerBPasses[i]);
+            //     juggler.Catch(
+            // }
 
         });
     </script>

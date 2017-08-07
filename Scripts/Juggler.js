@@ -189,6 +189,16 @@ Juggler.prototype.pickup = function(hand_, prop_) {
     this.hands[hand_].Catch(prop_);
 }
 
+Juggler.prototype.setPartnerId = function(id_) {
+    this.tosses.forEach(function(toss_) {
+        if (toss_.direction == Pass || toss_.direction == Diagonal) {
+            toss_.juggler = id_;
+        }
+    }, this);
+}
+
+
+
 // called to tell the juggler what hand the pass headed toward so he can clear that hand
 Juggler.prototype.inComingToss = function(toss_) {
     if (this.inComingToss[toss_.magnitude] != undefined) {
