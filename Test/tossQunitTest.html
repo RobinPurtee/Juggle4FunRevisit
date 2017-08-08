@@ -12,28 +12,29 @@
         QUnit.test("Toss Tests", function(assert) {
             var toss = new Toss();
             // default construction should be 3S
-            assert.equal(toss.shortDestinationString(), Self);
-            assert.equal(toss.destinationString(), Self);
+            assert.equal(toss.toDirectionString(), Self);
+            assert.equal(toss.toJugglerDirectionString(), Self);
             assert.equal(toss.toString(), "3S");
             // set a destination Juggler
-            toss.juggler = "B"
-            assert.equal(toss.shortDestinationString(), Self);
-            assert.equal(toss.destinationString(), Self);
+            toss.juggler = "B";
+            assert.equal(toss.toDirectionString(), Self);
+            assert.equal(toss.toJugglerDirectionString(), Self);
             assert.equal(toss.toString(), "3S");
             toss.direction = Pass;
-            assert.equal(toss.shortDestinationString(), Pass);
-            assert.equal(toss.destinationString(), "PB");
+            assert.equal(toss.toDirectionString(), Pass);
+            assert.equal(toss.toJugglerDirectionString(), "PB");
             assert.equal(toss.toString(), "3PB");
             toss.direction = Diagonal;
-            assert.equal(toss.shortDestinationString(), Diagonal);
-            assert.equal(toss.destinationString(), "DB");
+            assert.equal(toss.toDirectionString(), Diagonal);
+            assert.equal(toss.toJugglerDirectionString(), "DB");
             assert.equal(toss.toString(), "3DB");
             toss.direction = Heff;
-            assert.equal(toss.shortDestinationString(), Heff);
-            assert.equal(toss.destinationString(), Heff);
+            assert.equal(toss.toDirectionString(), Heff);
+            assert.equal(toss.toJugglerDirectionString(), Heff);
             assert.equal(toss.toString(), "3H");
 
             toss.originJuggler = "A";
+            toss.originHand = RightHand;
             assert.equal(toss.toString(), "AR-3HA");
             toss.direction = Pass;
             assert.equal(toss.toString(), "AR-3PB");
@@ -46,56 +47,58 @@
             assert.equal(toss.toString(), "AL-3SA");
 
             toss.magnitude = 4;
-            assert.equal(toss.shortDestinationString(), "4S");
-            assert.equal(toss.destinationString(), "4S");
+            assert.equal(toss.toDirectionString(), "4S");
+            assert.equal(toss.toJugglerDirectionString(), "4S");
             assert.equal(toss.toString(), "AL-4SA");
             toss.direction = Pass;
-            assert.equal(toss.shortDestinationString(), "4P");
-            assert.equal(toss.destinationString(), "4PB");
+            assert.equal(toss.toDirectionString(), "4P");
+            assert.equal(toss.toJugglerDirectionString(), "4PB");
             assert.equal(toss.toString(), "AL-4PB");
             toss.direction = Diagonal;
-            assert.equal(toss.shortDestinationString(), "4D");
-            assert.equal(toss.destinationString(), "4DB");
+            assert.equal(toss.toDirectionString(), "4D");
+            assert.equal(toss.toJugglerDirectionString(), "4DB");
             assert.equal(toss.toString(), "AL-4DB");
             toss.direction = Heff;
-            assert.equal(toss.shortDestinationString(), "4H");
-            assert.equal(toss.destinationString(), "4H");
+            assert.equal(toss.toDirectionString(), "4H");
+            assert.equal(toss.toJugglerDirectionString(), "4H");
             assert.equal(toss.toString(), "AL-4HA");
 
             var toss = new Toss(Pass);
-            assert.equal(toss.shortDestinationString(), "P");
-            assert.equal(toss.destinationString(), "P");
+            assert.equal(toss.toDirectionString(), "P");
+            assert.equal(toss.toJugglerDirectionString(), "P");
             assert.equal(toss.toString(), "3P");
 
             toss = new Toss(Heff, 4);
-            assert.equal(toss.shortDestinationString(), "4H");
-            assert.equal(toss.destinationString(), "4H");
+            assert.equal(toss.toDirectionString(), "4H");
+            assert.equal(toss.toJugglerDirectionString(), "4H");
             assert.equal(toss.toString(), "4H");
 
             toss = new Toss(Diagonal, 4, "B");
-            assert.equal(toss.shortDestinationString(), "4D");
-            assert.equal(toss.destinationString(), "4DB");
+            assert.equal(toss.toDirectionString(), "4D");
+            assert.equal(toss.toJugglerDirectionString(), "4DB");
             assert.equal(toss.toString(), "4DB");
 
             toss = new Toss("PB");
-            assert.equal(toss.shortDestinationString(), Pass);
-            assert.equal(toss.destinationString(), "PB");
+            assert.equal(toss.toDirectionString(), Pass);
+            assert.equal(toss.toJugglerDirectionString(), "PB");
             assert.equal(toss.toString(), "3PB");
 
             toss = new Toss("4PB");
-            assert.equal(toss.shortDestinationString(), "4P");
-            assert.equal(toss.destinationString(), "4PB");
+            assert.equal(toss.toDirectionString(), "4P");
+            assert.equal(toss.toJugglerDirectionString(), "4PB");
             assert.equal(toss.toString(), "4PB");
 
             toss = new Toss("AL-3PB");
-            assert.equal(toss.shortDestinationString(), "P");
-            assert.equal(toss.destinationString(), "PB");
+            assert.equal(toss.toDirectionString(), "P");
+            assert.equal(toss.toJugglerDirectionString(), "PB");
             assert.equal(toss.toString(), "AL-3PB");
+            assert.equal(toss.toFullString(), "AL-3PBR");
 
             toss = new Toss("AR-3SB");
-            assert.equal(toss.shortDestinationString(), Self);
-            assert.equal(toss.destinationString(), Self);
+            assert.equal(toss.toDirectionString(), Self);
+            assert.equal(toss.toJugglerDirectionString(), Self);
             assert.equal(toss.toString(), "AR-3SA");
+            assert.equal(toss.toFullString(), "AR-3SAL");
 
 
 

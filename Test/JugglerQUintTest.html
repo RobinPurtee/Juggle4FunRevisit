@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Toss String Tests</title>
+    <title>Juggler Tests</title>
 
     <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.4.0.css">
     <script src="https://code.jquery.com/qunit/qunit-2.4.0.js"></script>
     <script src="../Scripts/Juggler.js"></script>
     <script>
-        QUnit.test("Toss Tests", function(assert) {
+        QUnit.test("Juggler Tests", function(assert) {
             let tableList = document.getElementsByClassName("rhythm");
             let juggler = new Juggler("A", tableList[0].rows[0].cells, "fred");
 
@@ -18,19 +18,27 @@
             assert.equal(juggler.cycleLength, tableList[0].rows[0].cells.length, "Juggler has the correct number of tosses: " + juggler.cycleLength);
             juggler.setPartnerId("B");
 
-            let jugglerAPasses = ["AR-3PB", "AL-3SA", "AR-3SA", "AL-3SA", "AR-3PB", "AL-3PB", "AR-3SA", "AL-3SA"];
-            let jugglerBPasses = ["BR-3PA", "BL-3SB", "BR-3SB", "BL-3SB", "BR-3PA", "BL-3PA", "BR-3SB", "BR-3SB"];
+            let jugglerAPasses = ["AR-3PBL", "AL-3SAR", "AR-3SAL", "AL-3SAR", "AR-3PBL", "AL-3PBR", "AR-3SAL", "AL-3SAR"];
+            let jugglerBPasses = ["BR-3PA", "BL-3SB", "BR-3SB", "BL-3SB", "BR-3PA", "BL-3PA", "BR-3SB", "BL-3SB"];
             for (var i = 0; i < juggler.cycleLength; ++i) {
-                assert.equal(juggler.tosses[i].toString(), jugglerAPasses[i], "Pass " + i + " is " + juggler.tosses[i].toString());
+                assert.equal(juggler.tosses[i].toFullString(), jugglerAPasses[i], "Pass " + i + " is " + juggler.tosses[i].toString());
             }
 
-            // juggler.pickup(RightHand, "a");
-            // juggler.pickup(LeftHand, "b");
-            // Juggler.pickup(RightHand, "c");
+            let props = [new Prop("a"), new Prop("b"), new Prop("c")];
+            juggler.pickup(RightHand, props[0]);
+            assert.notOk(juggler.hands.get(RightHand).isVacant(), "Juggler right hand contains prop a");
+            juggler.pickup(LeftHand, props[1]);
+            assert.notOk(juggler.hands.get(LeftHand).isVacant(), "Juggler left hand contains prop b");
+            juggler.pickup(RightHand, props[2]);
+            assert.notOk(juggler.hands.get(RightHand).isVacant(), "Juggler Right hand contains prop c");
 
+            // let tossFromA 
             // for(var i = 0 ; i < (juggler.cycleLength * 2) ; ++i){
-            //     let toss = juggler.Toss();
-            //     assert.equal(toss, jugglerAPasses[i], "Tossed " + toss.toString());
+            //     let prop = juggler.Toss(jugglerAPasses[i]);
+            //     assert.ok(prop.isInFlight(), "Prop " + prop.id + " is in flight state" );
+            //     assert.equal(prop.toss.toString(), jugglerAPasses[1], "Prop " + prop.id + " is on path: ", + prop.toss.toFullString())
+
+            //     let propB = new Prop
             //     juggler.inComingToss(jugglerBPasses[i]);
             //     juggler.Catch(
             // }

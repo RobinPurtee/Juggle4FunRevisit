@@ -3,41 +3,49 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Toss String Tests</title>
+    <title>Hand Tests</title>
 
     <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.4.0.css">
     <script src="https://code.jquery.com/qunit/qunit-2.4.0.js"></script>
     <script src="../Scripts/Juggler.js"></script>
     <script>
-        QUnit.test("Toss Tests", function(assert) {
-            let club = "club";
-            let ball = "ball";
+        QUnit.test("Hand Tests", function(assert) {
+            let club = new Prop("club");
+            assert.ok(!club.isInFlight(), "The club is on the ground");
+            let ball = new Prop("ball");
+            assert.ok(!ball.isInFlight(), "The ball is on the ground");
+
+            let toss1 = new Toss("AR-3PB");
+            let toss2 = new Toss("AR-3SA");
             let hand = new Hand("A");
             assert.ok(hand.isVacant(), "The default Hand is vacant");
             assert.throws(hand.Toss, "Exception to Toss from an empty Hand");
             hand.Catch(club);
             assert.ok(!hand.isVacant(), "A club was caught");
-            assert.equal(hand.Toss(), club, "A club was tossed");
+            let prop = hand.Toss(toss1);
+            assert.equal(prop, club, "A club was tossed");
+            assert.notEqual(prop.toss, null, "The prop has a toss attached to it");
+            assert.equal(prop.toss.toString(), toss1.toString(), prop.toss.toFullString() + "is the path of the " + prop.id);
             assert.ok(hand.isVacant(), "And the hand is vacant");
             hand.Catch(club);
             hand.Catch(ball);
             assert.equal(hand.props.length, 2, "Both a club and ball where caught");
-            assert.equal(hand.Toss(), club, "The club was tossed");
-            assert.equal(hand.Toss(), ball, "The ball was tossed");
+            assert.equal(hand.Toss(toss1), club, "The club was tossed");
+            assert.equal(hand.Toss(toss2), ball, "The ball was tossed");
             assert.ok(hand.isVacant(), "The hand is vacant")
 
             hand = new Hand("B", club);
             assert.equal(hand.props.length, 1, "Hand started with 1 objects");
             assert.ok(!hand.isVacant(), "it is not vacant");
-            assert.equal(hand.Toss(), club, "The club was tossed");
+            assert.equal(hand.Toss(toss1), club, "The club was tossed");
             assert.ok(hand.isVacant(), "The hand is vacant")
 
             let props = [club, ball];
             hand = new Hand("C", props);
             assert.equal(hand.props.length, 2, "Hand started with 2 objects");
             assert.ok(!hand.isVacant(), "it is not vacant");
-            assert.equal(hand.Toss(), club, "The club was tossed");
-            assert.equal(hand.Toss(), ball, "The ball was tossed");
+            assert.equal(hand.Toss(toss1), club, "The club was tossed");
+            assert.equal(hand.Toss(toss2), ball, "The ball was tossed");
             assert.ok(hand.isVacant(), "The hand is vacant")
 
         });
