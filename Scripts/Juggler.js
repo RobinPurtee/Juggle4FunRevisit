@@ -8,12 +8,13 @@ var Self = "S";
 var Heff = "H";
 
 
+//-----------------------------------------------------------------------------
 function TossException(toss_, message_) {
     this.toss = toss_;
     this.message = message_;
 }
 
-
+//-----------------------------------------------------------------------------
 // The object that represents a Toss 
 // parameters:
 //      direction_ - A Toss direction string (maybe a full Toss string)
@@ -51,6 +52,10 @@ function Toss(direction_, magnitude_, juggler_) {
         if (i < length) {
             this.juggler = direction_[i].toUpperCase();
         }
+        if (this.direction === Self || this.direction === Heff) {
+            this.juggler = this.originJuggler;
+        }
+
     } else {
         if (direction_ === undefined) {
             this.direction = Self;
@@ -68,6 +73,15 @@ function Toss(direction_, magnitude_, juggler_) {
 Toss.prototype.hasOrigin = function() {
     return this.originJuggler != null;
 }
+
+Toss.prototype.setOrigin = function(juggler_, hand_) {
+    this.originJuggler = juggler_;
+    this.originHand = hand_;
+    if (this.direction === Self || this.direction === Heff) {
+        this.juggler = this.originJuggler;
+    }
+}
+
 
 // Calculate the hand of the destination juggler
 // return: The destination hand if this toss has an origin juggler and hand, else undefined
@@ -130,7 +144,7 @@ Toss.prototype.toString = function() {
     return retStr;
 }
 
-
+//-----------------------------------------------------------------------------
 // The Prop class represents a prop in the pattern
 // Properties:
 //  id - the id of the prop
@@ -146,26 +160,26 @@ Prop.prototype.isInFlight = function() {
 }
 
 Prop.prototype.toString = function() {
-    let retStr = this.id.toString();
-    if (this.isInHand()) {
-        retStr += " - " + this.toss.toString();
+        let retStr = this.id.toString();
+        if (this.isInHand()) {
+            retStr += " - " + this.toss.toString();
+        }
+        return retStr;
     }
-    return retStr;
-}
-
-// Manager for the state of a hand
-// Properties:
-//  hand - the hand id under each juggler (value should be RightHand or LeftHand)
-//  props - an array of objects currently held by the hand
-// Methods:
-//  isVacant() - test if the prop array is empty
-//  Toss() - returns the prop it removes from the top of the prop array
-//  Catch(prop_) - causes the prop to be added the bottom of the prop array
-// Remarks:
-//  The state of the hand toggles based 
-// Parameters:
-//      hand_ - the hand of this object
-//      props_ - optional list of the props that are currently held by the hand
+    //-----------------------------------------------------------------------------
+    // Manager for the state of a hand
+    // Properties:
+    //  hand - the hand id under each juggler (value should be RightHand or LeftHand)
+    //  props - an array of objects currently held by the hand
+    // Methods:
+    //  isVacant() - test if the prop array is empty
+    //  Toss() - returns the prop it removes from the top of the prop array
+    //  Catch(prop_) - causes the prop to be added the bottom of the prop array
+    // Remarks:
+    //  The state of the hand toggles based 
+    // Parameters:
+    //      hand_ - the hand of this object
+    //      props_ - optional list of the props that are currently held by the hand
 function Hand(hand_, props_) {
     this.hand = hand_;
     this.props = new Array();
@@ -194,6 +208,7 @@ Hand.prototype.Catch = function(prop_) {
     this.props.push(prop_);
 }
 
+//-------------------------------------------------------------------------------------
 // Object that represents a Juggler
 // parameters:
 //  id_ - single charater Id of the juggler used 
@@ -211,7 +226,7 @@ function Juggler(id_, tossRow_, name_) {
     this.tossHand = RightHand;
     this.cycleLength = tossRow_.length;
     this.currentToss = 0;
-    this.inComingToss = new Array();
+    this.inComingProps = new Array();
     this.isTossing = true;
     this.hasHurrys = false;
     this.isHanded = true;
@@ -219,9 +234,8 @@ function Juggler(id_, tossRow_, name_) {
     for (var i = 0; i < this.cycleLength; ++i) {
         let tossStr = tossRow_[i].innerText;
         let toss = new Toss(tossStr);
-        toss.originHand = this.tossHand;
+        toss.setOrigin(this.id, this.tossHand)
         this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
-        toss.originJuggler = this.id;
         this.tosses[i] = toss;
     }
     this.tossHand = RightHand;
@@ -247,25 +261,38 @@ Juggler.prototype.setPartnerId = function(id_) {
 // called to tell the juggler about an incoming toss
 // remarks: Tosses are placed at the que index based on the magnitude of the toss. If that index already contains a toss
 //          it means that more than one prop will reach the same hand at the same time, which throws an exception.
-Juggler.prototype.inComingToss = function(toss_) {
-    if (this.inComingToss[toss_.magnitude] != undefined) {
-        throw new TossException(toss_, "Toss from " + toss_.toString() + " and " + this.inComingToss[toss_.magnitude] + " will arrive at the same time");
+Juggler.prototype.addInComingProp = function(prop_) {
+    let insertIndex = prop_.toss.magnitude - 2; // subtract one to convert to 0 base and one because it is caught a before thrown
+    if (this.inComingProps[insertIndex] != undefined) {
+        throw new TossException(prop_.toss, "Toss from " + prop_.toss.toString() + " and " + this.inComingProps[insertIndex] + " will arrive at the same time");
     }
-    this.inComingToss[toss_.magnitude] = toss_;
+    this.inComingProps[insertIndex] = prop_;
 }
 
-Juggler.prototype.Catch = function(prop_) {
-    if (this.inComingToss.length > 0) {
-        let curToss = this.inComingToss.shift();
-        if (curToss.hand != prop_.toss.hand) {
-            throw new TossException(curToss, "Prop caught by '" + this.id + "' is not hand prop was tossed too")
+Juggler.prototype.peekInComingProp = function() {
+    let ret = null;
+    if (this.inComingProps.length > 0 && this.inComingProps[0] != undefined) {
+        ret = this.inComingProps[0];
+    }
+    return ret;
+}
+
+
+Juggler.prototype.Catch = function() {
+    var propCaught = null;
+    if (this.inComingProps.length > 0) {
+        let curProp = this.inComingProps.shift();
+        if (curProp != undefined) {
+            if (curProp.isInFlight()) {
+                this.hands.get(curProp.toss.destinationHand()).Catch(curProp);
+                propCaught = curProp;
+            } else {
+                throw new TossException(null, "Missed catch due because Prop " + curProp.id + "is not in flight");
+            }
+
         }
     }
-    if (prop_.isInHand()) {
-        this.hands.get(prop_.toss.hand).Catch(prop_);
-    } else {
-        throw new TossException(null, "Missed catch due to unknown hand");
-    }
+    return propCaught;
 }
 
 Juggler.prototype.getCurrentToss = function() {
@@ -276,14 +303,15 @@ Juggler.prototype.Toss = function() {
     let isHurryComing = false;
     let toss = this.getCurrentToss();
     // if there is an in comming toss that has a destination hand (in case there is not origin)
-    if (this.inComingToss.length > 0 && this.inComingToss[0].destinationHand != undefined) {
-        isHurryComing = this.inComingToss[0].destinationHand === this.tossHand;
-        if (!isHurryComing) {
-            this.tossHand = this.inComingToss[0].destinationHand;
+    var inComingProp = this.peekInComingProp();
+    if (inComingProp != null && inComingProp.toss.destinationHand() != undefined) {
+        isHurryComing = inComingProp.toss.destinationHand() == this.tossHand;
+        if (isHurryComing) {
+            this.tossHand = this.inComingProps[0].toss.destinationHand();
         }
     }
 
-    let prop = this.hands[this.tossHand].Toss(toss);
+    let prop = this.hands.get(this.tossHand).Toss(toss);
     toss.originHand = this.tossHand;
     prop.toss = toss;
 
@@ -298,4 +326,30 @@ Juggler.prototype.Toss = function() {
 Juggler.prototype.toString = function() {
     let ret = this.id + this.tossHand;
     return ret;
+}
+
+function createPropList(numberOfProps_) {
+    let propNameIndex = 97
+    let propList = new Array(numberOfProps_);
+    for (var i = 0; i < numberOfProps_; ++i) {
+        var propCurrentName = String.fromCharCode(propNameIndex);
+        propList[i] = new Prop(propCurrentName);
+        ++propNameIndex;
+    }
+    return propList;
+}
+
+function distributeProps(jugglers_, props_) {
+    var curHand = RightHand;
+    var jugglerIndex = 0;
+    props_.forEach(function(prop_) {
+        jugglers_[jugglerIndex].pickup(curHand, prop_);
+        ++jugglerIndex;
+        if (jugglerIndex >= jugglers_.length) {
+            jugglerIndex = 0;
+            curHand = (curHand === RightHand) ? LeftHand : RightHand;
+        }
+
+    }, this);
+
 }

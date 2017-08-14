@@ -3,5 +3,7 @@
     "eslint.run": "onSave",
     "eslint.validate": [
         "javascript"
-    ]
+    ],
+    "editor.minimap.enabled": false
+
 }
