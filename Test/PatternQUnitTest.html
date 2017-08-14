@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Pattern object Tests</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.4.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-2.4.0.js"></script>
+    <script src="../Scripts/Juggler.js"></script>
+    <script>
+        QUnit.test("Pattern Constructor Test", function(assert) {
+            var pattern = new Pattern(2, 6, document.getElementById("3count"));
+            assert.equal(pattern.jugglers.length, 2, "There are 2 jugglers in the pattern");
+            assert.equal(pattern.props.length, 6, "There are 6 props in the pattern");
+            assert.equal(pattern.rhythmLength, 3, "The rhythm length is 3");
+            assert.equal(pattern.jugglers[0].hands.get(RightHand).props[0].id, 'a', "Prop a is in Juggler A's right hand");
+            assert.equal(pattern.jugglers[1].hands.get(RightHand).props[0].id, 'b', "Prop b is in Juggler B's right hand");
+            assert.equal(pattern.jugglers[0].hands.get(LeftHand).props[0].id, 'c', "Prop c is in Juggler A's right hand");
+            assert.equal(pattern.jugglers[1].hands.get(LeftHand).props[0].id, 'd', "Prop d is in Juggler B's right hand");
+            assert.equal(pattern.jugglers[0].hands.get(RightHand).props[1].id, 'e', "Prop e is in Juggler A's right hand");
+            assert.equal(pattern.jugglers[1].hands.get(RightHand).props[1].id, 'f', "Prop f is in Juggler B's right hand");
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="qunit"></div>
+
+    <table id="3count">
+        <tr>
+            <td>P</td>
+            <td>S</td>
+            <td>S</td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

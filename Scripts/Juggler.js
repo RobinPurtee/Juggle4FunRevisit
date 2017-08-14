@@ -224,14 +224,14 @@ function Juggler(id_, tossRow_, name_) {
     this.hands.set(RightHand, new Hand(RightHand));
     this.hands.set(LeftHand, new Hand(LeftHand));
     this.tossHand = RightHand;
-    this.cycleLength = tossRow_.length;
+    this.rhythmLength = tossRow_.length;
     this.currentToss = 0;
     this.inComingProps = new Array();
     this.isTossing = true;
     this.hasHurrys = false;
     this.isHanded = true;
-    this.tosses = new Array(this.cycleLength);
-    for (var i = 0; i < this.cycleLength; ++i) {
+    this.tosses = new Array(this.rhythmLength);
+    for (var i = 0; i < this.rhythmLength; ++i) {
         let tossStr = tossRow_[i].innerText;
         let toss = new Toss(tossStr);
         toss.setOrigin(this.id, this.tossHand)
@@ -277,7 +277,6 @@ Juggler.prototype.peekInComingProp = function() {
     return ret;
 }
 
-
 Juggler.prototype.Catch = function() {
     var propCaught = null;
     if (this.inComingProps.length > 0) {
@@ -317,7 +316,7 @@ Juggler.prototype.Toss = function() {
 
     this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
     ++this.currentToss;
-    if (this.currentToss === this.cycleLength) {
+    if (this.currentToss === this.rhythmLength) {
         this.currentToss = 0;
     }
     return prop;
@@ -328,28 +327,67 @@ Juggler.prototype.toString = function() {
     return ret;
 }
 
-function createPropList(numberOfProps_) {
-    let propNameIndex = 97
-    let propList = new Array(numberOfProps_);
+function Pattern(numberOfJugglers_, numberOfProps_, rhythmTable_) {
+    // create the jugglers
+    this.jugglers = new Array(numberOfJugglers_);
+    let jugglerIdIndex = 65; // charater code for 'A'
+    for (var i = 0; i < numberOfJugglers_; ++i) {
+        let tableRow = rhythmTable_.rows[i];
+        if (tableRow === undefined) {
+            tableRow = rhythmTable_.rows[0];
+        }
+        this.jugglers[i] = new Juggler(String.fromCharCode(jugglerIdIndex), tableRow.cells);
+        ++jugglerIdIndex;
+    }
+    this.rhythmLength = this.jugglers[0].rhythmLength;
+    // if there are only 2 jugglers then set the partner id to each other
+    if (numberOfJugglers_ === 2) {
+        this.jugglers[0].setPartnerId(this.jugglers[1].id);
+        this.jugglers[1].setPartnerId(this.jugglers[0].id);
+    }
+    // create the props
+    this.props = new Array(numberOfProps_);
+    let propNameIndex = 97; // charater code for 'a'
     for (var i = 0; i < numberOfProps_; ++i) {
-        var propCurrentName = String.fromCharCode(propNameIndex);
-        propList[i] = new Prop(propCurrentName);
+        this.props[i] = new Prop(String.fromCharCode(propNameIndex));
         ++propNameIndex;
     }
-    return propList;
-}
-
-function distributeProps(jugglers_, props_) {
+    // distribute the props
     var curHand = RightHand;
     var jugglerIndex = 0;
-    props_.forEach(function(prop_) {
-        jugglers_[jugglerIndex].pickup(curHand, prop_);
+    this.props.forEach(function(prop_) {
+        this.jugglers[jugglerIndex].pickup(curHand, prop_);
         ++jugglerIndex;
-        if (jugglerIndex >= jugglers_.length) {
+        if (jugglerIndex >= this.jugglers.length) {
             jugglerIndex = 0;
             curHand = (curHand === RightHand) ? LeftHand : RightHand;
         }
 
     }, this);
+}
 
+// execute the next toss in the rhythm for all jugglers
+// return: array of all tossed props 
+Pattern.prototype.Toss = function() {
+    let tosses = new Array();
+    this.jugglers.forEach(function(juggler_, index_, jugglers_) {
+        let prop = juggler_.Toss();
+        tosses.push(prop);
+        var receivingJuggler = jugglers_.find(function(j_) {
+            return j_.id === prop.toss.juggler;
+        });
+        receivingJuggler.addInComingProp(prop);
+    }, this);
+    return tosses;
+}
+
+// execute the next catch in the rhythm for all jugglers
+// return: array of all props caught
+Pattern.prototype.Catch = function() {
+    let caughts = new Array();
+    this.jugglers.forEach(function(juggler_) {
+        let prop = juggler_.Catch();
+        caughts.push(prop);
+    }, this);
+    return caughts;
 }
