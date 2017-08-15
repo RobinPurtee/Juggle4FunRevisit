@@ -4,7 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>Pattern object Tests</title>
-
+    <style>
+        table {
+            border: 2px solid red;
+        }
+    </style>
     <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.4.0.css">
     <script src="https://code.jquery.com/qunit/qunit-2.4.0.js"></script>
     <script src="../Scripts/Juggler.js"></script>
@@ -21,7 +25,9 @@
             assert.equal(pattern.jugglers[0].hands.get(RightHand).props[1].id, 'e', "Prop e is in Juggler A's right hand");
             assert.equal(pattern.jugglers[1].hands.get(RightHand).props[1].id, 'f', "Prop f is in Juggler B's right hand");
         });
-        QUnit.test("Pattern Run 3 count Test", function(assert) {
+
+
+        function testPattern(assert, patternTableElement_) {
             function arePropsValid(tossIndex, props_) {
                 let propIndex = (tossIndex * 2) % pattern.props.length;
                 let propIds = [pattern.props[propIndex].id, pattern.props[propIndex + 1].id];
@@ -35,7 +41,7 @@
                 return isValid;
             }
 
-            var pattern = new Pattern(2, 6, document.getElementById("3count"));
+            var pattern = new Pattern(2, 6, patternTableElement_);
             let tossedProps = null;
             let caughtProps = null;
             let propIndex = 0;
@@ -51,6 +57,15 @@
                 }
 
             }
+
+        }
+
+        QUnit.test("Pattern Run 3 count Test", function(assert) {
+            testPattern(assert, document.getElementById("3count"));
+        });
+
+        QUnit.test("Pattern Run Jim's 3 count Test", function(assert) {
+            testPattern(assert, document.getElementById("jims3count"));
         });
     </script>
 </head>
@@ -62,6 +77,19 @@
     <table id="3count">
         <tr>
             <td>P</td>
+            <td>S</td>
+            <td>S</td>
+        </tr>
+    </table>
+
+    <table id="jims3count">
+        <tr>
+            <td>P</td>
+            <td>S</td>
+            <td>S</td>
+        </tr>
+        <tr>
+            <td>D</td>
             <td>S</td>
             <td>S</td>
         </tr>

@@ -147,7 +147,7 @@ Toss.prototype.toString = function() {
 // The Prop class represents a prop in the pattern
 // Properties:
 //  id - the id of the prop
-//  toss - If not null it references the toss the prop is current executing. If null then the prop is in a hand or on the floor
+//  location - If not null it references the toss the prop is current executing. If null then the prop is in a hand or on the floor
 function Prop(id_) {
     this.id = id_;
     this.location = null;
@@ -244,7 +244,7 @@ function Juggler(id_, tossRow_, name_) {
     this.isHanded = true;
     this.tosses = new Array(this.rhythmLength);
     for (var i = 0; i < this.rhythmLength; ++i) {
-        let tossStr = tossRow_[i].innerText;
+        let tossStr = tossRow_[i].textContent;
         let toss = new Toss(tossStr);
         toss.setOrigin(this.id, this.tossHand)
         this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
@@ -274,11 +274,16 @@ Juggler.prototype.setPartnerId = function(id_) {
 // remarks: Tosses are placed at the que index based on the magnitude of the toss. If that index already contains a toss
 //          it means that more than one prop will reach the same hand at the same time, which throws an exception.
 Juggler.prototype.addInComingProp = function(prop_) {
-    let insertIndex = prop_.toss.magnitude - 2; // subtract one to convert to 0 base and one because it is caught a before thrown
-    if (this.inComingProps[insertIndex] != undefined) {
-        throw new TossException(prop_.toss, "Toss from " + prop_.toss.toString() + " and " + this.inComingProps[insertIndex] + " will arrive at the same time");
+    if (prop_.location instanceof Toss) {
+        let insertIndex = prop_.location.magnitude - 2; // subtract one to convert to 0 base and one because it is caught a before thrown
+        if (this.inComingProps[insertIndex] != undefined) {
+            throw new TossException(prop_.location, "Toss from " + prop_.location.toString() + " and " + this.inComingProps[insertIndex] + " will arrive at the same time");
+        }
+        this.inComingProps[insertIndex] = prop_;
+    } else {
+        prop_.location = null; // pro has landed on the floor
+        throw new TossException(prop.location, "Dropped prop " + prop_.id + " on the floor because it has no valid destination");
     }
-    this.inComingProps[insertIndex] = prop_;
 }
 
 Juggler.prototype.peekInComingProp = function() {
@@ -295,7 +300,7 @@ Juggler.prototype.Catch = function() {
         let curProp = this.inComingProps.shift();
         if (curProp != undefined) {
             if (curProp.isInFlight()) {
-                this.hands.get(curProp.toss.destinationHand()).Catch(curProp);
+                this.hands.get(curProp.location.destinationHand()).Catch(curProp);
                 propCaught = curProp;
             } else {
                 throw new TossException(null, "Missed catch due because Prop " + curProp.id + "is not in flight");
@@ -315,16 +320,16 @@ Juggler.prototype.Toss = function() {
     let toss = this.getCurrentToss();
     // if there is an in comming toss that has a destination hand (in case there is not origin)
     var inComingProp = this.peekInComingProp();
-    if (inComingProp != null && inComingProp.toss.destinationHand() != undefined) {
-        isHurryComing = inComingProp.toss.destinationHand() == this.tossHand;
+    if (inComingProp != null && inComingProp.location.destinationHand() != undefined) {
+        isHurryComing = inComingProp.location.destinationHand() != this.tossHand;
         if (isHurryComing) {
-            this.tossHand = this.inComingProps[0].toss.destinationHand();
+            this.tossHand = this.inComingProps[0].location.destinationHand();
         }
     }
 
     let prop = this.hands.get(this.tossHand).Toss(toss);
     toss.originHand = this.tossHand;
-    prop.toss = toss;
+    prop.location = toss;
 
     this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
     ++this.currentToss;
@@ -388,7 +393,7 @@ Pattern.prototype.Toss = function() {
         let prop = juggler_.Toss();
         tosses.push(prop);
         var receivingJuggler = jugglers_.find(function(j_) {
-            return j_.id === prop.toss.juggler;
+            return j_.id === prop.location.juggler;
         });
         receivingJuggler.addInComingProp(prop);
     }, this);
