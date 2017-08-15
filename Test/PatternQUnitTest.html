@@ -21,6 +21,37 @@
             assert.equal(pattern.jugglers[0].hands.get(RightHand).props[1].id, 'e', "Prop e is in Juggler A's right hand");
             assert.equal(pattern.jugglers[1].hands.get(RightHand).props[1].id, 'f', "Prop f is in Juggler B's right hand");
         });
+        QUnit.test("Pattern Run 3 count Test", function(assert) {
+            function arePropsValid(tossIndex, props_) {
+                let propIndex = (tossIndex * 2) % pattern.props.length;
+                let propIds = [pattern.props[propIndex].id, pattern.props[propIndex + 1].id];
+                let isValid = true;
+                while (isValid && propIndex < props_.length) {
+                    isValid = propIds.find(function(tossedProp_) {
+                        return props_[propIndex].id === tossedProp_;
+                    }) != undefined;
+                    ++propIndex;
+                }
+                return isValid;
+            }
+
+            var pattern = new Pattern(2, 6, document.getElementById("3count"));
+            let tossedProps = null;
+            let caughtProps = null;
+            let propIndex = 0;
+            for (var toss = 0; toss < 12; ++toss) {
+                tossedProps = pattern.Toss();
+                assert.equal(tossedProps.length, 2, "2 props tossed");
+                assert.ok(arePropsValid(toss, tossedProps), "The correct props where tossed");
+                caughtProps = pattern.Catch();
+                if (toss < 1) { // the first 2 tosses have no catch
+                    assert.equal(caughtProps, null, "No props caught");
+                } else {
+                    assert.ok(arePropsValid(toss - 1, caughtProps), "The correct props where caught");
+                }
+
+            }
+        });
     </script>
 </head>
 

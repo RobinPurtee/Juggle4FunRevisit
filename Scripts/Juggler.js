@@ -82,7 +82,6 @@ Toss.prototype.setOrigin = function(juggler_, hand_) {
     }
 }
 
-
 // Calculate the hand of the destination juggler
 // return: The destination hand if this toss has an origin juggler and hand, else undefined
 Toss.prototype.destinationHand = function() {
@@ -151,24 +150,35 @@ Toss.prototype.toString = function() {
 //  toss - If not null it references the toss the prop is current executing. If null then the prop is in a hand or on the floor
 function Prop(id_) {
     this.id = id_;
-    this.toss = null;
+    this.location = null;
 }
 
 // Test if prop is in a hand 
 Prop.prototype.isInFlight = function() {
-    return this.toss != null;
+    return this.location != null && this.location instanceof Toss;
+}
+
+Prop.prototype.isInHand = function() {
+    return this.location != null && this.location instanceof Hand;
+}
+
+Prop.prototype.isOnFloor = function() {
+    return this.location === null;
 }
 
 Prop.prototype.toString = function() {
         let retStr = this.id.toString();
-        if (this.isInHand()) {
-            retStr += " - " + this.toss.toString();
+        if (this.isOnFloor()) {
+            retStr += " - Floor";
+        } else {
+            retStr += " - " + this.location.toString();
         }
         return retStr;
     }
     //-----------------------------------------------------------------------------
     // Manager for the state of a hand
     // Properties:
+    // jugglerId - the id of the juggler 
     //  hand - the hand id under each juggler (value should be RightHand or LeftHand)
     //  props - an array of objects currently held by the hand
     // Methods:
@@ -180,16 +190,10 @@ Prop.prototype.toString = function() {
     // Parameters:
     //      hand_ - the hand of this object
     //      props_ - optional list of the props that are currently held by the hand
-function Hand(hand_, props_) {
+function Hand(jugglerId_, hand_) {
+    this.jugglerId = jugglerId_;
     this.hand = hand_;
     this.props = new Array();
-    if (props_ != undefined) {
-        if (Array.isArray(props_)) {
-            this.props = this.props.concat(props_);
-        } else {
-            this.props.push(props_);
-        }
-    }
 }
 
 Hand.prototype.isVacant = function() {
@@ -198,14 +202,22 @@ Hand.prototype.isVacant = function() {
 
 Hand.prototype.Toss = function(toss_) {
     let prop = this.props.shift();
+    if (toss_.originJuggler === null) {
+        toss_.originJuggler = this.jugglerId;
+    }
     toss_.originHand = this.hand;
-    prop.toss = toss_;
+    prop.location = toss_;
     return prop;
 }
 
 Hand.prototype.Catch = function(prop_) {
-    prop_.toss = null;
+    //TODO: possibly validate the prop is intended for this hand
+    prop_.location = this;
     this.props.push(prop_);
+}
+
+Hand.prototype.toString = function() {
+    return this.jugglerId.toString() + this.hand.toString();
 }
 
 //-------------------------------------------------------------------------------------
@@ -221,8 +233,8 @@ function Juggler(id_, tossRow_, name_) {
     this.id = id_;
     this.name = name_;
     this.hands = new Map();
-    this.hands.set(RightHand, new Hand(RightHand));
-    this.hands.set(LeftHand, new Hand(LeftHand));
+    this.hands.set(RightHand, new Hand(this.id, RightHand));
+    this.hands.set(LeftHand, new Hand(this.id, LeftHand));
     this.tossHand = RightHand;
     this.rhythmLength = tossRow_.length;
     this.currentToss = 0;
@@ -327,6 +339,8 @@ Juggler.prototype.toString = function() {
     return ret;
 }
 
+//-------------------------------------------------------------------------------------
+
 function Pattern(numberOfJugglers_, numberOfProps_, rhythmTable_) {
     // create the jugglers
     this.jugglers = new Array(numberOfJugglers_);
@@ -387,7 +401,35 @@ Pattern.prototype.Catch = function() {
     let caughts = new Array();
     this.jugglers.forEach(function(juggler_) {
         let prop = juggler_.Catch();
-        caughts.push(prop);
+        if (prop != null) {
+            caughts.push(prop);
+        }
     }, this);
+    if (caughts.length == 0) {
+        caughts = null;
+    }
     return caughts;
+}
+
+Pattern.prototype.hasCycled = function() {
+    let propIndex = 0;
+    let currentHand = RightHand;
+    let isComplete = true;
+    for (let i = 0; i < 2 && isComplete; ++i) {
+        for (let jugglerIndex = 0; jugglerIndex < this.jugglers.length && propIndex < this.props.length && isComplete; ++jugglerIndex) {
+            isComplete = this.props[propIndex].isInHand &&
+                this.props[propIndex].location.juggler == this.jugglers[jugglerIndex].id &&
+                this.props[propIndex].location.hand === currentHand;
+            ++propIndex;
+        }
+        if (isComplete) {
+            currentHand = LeftHand;
+        }
+    }
+    currentHand = RightHand;
+    for (let jugglerIndex = 0; jugglerIndex < this.jugglers.length && propIndex < this.props.length && isComplete; ++jugglerIndex) {
+        isComplete = this.props[propIndex].isInFlight() &&
+            this.props[propIndex].location.juggler == this.jugglers[jugglerIndex].id &&
+            this.props[propIndex].location.hand == currentHand;
+    }
 }
