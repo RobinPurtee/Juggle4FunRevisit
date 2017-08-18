@@ -27,7 +27,7 @@
         });
 
 
-        function testPattern(assert, patternTableElement_) {
+        function testPattern(assert, patternTableElement_, outputElement_) {
             function arePropsValid(tossIndex, props_) {
                 let propIndex = (tossIndex * 2) % pattern.props.length;
                 let propIds = [pattern.props[propIndex].id, pattern.props[propIndex + 1].id];
@@ -45,6 +45,7 @@
             let tossedProps = null;
             let caughtProps = null;
             let propIndex = 0;
+            let output = "Pattern name: ";
             for (var toss = 0; toss < 12; ++toss) {
                 tossedProps = pattern.Toss();
                 assert.equal(tossedProps.length, 2, "2 props tossed");
@@ -55,17 +56,27 @@
                 } else {
                     assert.ok(arePropsValid(toss - 1, caughtProps), "The correct props where caught");
                 }
-
+                output += "Toss: " + (toss < 10) ? (" " + toss) : toss + " has tosses ";
+                tossedProps.forEach(function(prop_) {
+                    output += "Prop " + prop_.toString() + " ";
+                });
+                if (caughtProps != null) {
+                    output += "Catches are: ";
+                    caughtProps.forEach(function(prop_) {
+                        output += "Prop " + prop_.toString() + " ";
+                    });
+                }
+                output += "<br/>";
             }
-
+            outputElement_.textContent = output;
         }
 
         QUnit.test("Pattern Run 3 count Test", function(assert) {
-            testPattern(assert, document.getElementById("3count"));
+            testPattern(assert, document.getElementById("3count"), document.getElementById("output"));
         });
 
         QUnit.test("Pattern Run Jim's 3 count Test", function(assert) {
-            testPattern(assert, document.getElementById("jims3count"));
+            testPattern(assert, document.getElementById("jims3count"), document.getElementById("output"));
         });
     </script>
 </head>
@@ -95,6 +106,7 @@
         </tr>
     </table>
 
+    <p id="output"></p>
 </body>
 
 </html>
