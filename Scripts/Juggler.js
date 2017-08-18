@@ -416,6 +416,23 @@ Pattern.prototype.Catch = function() {
     return caughts;
 }
 
+
+Pattern.prototype.RunForCycle = function(limit) {
+    for (var toss = 0; toss < limit; ++toss) {
+        tossedProps = pattern.Toss();
+        assert.equal(tossedProps.length, 2, "2 props tossed");
+        assert.ok(arePropsValid(toss, tossedProps), "The correct props where tossed");
+        caughtProps = pattern.Catch();
+        if (toss < 1) { // the first 2 tosses have no catch
+            assert.equal(caughtProps, null, "No props caught");
+        } else {
+            assert.ok(arePropsValid(toss - 1, caughtProps), "The correct props where caught");
+        }
+
+    }
+}
+
+
 Pattern.prototype.hasCycled = function() {
     let propIndex = 0;
     let currentHand = RightHand;
