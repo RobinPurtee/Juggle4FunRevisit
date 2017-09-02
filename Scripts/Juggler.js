@@ -195,7 +195,7 @@ function Hand(jugglerId_, hand_) {
     this.hand = hand_;
     this.props = new Array();
 }
-
+//-----------------------------------------------------------------------------
 Hand.prototype.isVacant = function() {
     return (this.props.length === 0);
 }
@@ -282,7 +282,7 @@ Juggler.prototype.addInComingProp = function(prop_) {
         this.inComingProps[insertIndex] = prop_;
     } else {
         prop_.location = null; // pro has landed on the floor
-        throw new TossException(prop.location, "Dropped prop " + prop_.id + " on the floor because it has no valid destination");
+        throw new TossException(prop_.location, "Dropped prop " + prop_.id + " on the floor because it has no valid destination");
     }
 }
 
@@ -419,7 +419,7 @@ Pattern.prototype.Catch = function() {
 
 Pattern.prototype.RunForCycle = function(limit) {
     for (var toss = 0; toss < limit; ++toss) {
-        tossedProps = pattern.Toss();
+        let tossedProps = this.pattern.Toss();
         assert.equal(tossedProps.length, 2, "2 props tossed");
         assert.ok(arePropsValid(toss, tossedProps), "The correct props where tossed");
         caughtProps = pattern.Catch();
