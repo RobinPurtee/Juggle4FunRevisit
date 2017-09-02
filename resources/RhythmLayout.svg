@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <svg
-   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 215 100" id="rhythmLayout">
+   xmlns="http://www.w3.org/2000/svg"viewBox="0 0 215 100" id="rhythmLayout">
   <defs>
+    <symbol id="ClubSymbol" style="overflow:visible">
+        <path id="clubPath" style="opacity: 1; fill: rgb(235, 235, 235); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-linejoin: round; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.5;" d="M 0.5 6.984 C 8.459 10.407 15.413 10.152 20.416 7.584 C 22.12 6.821 23.976 6.128 25.977 6.063 C 25.977 6.063 34.166 5.7 37.993 5.808 C 38.017 7.077 40.501 7.077 40.5 5.833 C 40.5 5.833 40.468 4.345 40.482 4.158 C 40.501 2.98 38.017 2.98 38.016 4.237 C 34.17 4.243 31.628 4.019 25.85 3.783 C 23.255 3.748 22.12 3.236 20.37 2.392 C 15.413 -0.095 8.459 -0.35 0.566 2.956 C 0.53 3.763 0.513 5.713 0.5 6.984 Z"/>                
+    </symbol>
 
     <marker orient="auto" refY="0" refX="0" id="ClubEnd" style="overflow:visible">
       <path id="clubPath" 
@@ -19,7 +22,6 @@
       .rightHand {fill:#00e800;stroke:#000000;stroke-width:1}
     ]]></style>
   </defs>
-
   <g>
     <g id="juggler-a" transform="translate(15,52)">
       <g id="torso-a" transform="rotate(-90)">
