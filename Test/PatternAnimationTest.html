@@ -14,13 +14,6 @@
         body {
             background-color: #505050;
         }
-        
-        #demo {
-            width: 692px;
-            height: 60px;
-            background-color: #333;
-            padding: 8px;
-        }
     </style>
 </head>
 
@@ -35,14 +28,18 @@
                 <path style="opacity: 1; fill: rgb(235, 235, 235); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-linejoin: round; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.375;" d="M -12.5 -1.016 C -9.317 0.349 -6.535 0.247 -4.533 -0.776 C -3.852 -1.08 -3.11 -1.357 -2.309 -1.384 C -2.309 -1.384 0.966 -1.527 2.497 -1.484 C 2.507 -0.978 3.5 -0.978 3.5 -1.474 C 3.5 -1.474 3.487 -2.068 3.493 -2.142 C 3.5 -2.612 2.507 -2.612 2.507 -2.111 C 0.968 -2.108 -0.049 -2.197 -2.36 -2.292 C -3.398 -2.305 -3.852 -2.51 -4.552 -2.846 C -6.535 -3.837 -9.317 -3.939 -12.474 -2.621 C -12.488 -2.299 -12.495 -1.522 -12.5 -1.016 Z" transform="matrix(-1, 0, 0, -1, -9, -1.75)"/>
             </marker>
             <style type="text/css">
-                .toss {stroke:#000000;stroke-opacity:1;stroke-width:2;marker-end:url(#ClubEnd);fill:none;stroke-dasharray: 128;stroke-dashoffset: 0;}
+                .toss {stroke:#000000;
+                        stroke-opacity:0.9;
+                        stroke-width:2;
+                        marker-end:url(#ClubEnd);
+                    }
                 .arm {fill:none;stroke:#000000;stroke-width:1}
                 .head {fill:#ebebeb;stroke:#000000;stroke-width:1}
                 .leftHand {fill:#e80000;stroke:#000000;stroke-width:1}
                 .rightHand {fill:#00e800;stroke:#000000;stroke-width:1}
             </style>
         </defs>
-
+        
         <use id="club" href="#ClubSymbol" transform="rotate(180, 42, 13)"/>
         
         <g>
@@ -68,7 +65,7 @@
             </g>
         </g>
         
-        <path id="AR-3PB" d="M  43,87 168,87"   class="toss" display="none" />
+        <path id="AR-3PB" d="M  43,87 168,87"   class="toss" display="none"/>
         <path id="AR-3DB" d="M  43,87 168,26"   class="toss" display="none"/>
         <path id="AR-3SA" d="M  43,85  43,26"   class="toss" display="none"/>
         <path id="AL-3PB" d="M  43,26 168,26"   class="toss" display="none"/>
@@ -91,7 +88,9 @@
         function displayToss(toss_) {
             var length = toss_.getTotalLength();
             toss_.style.display = "inline";
-            //toss.style.strokeDashoffset = "0";
+            var dashLength = length * 0.10;
+            toss_.style.strokeDasharray = [dashLength, dashLength];
+            toss_.style.strokeDashoffset = length;
         }
 
         window.onload = function() {
@@ -103,13 +102,12 @@
                 return;
             }
 
-            var toss = document.getElementById("club");
+            var toss = svgDoc.getElementById("AR-3DB");
+            displayToss(toss);
 
             try {
                 TweenLite.to(toss, 4, {
-                    transformOrigin:"18 4.5",
-                    x: 168,
-                    rotation: "-=540",
+                    strokeDashoffset: 0,
                     ease: Power0.easeNone
                 });
             } catch (err) {
@@ -119,4 +117,5 @@
         }
     </script>
 </body>
+
 </html>
