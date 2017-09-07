@@ -1,14 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-38 -15 76 46" id="jugglerImage">
-  <g id="juggler" transform="translate(0,0)">
-    <g id="juggler-angle" transform="rotate(0)">
-      <path class="leftArm"  d="m 30,18 c 0,-13.6 -5.76,-18.5 -18.7,-18.7" style="fill:none;stroke:#000000;stroke-width:1;"></path>
-      <circle class="leftHand"  r="7"  cx="30" cy="23" style="fill:#e80000;stroke:#000000;stroke-width:1"></circle>
-      <path class="rightArm" d="m -30,18   c 0,-13.6  5.76,-18.5  18.7,-18.7" style="fill:none;stroke:#000000;stroke-width:1;"></path>
-      <circle class="rightHand" r="7"   cx="-30" cy="23" style="fill:#00e800;stroke:#000000;stroke-width:1"></circle>
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="jugglerImage" viewBox="-38 -38 76 76" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css">
+      path {fill:none;stroke:#000000;stroke-width:1;}
+      circle {stroke:#000000;stroke-width:1;}
+      text {white-space: pre; font-size: 15px;}
+      #leftHand {fill:#e80000;}
+      #rightHand {fill:#00e800;}
+      #head {fill:#ebebeb;}
+    </style>
+  </defs>
+  <g id="juggler">
+    <g id="juggler-angle">
+      <path d="m 30,18 c 0,-13.6 -5.76,-18.5 -18.7,-18.7"/>
+      <circle id="leftHand" class="hand" r="7" cx="30" cy="23"/>
+      <path d="m -30,18   c 0,-13.6  5.76,-18.5  18.7,-18.7"/>
+      <circle id="rightHand" class="hand" r="7" cx="-30" cy="23"/>
     </g>
-    <circle class="head"      r="12" cy="0" cx="0" style="fill:#ebebeb;stroke:#000000;stroke-width:1"></circle>
-    <text class="name" y="4" x="-4">A</text>
+    <circle id="head" r="12" cy="0" cx="0"/>
+    <text id="name" y="5.25" x="-4.914">A</text>
   </g>
-
 </svg>
