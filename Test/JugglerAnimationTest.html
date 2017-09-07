@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Pattern Animation Test</title>
+    <!--CDN link for  TweenMax-->
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script> -->
+    <script type="text/javascript" src="../Scripts/GSAP/plugins/CSSPlugin.min.js"></script>
+    <script type="text/javascript" src="../Scripts/GSAP/easing/EasePack.min.js"></script>
+    <script type="text/javascript" src="../Scripts/GSAP/TweenLite.min.js"></script>
+    <style>
+        body {
+            background-color: #505050;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Animation of a test pattern</h2>
+    <svg id="jugglerImage" viewBox="-42.5 -42.5 85 85" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <style type="text/css">
+            path {fill:none;stroke:#000000;stroke-width:1;}
+            circle {stroke:#000000;stroke-width:1;}
+            text {white-space: pre; font-size: 15px;}
+            #leftHand {fill:#e80000;}
+            #rightHand {fill:#00e800;}
+            #head {fill:#ebebeb;}
+          </style>
+        </defs>
+        <g id="juggler">
+          <g id="juggler-angle">
+            <path d="m 30,18 c 0,-13.6 -5.76,-18.5 -29,-18.7"/>
+            <circle id="leftHand" class="hand" r="7" cx="30" cy="23"/>
+            <path d="m -30,18   c 0,-13.6  5.76,-18.5  29,-18.7"/>
+            <circle id="rightHand" class="hand" r="7" cx="-30" cy="23"/>
+          </g>
+          <circle id="head" r="12" cy="0" cx="0"/>
+          <text id="name" y="5.25" x="-4.914">A</text>
+        </g>
+      </svg>
+    <p id="errorDisplay"></p>
+    <script>
+        var torso = null;
+        var angle = 45;
+        window.onkeypress = function(win, evnt) {
+            if (torso !== null) {
+                angle += 45;
+                if (angle >= 360) {
+                    angle = 0;
+                }
+                TweenLite.to(torso, 1, {
+                    rotation: angle,
+                    transformOrigin: origin,
+                    ease: Power0.easeNone
+                });
+            }
+        }
+
+        window.onload = function() {
+            var svgObject = document.getElementById("jugglerImage");
+            var errElement = document.getElementById("errorDisplay");
+            var svgDoc = svgObject;
+            if (svgDoc == null) {
+                errElement.textContent = "Unable to load the image";
+                return;
+            }
+
+            torso = svgDoc.getElementById("juggler-angle");
+            let origin = "36.5, 0.5";
+            try {
+                TweenLite.to(torso, 1, {
+                    rotation: angle,
+                    transformOrigin: origin,
+                    ease: Power0.easeNone
+                });
+            } catch (err) {
+                errElement.textContent = "Exception from animation";
+            }
+
+        }
+    </script>
+</body>
+
+</html>
