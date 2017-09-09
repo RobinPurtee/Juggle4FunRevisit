@@ -7,9 +7,9 @@
     <title>Pattern Animation Test</title>
     <!--CDN link for  TweenMax-->
     <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script> -->
-    <script type="text/javascript" src="../Scripts/GSAP/plugins/CSSPlugin.min.js"></script>
-    <script type="text/javascript" src="../Scripts/GSAP/easing/EasePack.min.js"></script>
-    <script type="text/javascript" src="../Scripts/GSAP/TweenLite.min.js"></script>
+    <script type="text/javascript" src="../Scripts/GSAP/plugins/CSSPlugin.js"></script>
+    <script type="text/javascript" src="../Scripts/GSAP/easing/EasePack.js"></script>
+    <script type="text/javascript" src="../Scripts/GSAP/TweenLite.js"></script>
     <style>
         body {
             background-color: #505050;
@@ -19,7 +19,7 @@
 
 <body>
     <h2>Animation of a test pattern</h2>
-    <svg id="jugglerImage" viewBox="-42.5 -42.5 85 85" xmlns="http://www.w3.org/2000/svg">
+    <svg id="jugglerImage" width="600" height="600" viewBox="-47.5 -47.5 95 95" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <style type="text/css">
             path {fill:none;stroke:#000000;stroke-width:1;}
@@ -42,43 +42,64 @@
         </g>
       </svg>
     <p id="errorDisplay"></p>
+
+
     <script>
-        var torso = null;
-        var angle = 45;
+        function JugglerView(elementID) {
+            this.torso = null;
+            this.angle = 0;
+            this.jugglerObject = document.getElementById(elementID);
+            this.origin = "37, 0";
+            if (this.jugglerObject == null) {
+                throw new Error("unable to locate the SVG element given");
+            }
+            this.torso = this.jugglerObject.getElementById("juggler-angle");
+            if (this.torso == null) {
+                throw new Error("Unable to find the torso in giving juggler element");
+            }
+
+        }
+
+        JugglerView.prototype.animateToAngle = function(angle_, time_) {
+            var time = 1;
+            if (undefined === time_) {
+                time = 1;
+            }
+            if (undefined != angle_) {
+                this.angle = angle_;
+            }
+            TweenLite.to(this.torso, time, {
+                rotation: this.angle,
+                transformOrigin: this.origin,
+                ease: Power0.easeNone
+            });
+
+
+
+        }
+
+        var jugglerView = null;
+
         window.onkeypress = function(win, evnt) {
-            if (torso !== null) {
-                angle += 45;
-                if (angle >= 360) {
-                    angle = 0;
+            if (jugglerView != null) {
+                jugglerView.angle += 45;
+                if (jugglerView.angle > 360) {
+                    jugglerView.angle = 0;
                 }
-                TweenLite.to(torso, 1, {
-                    rotation: angle,
-                    transformOrigin: origin,
-                    ease: Power0.easeNone
-                });
+                jugglerView.animateToAngle();
             }
         }
 
         window.onload = function() {
-            var svgObject = document.getElementById("jugglerImage");
             var errElement = document.getElementById("errorDisplay");
-            var svgDoc = svgObject;
-            if (svgDoc == null) {
-                errElement.textContent = "Unable to load the image";
+            try {
+                jugglerView = new JugglerView("jugglerImage")
+            } catch (err) {
+                errElement.textContent = "Error creating JugglerView because: " + err.message;
                 return;
             }
 
-            torso = svgDoc.getElementById("juggler-angle");
-            let origin = "36.5, 0.5";
-            try {
-                TweenLite.to(torso, 1, {
-                    rotation: angle,
-                    transformOrigin: origin,
-                    ease: Power0.easeNone
-                });
-            } catch (err) {
-                errElement.textContent = "Exception from animation";
-            }
+            jugglerView.animateToAngle(45, 1);
 
         }
     </script>
