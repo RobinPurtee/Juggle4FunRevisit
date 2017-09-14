@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SVGjs Animation Test</title>
+    <script type="text/javascript" src="../Scripts/svgjs/svg.js"></script>
+    <style>
+        body {
+            background-color: #505050;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Animation of a juggler torso</h2>
+    <div id="jugglerImage"></div>
+    <p id="errorDisplay" style="white-space:pre"></p>
+
+
+    <script>
+        var errElement = document.getElementById("errorDisplay");
+
+        function DisplayError(message_) {
+            errElement.textContent = message_;
+        }
+
+        function JugglerPosition(x_, y_, angle_) {
+            this.x = 0;
+            this.y = 0;
+            this.angle = 0;
+            if (undefined !== x_) {
+                this.x = x_
+            }
+            if (undefined !== y_) {
+                this.y = y_
+            }
+            if (undefined !== angle_) {
+                this.angle = angle_
+            }
+        }
+
+
+
+        function JugglerView(svgRoot_, name_, position_) {
+            let pathStyle = {
+                stroke: "#000000",
+                "stroke-width": 1,
+                fill: "none"
+            };
+            this.juggler = svgRoot_.group();
+            // build the torso group
+            this.torso = this.juggler.group();
+            this.torso.path("m 30,18 c 0,-13.6 -5.76,-18.5 -29,-18.7").attr(pathStyle);
+            this.torso.path("m -30,18   c 0,-13.6  5.76,-18.5  29,-18.7").attr(pathStyle);
+            this.rightHand = this.torso.circle(12).center(-30, 23).attr(pathStyle).fill({
+                color: "#e80000"
+            });
+            this.leftHand = this.torso.circle(12).center(30, 23).attr(pathStyle).fill({
+                color: "#00e800"
+            });
+            // torso built
+            this.juggler.circle(24).center(0, 0).attr(pathStyle).fill({
+                color: "#ebebeb"
+            });
+            this.juggler.text(name_).center(0, 0).attr({
+                "font-size": "15px"
+            });
+            this.juggler.move(position_.x, position_.y);
+            this.torso.rotate(position_.angle, 0, 0);
+        }
+
+        JugglerView.prototype.animateToAngle = function(angle_, time_) {
+            var time = 1;
+            if (undefined === time_) {
+                time = 1;
+            }
+            if (undefined != angle_) {
+                this.angle = angle_;
+            }
+
+            let angleMatrix = new SVG.Matrix().rotate(this.angle);
+
+            this.torso.animate(1000, "-", 0).transform(angleMatrix).after(function(situation) {
+                DisplayError("Current angle = " + this.transform("rotation").toString());
+            });
+
+        }
+
+        var jugglerView;
+        var svgRoot = SVG("jugglerImage").size(600, 400).viewbox(0, 0, 95, 95);
+        var jugglerAngle = 0;
+        var isClockwiseTurn = true;
+        window.onkeypress = function() {
+            if (jugglerView != null) {
+                if (isClockwiseTurn) {
+                    jugglerAngle += 45;
+                    if (jugglerAngle > 360) {
+                        jugglerAngle -= 90;
+                        isClockwiseTurn = false;
+                    }
+                } else {
+                    jugglerAngle -= 45;
+                    if (jugglerAngle < 0) {
+                        jugglerAngle += 90;
+                        isClockwiseTurn = true;
+                    }
+                }
+                jugglerView.animateToAngle(jugglerAngle);
+            }
+        }
+
+        window.onload = function() {
+
+            try {
+                curPosition = new JugglerPosition(40, 45, 0)
+                curName = "A".charCodeAt(0);
+                jugglerView = (new JugglerView(svgRoot, String.fromCharCode(curName), curPosition));
+
+            } catch (err) {
+                DisplayError("Error creating JugglerView because: " + err.message);
+                return;
+            }
+
+            //jugglerView.animateToAngle(45, 1);
+
+        }
+    </script>
+</body>
+
+</html>
