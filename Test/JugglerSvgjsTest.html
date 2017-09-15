@@ -5,25 +5,19 @@
 <head>
     <meta charset="utf-8" />
     <title>SVGjs Animation Test</title>
-    <script type="text/javascript" src="../Scripts/svgjs/svg.js"></script>
-    <style>
-        body {
-            background-color: #505050;
-        }
-    </style>
-</head>
-
-<body>
-    <h2>Animation of a juggler torso</h2>
-    <div id="jugglerImage"></div>
-    <p id="errorDisplay" style="white-space:pre"></p>
-
-
+    <!-- <script type="text/javascript" src="../Scripts/svgjs/svg.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.js"></script>
     <script>
-        var errElement = document.getElementById("errorDisplay");
-
         function DisplayError(message_) {
-            errElement.textContent = message_;
+            document.getElementById("errorDisplay").textContent = message_;
+        }
+
+        function DisplaySetAngle(angle) {
+            document.getElementById("angleSet").textContent = "Angle Set to: " + angle;
+        }
+
+        function DisplayActualAngle(angle) {
+            document.getElementById("angleActual").textContent = "Actual Angle: " + angle;
         }
 
         function JugglerPosition(x_, y_, angle_) {
@@ -79,44 +73,43 @@
             if (undefined != angle_) {
                 this.angle = angle_;
             }
-
+            DisplaySetAngle(this.angle);
             let angleMatrix = new SVG.Matrix().rotate(this.angle);
 
             this.torso.animate(1000, "-", 0).transform(angleMatrix).after(function(situation) {
-                DisplayError("Current angle = " + this.transform("rotation").toString());
+                DisplayActualAngle(this.transform("rotation").toString());
             });
 
         }
 
-        var jugglerView;
-        var svgRoot = SVG("jugglerImage").size(600, 400).viewbox(0, 0, 95, 95);
-        var jugglerAngle = 0;
-        var isClockwiseTurn = true;
-        window.onkeypress = function() {
-            if (jugglerView != null) {
-                if (isClockwiseTurn) {
-                    jugglerAngle += 45;
-                    if (jugglerAngle > 360) {
-                        jugglerAngle -= 90;
-                        isClockwiseTurn = false;
-                    }
-                } else {
-                    jugglerAngle -= 45;
-                    if (jugglerAngle < 0) {
-                        jugglerAngle += 90;
-                        isClockwiseTurn = true;
-                    }
-                }
-                jugglerView.animateToAngle(jugglerAngle);
+
+
+        function onLeftTurn() {
+            if (jugglerAngle > 0) {
+                jugglerAngle -= 45;
             }
+            jugglerView.animateToAngle(jugglerAngle);
+        }
+
+        function onRightTurn() {
+            if (jugglerAngle < 360) {
+                jugglerAngle += 45;
+            }
+            jugglerView.animateToAngle(jugglerAngle);
         }
 
         window.onload = function() {
+            svgRoot = SVG("jugglerImage").size(600, 400).viewbox(0, 0, 95, 95);
+            jugglerAngle = 0;
 
             try {
-                curPosition = new JugglerPosition(40, 45, 0)
-                curName = "A".charCodeAt(0);
-                jugglerView = (new JugglerView(svgRoot, String.fromCharCode(curName), curPosition));
+                //curPosition = new JugglerPosition(40, 45, 0)
+                var curPosition = {
+                    x: 40,
+                    y: 45,
+                    angle: 0
+                };
+                jugglerView = (new JugglerView(svgRoot, "A", curPosition));
 
             } catch (err) {
                 DisplayError("Error creating JugglerView because: " + err.message);
@@ -127,6 +120,23 @@
 
         }
     </script>
+    <style>
+        body {
+            background-color: #505050;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Animation of a juggler torso</h2>
+    <div id="jugglerImage"></div>
+    <button id="leftTurn" type="button" onclick="onLeftTurn()">&lt</button>
+    <button id="rightTurn" type="button" onclick="onRightTurn()">&gt</button>
+    <p id="angleSet" style="white-space:pre"></p>
+    <p id="angleActual" style="white-space:pre"></p>
+    <p id="errorDisplay" style="white-space:pre"></p>
+
+
 </body>
 
 </html>
