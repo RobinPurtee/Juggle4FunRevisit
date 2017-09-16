@@ -46,12 +46,11 @@
             this.juggler = svgRoot_.group();
             // build the torso group
             this.torso = this.juggler.group();
-            this.torso.path("m 30,18 c 0,-13.6 -5.76,-18.5 -29,-18.7").attr(pathStyle);
-            this.torso.path("m -30,18   c 0,-13.6  5.76,-18.5  29,-18.7").attr(pathStyle);
-            this.rightHand = this.torso.circle(12).center(-30, 23).attr(pathStyle).fill({
+            this.torso.path("M 19.798 -30.072 C 13.049 -30.072 6.308 -30.072 2.927 -25.144 C 0.222 -21.198 -0.318 -14.093 -0.425 -6.244 C -0.452 -4.29 -0.452 -2.289 -0.452 -0.28 C -0.452 1.551 -0.452 3.378 -0.431 5.174 C -0.337 13.265 0.183 20.705 3.046 24.856 C 6.538 29.928 13.55 29.928 20.548 29.928").attr(pathStyle);
+            this.rightHand = this.torso.circle(12).center(21, 30).attr(pathStyle).fill({
                 color: "#e80000"
             });
-            this.leftHand = this.torso.circle(12).center(30, 23).attr(pathStyle).fill({
+            this.leftHand = this.torso.circle(12).center(21, -30).attr(pathStyle).fill({
                 color: "#00e800"
             });
             // torso built
@@ -67,13 +66,14 @@
 
         JugglerView.prototype.animateToAngle = function(angle_, time_) {
             var time = 1;
-            if (undefined === time_) {
-                time = 1;
+            var angle = this.angle;
+            if (undefined !== time_) {
+                time = time_;
             }
             if (undefined != angle_) {
-                this.angle = angle_;
+                angle = angle_;
             }
-            DisplaySetAngle(this.angle);
+            DisplaySetAngle(angle);
             let angleMatrix = new SVG.Matrix().rotate(this.angle);
 
             this.torso.animate(1000, "-", 0).transform(angleMatrix).after(function(situation) {
@@ -87,15 +87,15 @@
         function onLeftTurn() {
             if (jugglerAngle > 0) {
                 jugglerAngle -= 45;
+                jugglerView.animateToAngle(jugglerAngle);
             }
-            jugglerView.animateToAngle(jugglerAngle);
         }
 
         function onRightTurn() {
             if (jugglerAngle < 360) {
                 jugglerAngle += 45;
+                jugglerView.animateToAngle(jugglerAngle);
             }
-            jugglerView.animateToAngle(jugglerAngle);
         }
 
         window.onload = function() {
