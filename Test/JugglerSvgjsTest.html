@@ -50,8 +50,6 @@
                 color: "#00e800"
             });
             // torso built
-            var bounds = this.torso.bbox();
-            this.torso.rect(bounds.width, bounds.height).addClass("boundingBox").move(bounds.x, bounds.y);
 
             this.juggler.circle(24).center(0, 0).attr(pathStyle).fill({
                 color: "#ebebeb"
@@ -59,24 +57,6 @@
             this.juggler.text(name_).center(0, 0).attr({
                 "font-size": "15px"
             });
-
-            this.svgRoot.circle(72).center(0, 0).addClass("boundingBox")
-
-            let lineStart = {
-                x: bounds.x,
-                y: bounds.y
-            };
-            for (var angle = 0; angle <= (2 * Math.PI); angle += SVG.utils.radians(45)) {
-                let angleMatrix = new SVG.Matrix(Math.cos(angle), Math.sin(angle), -Math.sin(angle), Math.cos(angle), bounds.x, bounds.y);
-                let transformed = angleMatrix.extract();
-                let lineEnd = {
-                    x: transformed.transformedX,
-                    y: transformed.transformedY
-                };
-
-                this.svgRoot.line(lineStart.x, lineStart.y, lineEnd.x, lineEnd.y).addClass("line");
-                lineStart = lineEnd;
-            }
 
             this.torso.rotate(position_.angle, 0, 0);
         }
@@ -92,13 +72,6 @@
             this.torso.animate(1000, "-", 0).transform(angleMatrix).after(function(situation) {
                 DisplayActualAngle(this.transform("rotation").toString());
             });
-            // this.torso.animate(1000, "-", 0).transform({
-            //     rotation: angle,
-            //     cx: 0,
-            //     cy: 0
-            // }, true).after(function(situation) {
-            //     DisplayActualAngle(this.transform("rotation").toString());
-            // });
 
         }
 
@@ -143,20 +116,6 @@
     <style>
         body {
             background-color: #505050;
-        }
-        
-        .boundingBox {
-            display: inline;
-            stroke: burlywood;
-            stroke-width: 1;
-            fill-opacity: 0;
-        }
-        
-        .line {
-            display: inline;
-            stroke: darkred;
-            stroke-width: 1;
-            fill-opacity: 0;
         }
     </style>
 </head>
