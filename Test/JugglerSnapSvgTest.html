@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SVGjs Animation Test</title>
+    <svg id="jugglerSvg" height="0" width="0" viewBox="-38 -38 76 76" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <style type="text/css">
+            path {fill:none;stroke:#000000;stroke-width:1;}
+            circle {stroke:#000000;stroke-width:1;}
+            text {white-space: pre; font-size: 15px;}
+            #leftHand {fill:#e80000;}
+            #rightHand {fill:#00e800;}
+            #head {fill:#ebebeb;}
+          </style>
+        </defs>
+       <g id ="torso">
+          <path d="M 19.798 -30.072 C 13.049 -30.072 6.308 -30.072 2.927 -25.144 C 0.222 -21.198 -0.318 -14.093 -0.425 -6.244 C -0.452 -4.29 -0.452 -2.289 -0.452 -0.28 C -0.452 1.551 -0.452 3.378 -0.431 5.174 C -0.337 13.265 0.183 20.705 3.046 24.856 C 6.538 29.928 13.55 29.928 20.548 29.928"/>
+          <circle id="rightHand" class="hand" r="7" cx="21" cy="30"/>
+          <circle id="leftHand" class="hand" r="7" cx="21" cy="-30"/>
+        </g>
+        <circle id="head" r="12"/>
+        <text id="name" y="5.25" x="-4.914" style="white-space: pre; font-size: 15px;">A</text>
+      </svg>
+    <script type="text/javascript" src="../Scripts/snapsvg/snap.svg.js"></script>
+    <script>
+        function DisplayError(message_) {
+            document.getElementById("errorDisplay").textContent = message_;
+        }
+
+        function DisplaySetAngle(angle) {
+            document.getElementById("angleSet").textContent = "Angle Set to: " + angle;
+        }
+
+        function DisplayActualAngle(angle) {
+            document.getElementById("angleActual").textContent = "Actual Angle: " + angle;
+        }
+
+        function JugglerPosition(x_, y_, angle_) {
+            this.x = x_ || 0;
+            this.y = y_ || 0;
+            this.angle = angle_ || 0;
+        }
+
+        function JugglerView(image_, name_, position_) {
+            let svg = document.getElementById("jugglerSvg")
+            this.juggler = Snap.parse(svg.outerHTML);
+
+            this.juggler.height = 100;
+            this.juggler.width = 100;
+            this.juggler.id = "juggler" + name_;
+            this.rightHand = this.juggler.select("#rightHand");
+            this.leftHand = this.juggler.select("#leftHand");
+            this.torso = this.juggler.select("#torso");
+            let name = this.juggler.select("#name");
+            name.innerHTML = name_;
+            this.juggler.x = position_.x;
+            this.juggler.y = position_.y;
+            this.rotate(position_.angle);
+
+            image_.append(this.juggler);
+        }
+
+
+        JugglerView.prototype.rotate = function(angle_){
+            let matrix = new Snap.Matrix();
+            matrix.rotate(angle_)
+            this.torso.transform(matrix.toTransformString());
+        }
+
+        JugglerView.prototype.animateToAngle = function(angle_, time_) {
+            var time = time_ || 1;
+            var angle = angle_ || 0;
+
+            this.torso.animate({transform: "r" + angle_}, 1000, function() {
+                var transfromDescripter = this.torso.transform();
+                DisplayActualAngle(this.transform("rotation").toString());
+            });
+
+        }
+
+        JugglerView.prototype.getHandLocation = function(hand_){
+            var ret = new SVG.Point();
+            if(hand_ == "L"){
+                ret.x = this.leftHand.cx();
+                ret.y = this.leftHand.cy();
+            }
+            else{
+                ret.x = this.leftHand.cx();
+                ret.y = this.leftHand.cy();
+            }
+        }
+
+        var jugglerAngle = 0;
+
+        function onLeftTurn() {
+            if (jugglerAngle > 0) {
+                jugglerAngle -= 45;
+                jugglerView.animateToAngle(-45);
+            }
+        }
+
+        function onRightTurn() {
+            if (jugglerAngle < 360) {
+                jugglerAngle += 45;
+                jugglerView.animateToAngle(45);
+            }
+        }
+
+        var jugglers;
+
+        window.onload = function() {
+
+            try {
+
+                image = Snap("#jugglerImage");
+
+                //curPosition = new JugglerPosition(40, 45, 0)
+                var curPosition = {
+                    x: 100,
+                    y: 50,
+                    angle: 45
+                };
+                jugglers = new JugglerView(image, "A", curPosition);
+                // curPosition = { x:400, y:0, angle: 180};
+                // jugglers.B = new JugglerView(image, "B", curPosition);
+
+                // var pointA = jugglers.A.getHandLocation("R");
+                // var pointB = jugglers.b.getHandLocation("L");
+                // image.line(pointA.x, pointA.y, pointB.x, pointB.y).stroke({width:2});
+
+
+            } catch (err) {
+                DisplayError("Error creating JugglerView because: " + err.message);
+                return;
+            }
+
+            //jugglerView.animateToAngle(45, 1);
+
+        }
+    </script>
+    <style>
+        body {
+            background-color: #505050;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Animation of a juggler torso</h2>
+    <div id="jugglerImage" width=600 height=100></div>
+    <button id="leftTurn" type="button" onclick="onLeftTurn()">&lt</button>
+    <button id="rightTurn" type="button" onclick="onRightTurn()">&gt</button>
+    <p id="angleSet" style="white-space:pre"></p>
+    <p id="angleActual" style="white-space:pre"></p>
+    <p id="errorDisplay" style="white-space:pre"></p>
+
+
+</body>
+
+</html>
