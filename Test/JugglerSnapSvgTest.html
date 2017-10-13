@@ -46,11 +46,10 @@
 
         function JugglerView(image_, name_, position_) {
             let svg = document.getElementById("jugglerSvg")
-            this.juggler = Snap.parse(svg.outerHTML);
+            this.juggler = Snap(100, 100);
+            let arms = this.juggler.parsePathString("M 19.798 -30.072 C 13.049 -30.072 6.308 -30.072 2.927 -25.144 C 0.222 -21.198 -0.318 -14.093 -0.425 -6.244 C -0.452 -4.29 -0.452 -2.289 -0.452 -0.28 C -0.452 1.551 -0.452 3.378 -0.431 5.174 C -0.337 13.265 0.183 20.705 3.046 24.856 C 6.538 29.928 13.55 29.928 20.548 29.928");
 
-            this.juggler.height = 100;
-            this.juggler.width = 100;
-            this.juggler.id = "juggler" + name_;
+            this.juggler.attr({id: "juggler" + name_, height:100, width:100});
             this.rightHand = this.juggler.select("#rightHand");
             this.leftHand = this.juggler.select("#leftHand");
             this.torso = this.juggler.select("#torso");
@@ -60,7 +59,7 @@
             this.juggler.y = position_.y;
             this.rotate(position_.angle);
 
-            image_.append(this.juggler);
+            image_.append(jugglerSvg);
         }
 
 
