@@ -2564,25 +2564,25 @@
                     // find delta transform points
                     var px = deltaTransformPoint(this, 0, 1),
                         py = deltaTransformPoint(this, 1, 0),
-                        skewX = 180 / Math.PI * Math.atan2(px.y, px.x) - 90
+                        skewX = Math.atan2(px.y, px.x) - SVG.utils.radians(90)
 
                     return {
                         // translation
                         x: this.e,
                         y: this.f,
-                        transformedX: (this.e * Math.cos(skewX * Math.PI / 180) + this.f * Math.sin(skewX * Math.PI / 180)) / Math.sqrt(this.a * this.a + this.b * this.b),
-                        transformedY: (this.f * Math.cos(skewX * Math.PI / 180) + this.e * Math.sin(-skewX * Math.PI / 180)) / Math.sqrt(this.c * this.c + this.d * this.d)
+                        transformedX: (this.e * Math.cos(skewX) + this.f * Math.sin(-skewX)) / Math.sqrt(this.a * this.a + this.b * this.b),
+                        transformedY: (this.f * Math.cos(skewX) + this.e * Math.sin(skewX)) / Math.sqrt(this.c * this.c + this.d * this.d)
                             // skew
                             ,
-                        skewX: -skewX,
-                        skewY: 180 / Math.PI * Math.atan2(py.y, py.x)
+                        skewX: SVG.utils.degrees(-skewX),
+                        skewY: SVG.utils.degrees(Math.atan2(py.y, py.x))
                             // scale
                             ,
                         scaleX: Math.sqrt(this.a * this.a + this.b * this.b),
                         scaleY: Math.sqrt(this.c * this.c + this.d * this.d)
                             // rotation
                             ,
-                        rotation: skewX,
+                        rotation: SVG.utils.degrees(skewX),
                         a: this.a,
                         b: this.b,
                         c: this.c,
@@ -2613,12 +2613,12 @@
 
                     // calculate morphed matrix at a given position
                     var matrix = new SVG.Matrix({
-                        a: this.a + (this.destination.a - this.a) * pos,
-                        b: this.b + (this.destination.b - this.b) * pos,
-                        c: this.c + (this.destination.c - this.c) * pos,
-                        d: this.d + (this.destination.d - this.d) * pos,
-                        e: this.e + (this.destination.e - this.e) * pos,
-                        f: this.f + (this.destination.f - this.f) * pos
+                        a: this.a + ((this.destination.a - this.a) * pos),
+                        b: this.b + ((this.destination.b - this.b) * pos),
+                        c: this.c + ((this.destination.c - this.c) * pos),
+                        d: this.d + ((this.destination.d - this.d) * pos),
+                        e: this.e + ((this.destination.e - this.e) * pos),
+                        f: this.f + ((this.destination.f - this.f) * pos)
                     })
 
                     return matrix
