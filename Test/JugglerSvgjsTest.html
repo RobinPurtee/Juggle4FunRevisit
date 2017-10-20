@@ -12,32 +12,21 @@
             document.getElementById("errorDisplay").textContent = message_;
         }
 
-        function DisplaySetAngle(angle) {
-            document.getElementById("angleSet").textContent = "Angle Set to: " + angle;
+        function DisplayPosition(pos) {
+            document.getElementById("positionDisplay").textContent = "Position: x:" + pos.x + " y:" + pos.y + " angle:" + pos.angle;
         }
 
-        function DisplayActualAngle(angle) {
-            document.getElementById("angleActual").textContent = "Actual Angle: " + angle;
-        }
 
         function JugglerPosition(x_, y_, angle_) {
-            this.x = 0;
-            this.y = 0;
-            this.angle = 0;
-            if (undefined !== x_) {
-                this.x = x_
-            }
-            if (undefined !== y_) {
-                this.y = y_
-            }
-            if (undefined !== angle_) {
-                this.angle = angle_
-            }
+            this.x = x_ || 0;
+            this.y = y_ || 0;
+            this.angle = angle_ || 0;
         }
 
 
 
         function JugglerView(svgRoot_, name_, position_) {
+            // build a juggler svg group
             let pathStyle = {
                 stroke: "#000000",
                 "stroke-width": 1,
@@ -60,47 +49,93 @@
             this.juggler.text(name_).center(0, 0).attr({
                 "font-size": "15px"
             });
+            // Juggler svg built
+
+            this.position = new JugglerPosition(position_.x, position_.y, position_.angle);
             this.juggler.move(position_.x, position_.y);
             this.torso.rotate(position_.angle, 0, 0);
         }
 
         JugglerView.prototype.animateToAngle = function(angle_, time_) {
-            var time = 1;
-            var angle = this.angle;
-            if (undefined !== time_) {
-                time = time_;
-            }
-            if (undefined != angle_) {
-                angle = angle_;
-            }
-            DisplaySetAngle(angle);
-            let angleMatrix = new SVG.Matrix().rotate(this.angle);
+            var time = time_ || 1000;
+            var relativeAngle = angle_ - this.position.angle || 0;
+            if(relativeAngle !== 0){
+                this.position.angle = angle_;
+                var rotateTransform = {
+                    rotation: relativeAngle,
+                    cx:0,
+                    cy:0,
+                    relative:true
+                };
 
-            this.torso.animate(1000, "-", 0).transform(angleMatrix).after(function(situation) {
-                DisplayActualAngle(this.transform("rotation").toString());
-            });
+                this.torso.animate(time, ">", 0)
+                    .transform(rotateTransform, true);
+
+            }
+        }
+
+        JugglerView.prototype.animateToLocation = function(x_, y_, time_){
+            var time = time_ || 1000;
+            var x = x_ || 0;
+            var y = y_ || 0;
+            this.position.x = x;
+            this.position.y = y;
+            this.juggler.animate(time, ">", 0).move(x,y);
+        }
+
+
+
+        JugglerView.prototype.animateToPosition = function(position_, time_) {
+            var time = time_ || 1000;
+
+            this.animateToLocation(position_.x, position_.y, time)
+            this.animateToAngle(position_.angle, time);
 
         }
 
 
 
         function onLeftTurn() {
-            if (jugglerAngle > 0) {
-                jugglerAngle -= 45;
-                jugglerView.animateToAngle(jugglerAngle);
+            if (jugglerView.position.angle > 0) {
+                jugglerView.animateToAngle(jugglerView.position.angle - 45, 250);
             }
+            DisplayPosition(jugglerView.position);
         }
 
         function onRightTurn() {
-            if (jugglerAngle < 360) {
-                jugglerAngle += 45;
-                jugglerView.animateToAngle(jugglerAngle);
+            if (jugglerView.position.angle < 360) {
+                jugglerView.animateToAngle(jugglerView.position.angle + 45, 250);
             }
+            DisplayPosition(jugglerView.position);
+        }
+
+        function onMoveUp(){
+            if(jugglerView.position.y > 0){
+                jugglerView.animateToLocation(jugglerView.position.x, jugglerView.position.y - 5, 250);
+            }
+            DisplayPosition(jugglerView.position);
+        }
+        function onMoveDown(){
+            if(jugglerView.position.y < 200){
+                jugglerView.animateToLocation(jugglerView.position.x, jugglerView.position.y + 5, 250);
+            }
+            DisplayPosition(jugglerView.position);
+        }
+        function onMoveLeft(){
+            if(jugglerView.position.x > 0){
+                jugglerView.animateToLocation(jugglerView.position.x - 5, jugglerView.position.y, 250);
+            }
+            DisplayPosition(jugglerView.position);
+        }
+        function onMoveRight(){
+            if(jugglerView.position.x < 300){
+                jugglerView.animateToLocation(jugglerView.position.x + 5, jugglerView.position.y, 250);
+            }
+            DisplayPosition(jugglerView.position);
         }
 
         window.onload = function() {
-            svgRoot = SVG("jugglerImage").size(600, 400).viewbox(0, 0, 95, 95);
-            jugglerAngle = 0;
+            svgRoot = SVG("jugglerImage").size(600, 400).viewbox(0, 0, 300, 200);
 
             try {
                 //curPosition = new JugglerPosition(40, 45, 0)
@@ -110,6 +145,11 @@
                     angle: 0
                 };
                 jugglerView = (new JugglerView(svgRoot, "A", curPosition));
+
+                curPosition.x = 90;
+                curPosition.angle = 180;
+                jugglerView.animateToPosition(curPosition);
+                DisplayPosition(jugglerView.position);
 
             } catch (err) {
                 DisplayError("Error creating JugglerView because: " + err.message);
@@ -130,10 +170,20 @@
 <body>
     <h2>Animation of a juggler torso</h2>
     <div id="jugglerImage"></div>
-    <button id="leftTurn" type="button" onclick="onLeftTurn()">&lt</button>
-    <button id="rightTurn" type="button" onclick="onRightTurn()">&gt</button>
-    <p id="angleSet" style="white-space:pre"></p>
-    <p id="angleActual" style="white-space:pre"></p>
+    <p>
+        <button id="leftTurn" type="button" onclick="onLeftTurn()">Turn Left</button>
+        <button id="rightTurn" type="button" onclick="onRightTurn()">Turn Right</button>
+    </p>
+    <p>
+
+        &emsp;<button id="up" type="button" onclick="onMoveUp()">&uarr;</button><br>
+        <button id="left" type="button" onclick="onMoveLeft()">&larr;</button>
+        <button id="right" type="button" onclick="onMoveRight()">&rarr;</button><br>
+        &emsp;<button id="down" type="button" onclick="onMoveDown()">&darr;</button>
+    </p>
+
+
+    <p id="positionDisplay" style="white-space:pre"></p>
     <p id="errorDisplay" style="white-space:pre"></p>
 
 
