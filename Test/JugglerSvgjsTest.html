@@ -5,6 +5,14 @@
 <head>
     <meta charset="utf-8" />
     <title>SVGjs Animation Test</title>
+   <style>
+        .jugglerArms {fill:none;stroke:#000000;stroke-width:1;}
+        .jugglerLeftHand {fill:#e80000;stroke:#000000;stroke-width:1;}
+        .jugglerHead {fill:#ebebeb;stroke:#000000;stroke-width:1;}
+        .jugglerName {font-size:15px}
+
+    </style>
+    <!--        .jugglerRightHand {fill:#0000e8;stroke:#000000;stroke-width:1;}-->
     <!-- <script type="text/javascript" src="../Scripts/svgjs/svg.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.js"></script>
     <script>
@@ -14,6 +22,18 @@
 
         function DisplayPosition(pos) {
             document.getElementById("positionDisplay").textContent = "Position: x:" + pos.x + " y:" + pos.y + " angle:" + pos.angle;
+        }
+
+        function CSSClassExists(className_){
+            let ret = false;
+            for(var i = 0; i < document.styleSheets.length && !ret; ++i){
+                var styleSheet = document.styleSheets[i];
+                var rules = styleSheet.rules ? styleSheet.rules : styleSheet.cssRules;
+                for(var j = 0; j < rules.length && !ret; ++j){
+                    ret = className_ === rules[j].selectorText;
+                }
+            }
+            return ret;
         }
 
 
@@ -32,23 +52,34 @@
                 "stroke-width": 1,
                 fill: "none"
             };
+
+            if(!CSSClassExists(".jugglerArms")){
+                document.styleSheets[0].insertRule(".jugglerArms {fill:none;stroke:#000000;stroke-width:1;}")
+            }
+            if(!CSSClassExists(".jugglerRightHand")){
+                document.styleSheets[0].insertRule(".jugglerRightHand {fill:#e80000;stroke:#000000;stroke-width:1;}")
+            }
+            if(!CSSClassExists(".jugglerLeftHand")){
+                document.styleSheets[0].insertRule(".jugglerLeftHand {fill:#00e800;stroke:#000000;stroke-width:1;}")
+            }
+            if(!CSSClassExists(".jugglerHead")){
+                document.styleSheets[0].insertRule(".jugglerHead {fill:#ebebeb;stroke:#000000;stroke-width:1;}")
+            }
+            if(!CSSClassExists(".jugglerName")){
+                document.styleSheets[0].insertRule(".jugglerHead {font-size:15px}")
+            }
+
+
             this.juggler = svgRoot_.group();
             // build the torso group
             this.torso = this.juggler.group();
             this.torso.path("M 19.798 -30.072 C 13.049 -30.072 6.308 -30.072 2.927 -25.144 C 0.222 -21.198 -0.318 -14.093 -0.425 -6.244 C -0.452 -4.29 -0.452 -2.289 -0.452 -0.28 C -0.452 1.551 -0.452 3.378 -0.431 5.174 C -0.337 13.265 0.183 20.705 3.046 24.856 C 6.538 29.928 13.55 29.928 20.548 29.928").attr(pathStyle);
-            this.rightHand = this.torso.circle(12).center(21, 30).attr(pathStyle).fill({
-                color: "#e80000"
-            });
-            this.leftHand = this.torso.circle(12).center(21, -30).attr(pathStyle).fill({
-                color: "#00e800"
-            });
+            this.torso.addClass("jugglerArms");
+            this.rightHand = this.torso.circle(12).center(21, 30).addClass("jugglerRightHand");
+            this.leftHand = this.torso.circle(12).center(21, -30).addClass("jugglerLeftHand");
             // torso built
-            this.juggler.circle(24).center(0, 0).attr(pathStyle).fill({
-                color: "#ebebeb"
-            });
-            this.juggler.text(name_).center(0, 0).attr({
-                "font-size": "15px"
-            });
+            this.juggler.circle(24).center(0, 0).addClass("jugglerHead");
+            this.juggler.text(name_).center(0, 0).addClass("jugglerName");
             // Juggler svg built
 
             this.position = new JugglerPosition(position_.x, position_.y, position_.angle);
