@@ -15,7 +15,7 @@ function TossException(toss_, message_) {
 }
 
 //-----------------------------------------------------------------------------
-// The object that represents a Toss 
+// The object that represents a Toss
 // parameters:
 //      direction_ - A Toss direction string (maybe a full Toss string)
 //      magnitude_ - This siteswap value of the pass (optional: defaults to 3)
@@ -106,7 +106,7 @@ Toss.prototype.toDirectionString = function() {
     return retStr;
 }
 
-// Get a string containing the magnutude (optionally), direction, and juggler of the toss 
+// Get a string containing the magnutude (optionally), direction, and juggler of the toss
 Toss.prototype.toJugglerDirectionString = function() {
     let retStr = this.toDirectionString();
     if (this.juggler != null && this.direction != Self && this.direction != Heff)
@@ -153,7 +153,7 @@ function Prop(id_) {
     this.location = null;
 }
 
-// Test if prop is in a hand 
+// Test if prop is in a hand
 Prop.prototype.isInFlight = function() {
     return this.location != null && this.location instanceof Toss;
 }
@@ -178,7 +178,7 @@ Prop.prototype.toString = function() {
     //-----------------------------------------------------------------------------
     // Manager for the state of a hand
     // Properties:
-    // jugglerId - the id of the juggler 
+    // jugglerId - the id of the juggler
     //  hand - the hand id under each juggler (value should be RightHand or LeftHand)
     //  props - an array of objects currently held by the hand
     // Methods:
@@ -186,7 +186,7 @@ Prop.prototype.toString = function() {
     //  Toss() - returns the prop it removes from the top of the prop array
     //  Catch(prop_) - causes the prop to be added the bottom of the prop array
     // Remarks:
-    //  The state of the hand toggles based 
+    //  The state of the hand toggles based
     // Parameters:
     //      hand_ - the hand of this object
     //      props_ - optional list of the props that are currently held by the hand
@@ -223,12 +223,12 @@ Hand.prototype.toString = function() {
 //-------------------------------------------------------------------------------------
 // Object that represents a Juggler
 // parameters:
-//  id_ - single charater Id of the juggler used 
+//  id_ - single charater Id of the juggler used
 //  tossRow_ - the DOM Table Row element containing the list of tosses for this juggler
 //  name_ - optional name for the juggler
 
-// A Juggler waits for a "catch" with a Toss parameter, then executes a toss by incrementing 
-// the currentToss indexer, then based on the Toss in the catch will toggle the current hand. 
+// A Juggler waits for a "catch" with a Toss parameter, then executes a toss by incrementing
+// the currentToss indexer, then based on the Toss in the catch will toggle the current hand.
 function Juggler(id_, tossRow_, name_) {
     this.id = id_;
     this.name = name_;
@@ -286,6 +286,7 @@ Juggler.prototype.addInComingProp = function(prop_) {
     }
 }
 
+// Get the the incoming prop but do not remove it from the queue
 Juggler.prototype.peekInComingProp = function() {
     let ret = null;
     if (this.inComingProps.length > 0 && this.inComingProps[0] != undefined) {
@@ -294,6 +295,7 @@ Juggler.prototype.peekInComingProp = function() {
     return ret;
 }
 
+// catch the in coming prop
 Juggler.prototype.Catch = function() {
     var propCaught = null;
     if (this.inComingProps.length > 0) {
@@ -344,6 +346,110 @@ Juggler.prototype.toString = function() {
     return ret;
 }
 
+
+
+function CSSClassExists(className_){
+    let ret = false;
+    for(var i = 0; i < document.styleSheets.length && !ret; ++i){
+        var styleSheet = document.styleSheets[i];
+        var rules = styleSheet.rules ? styleSheet.rules : styleSheet.cssRules;
+        for(var j = 0; j < rules.length && !ret; ++j){
+            ret = className_ === rules[j].selectorText;
+        }
+    }
+    return ret;
+}
+
+
+function JugglerPosition(x_, y_, angle_) {
+    this.x = x_ || 0;
+    this.y = y_ || 0;
+    this.angle = angle_ || 0;
+
+    this.transformPoint = function(x_, y_){
+        let rads = this.angle * (Math.PI / 180);
+        let sin = Math.sin(rads);
+        let cos = Math.cos(rads);
+        return {
+            x: ((x_ * cos) - (y_ * sin)) + this.x
+          , y: ((x_ * sin) + (y_ * cos)) + this.y
+        }
+    }
+}
+
+
+
+function JugglerView(svgRoot_, name_, position_) {
+    // build a juggler svg group
+    if(!CSSClassExists(".jugglerArms")){
+        document.styleSheets[0].insertRule(".jugglerArms {fill:none;stroke:#000000;stroke-width:1;}")
+    }
+    if(!CSSClassExists(".jugglerRightHand")){
+        document.styleSheets[0].insertRule(".jugglerRightHand {fill:#e80000;stroke:#000000;stroke-width:1;}")
+    }
+    if(!CSSClassExists(".jugglerLeftHand")){
+        document.styleSheets[0].insertRule(".jugglerLeftHand {fill:#00e800;stroke:#000000;stroke-width:1;}")
+    }
+    if(!CSSClassExists(".jugglerHead")){
+        document.styleSheets[0].insertRule(".jugglerHead {fill:#ebebeb;stroke:#000000;stroke-width:1;}")
+    }
+    if(!CSSClassExists(".jugglerName")){
+        document.styleSheets[0].insertRule(".jugglerHead {font-size:15px}")
+    }
+
+    this.juggler = svgRoot_.group();
+    // build the torso group
+    this.torso = this.juggler.group();
+    this.torso.path("M 19.798 -30.072 C 13.049 -30.072 6.308 -30.072 2.927 -25.144 C 0.222 -21.198 -0.318 -14.093 -0.425 -6.244 C -0.452 -4.29 -0.452 -2.289 -0.452 -0.28 C -0.452 1.551 -0.452 3.378 -0.431 5.174 C -0.337 13.265 0.183 20.705 3.046 24.856 C 6.538 29.928 13.55 29.928 20.548 29.928")
+    this.torso.addClass("jugglerArms");
+    this.rightHand = this.torso.circle(12).center(21, 30).addClass("jugglerRightHand");
+    this.leftHand = this.torso.circle(12).center(21, -30).addClass("jugglerLeftHand");
+    // torso built
+    this.juggler.circle(24).center(0, 0).addClass("jugglerHead");
+    this.juggler.text(name_).center(0, 0).addClass("jugglerName");
+    // Juggler svg built
+
+    this.position = new JugglerPosition(position_.x, position_.y, position_.angle);
+    this.juggler.move(position_.x, position_.y);
+    this.torso.rotate(position_.angle, 0, 0);
+}
+
+JugglerView.prototype.animateToAngle = function(angle_, time_) {
+    var time = time_ || 1000;
+     var relativeAngle = angle_ - this.position.angle || 0;
+    if(relativeAngle !== 0){
+        this.position.angle = angle_;
+        var rotateTransform = {
+            rotation: relativeAngle,
+            cx:0,
+            cy:0,
+            relative:true
+        };
+
+        this.torso.animate(time, ">", 0)
+            .transform(rotateTransform, true);
+
+    }
+}
+
+JugglerView.prototype.animateToLocation = function(x_, y_, time_){
+    var time = time_ || 1000;
+    var x = x_ || 0;
+    var y = y_ || 0;
+    this.position.x = x;
+    this.position.y = y;
+    this.juggler.animate(time, ">", 0).move(x,y);
+}
+
+JugglerView.prototype.animateToPosition = function(position_, time_) {
+    var time = time_ || 1000;
+
+    this.animateToLocation(position_.x, position_.y, time)
+    this.animateToAngle(position_.angle, time);
+
+}
+
+
 //-------------------------------------------------------------------------------------
 
 function Pattern(numberOfJugglers_, numberOfProps_, rhythmTable_) {
@@ -386,7 +492,7 @@ function Pattern(numberOfJugglers_, numberOfProps_, rhythmTable_) {
 }
 
 // execute the next toss in the rhythm for all jugglers
-// return: array of all tossed props 
+// return: array of all tossed props
 Pattern.prototype.Toss = function() {
     let tosses = new Array();
     this.jugglers.forEach(function(juggler_, index_, jugglers_) {
