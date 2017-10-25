@@ -5,189 +5,45 @@
 <head>
     <meta charset="utf-8" />
     <title>SVGjs Animation Test</title>
-   <style>
-        .jugglerArms {fill:none;stroke:#000000;stroke-width:1;}
-        .jugglerLeftHand {fill:#e80000;stroke:#000000;stroke-width:1;}
-        .jugglerHead {fill:#ebebeb;stroke:#000000;stroke-width:1;}
-        .jugglerName {font-size:15px}
-
-    </style>
-    <!--        .jugglerRightHand {fill:#0000e8;stroke:#000000;stroke-width:1;}-->
     <!-- <script type="text/javascript" src="../Scripts/svgjs/svg.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.js"></script>
+    <script src="../Scripts/Juggler.js"></script>
     <script>
         function DisplayError(message_) {
             document.getElementById("errorDisplay").textContent = message_;
         }
 
-        function DisplayPosition(pos) {
-            document.getElementById("positionDisplay").textContent = "Position: x:" + pos.x + " y:" + pos.y + " angle:" + pos.angle;
-        }
-
-        function CSSClassExists(className_){
-            let ret = false;
-            for(var i = 0; i < document.styleSheets.length && !ret; ++i){
-                var styleSheet = document.styleSheets[i];
-                var rules = styleSheet.rules ? styleSheet.rules : styleSheet.cssRules;
-                for(var j = 0; j < rules.length && !ret; ++j){
-                    ret = className_ === rules[j].selectorText;
-                }
-            }
-            return ret;
-        }
-
-
-        function JugglerPosition(x_, y_, angle_) {
-            this.x = x_ || 0;
-            this.y = y_ || 0;
-            this.angle = angle_ || 0;
-        }
-
-
-
-        function JugglerView(svgRoot_, name_, position_) {
-            // build a juggler svg group
-            let pathStyle = {
-                stroke: "#000000",
-                "stroke-width": 1,
-                fill: "none"
-            };
-
-            if(!CSSClassExists(".jugglerArms")){
-                document.styleSheets[0].insertRule(".jugglerArms {fill:none;stroke:#000000;stroke-width:1;}")
-            }
-            if(!CSSClassExists(".jugglerRightHand")){
-                document.styleSheets[0].insertRule(".jugglerRightHand {fill:#e80000;stroke:#000000;stroke-width:1;}")
-            }
-            if(!CSSClassExists(".jugglerLeftHand")){
-                document.styleSheets[0].insertRule(".jugglerLeftHand {fill:#00e800;stroke:#000000;stroke-width:1;}")
-            }
-            if(!CSSClassExists(".jugglerHead")){
-                document.styleSheets[0].insertRule(".jugglerHead {fill:#ebebeb;stroke:#000000;stroke-width:1;}")
-            }
-            if(!CSSClassExists(".jugglerName")){
-                document.styleSheets[0].insertRule(".jugglerHead {font-size:15px}")
-            }
-
-
-            this.juggler = svgRoot_.group();
-            // build the torso group
-            this.torso = this.juggler.group();
-            this.torso.path("M 19.798 -30.072 C 13.049 -30.072 6.308 -30.072 2.927 -25.144 C 0.222 -21.198 -0.318 -14.093 -0.425 -6.244 C -0.452 -4.29 -0.452 -2.289 -0.452 -0.28 C -0.452 1.551 -0.452 3.378 -0.431 5.174 C -0.337 13.265 0.183 20.705 3.046 24.856 C 6.538 29.928 13.55 29.928 20.548 29.928").attr(pathStyle);
-            this.torso.addClass("jugglerArms");
-            this.rightHand = this.torso.circle(12).center(21, 30).addClass("jugglerRightHand");
-            this.leftHand = this.torso.circle(12).center(21, -30).addClass("jugglerLeftHand");
-            // torso built
-            this.juggler.circle(24).center(0, 0).addClass("jugglerHead");
-            this.juggler.text(name_).center(0, 0).addClass("jugglerName");
-            // Juggler svg built
-
-            this.position = new JugglerPosition(position_.x, position_.y, position_.angle);
-            this.juggler.move(position_.x, position_.y);
-            this.torso.rotate(position_.angle, 0, 0);
-        }
-
-        JugglerView.prototype.animateToAngle = function(angle_, time_) {
-            var time = time_ || 1000;
-            var relativeAngle = angle_ - this.position.angle || 0;
-            if(relativeAngle !== 0){
-                this.position.angle = angle_;
-                var rotateTransform = {
-                    rotation: relativeAngle,
-                    cx:0,
-                    cy:0,
-                    relative:true
-                };
-
-                this.torso.animate(time, ">", 0)
-                    .transform(rotateTransform, true);
-
-            }
-        }
-
-        JugglerView.prototype.animateToLocation = function(x_, y_, time_){
-            var time = time_ || 1000;
-            var x = x_ || 0;
-            var y = y_ || 0;
-            this.position.x = x;
-            this.position.y = y;
-            this.juggler.animate(time, ">", 0).move(x,y);
-        }
-
-
-
-        JugglerView.prototype.animateToPosition = function(position_, time_) {
-            var time = time_ || 1000;
-
-            this.animateToLocation(position_.x, position_.y, time)
-            this.animateToAngle(position_.angle, time);
-
-        }
-
-
-
-        function onLeftTurn() {
-            if (jugglerView.position.angle > 0) {
-                jugglerView.animateToAngle(jugglerView.position.angle - 45, 250);
-            }
-            DisplayPosition(jugglerView.position);
-        }
-
-        function onRightTurn() {
-            if (jugglerView.position.angle < 360) {
-                jugglerView.animateToAngle(jugglerView.position.angle + 45, 250);
-            }
-            DisplayPosition(jugglerView.position);
-        }
-
-        function onMoveUp(){
-            if(jugglerView.position.y > 0){
-                jugglerView.animateToLocation(jugglerView.position.x, jugglerView.position.y - 5, 250);
-            }
-            DisplayPosition(jugglerView.position);
-        }
-        function onMoveDown(){
-            if(jugglerView.position.y < 200){
-                jugglerView.animateToLocation(jugglerView.position.x, jugglerView.position.y + 5, 250);
-            }
-            DisplayPosition(jugglerView.position);
-        }
-        function onMoveLeft(){
-            if(jugglerView.position.x > 0){
-                jugglerView.animateToLocation(jugglerView.position.x - 5, jugglerView.position.y, 250);
-            }
-            DisplayPosition(jugglerView.position);
-        }
-        function onMoveRight(){
-            if(jugglerView.position.x < 300){
-                jugglerView.animateToLocation(jugglerView.position.x + 5, jugglerView.position.y, 250);
-            }
-            DisplayPosition(jugglerView.position);
+        function DisplayLine(start, end) {
+            document.getElementById("positionDisplay").textContent = "line start: x:" + start.x + " y:" + start.y + " end: x:" + end.x + " y:" + end.y;
         }
 
         window.onload = function() {
-            svgRoot = SVG("jugglerImage").size(600, 400).viewbox(0, 0, 300, 200);
+            svgRoot = SVG("jugglerImage").size(600, 400).viewbox(0, 0, 250, 200);
 
             try {
                 //curPosition = new JugglerPosition(40, 45, 0)
-                var curPosition = {
-                    x: 40,
-                    y: 45,
-                    angle: 0
-                };
-                jugglerView = (new JugglerView(svgRoot, "A", curPosition));
+                var jugglerAPosition = new JugglerPosition(20, 45, 0);
+                var jugglerBPosition = new JugglerPosition(200, 45, 180);
+                jugglerAView = (new JugglerView(svgRoot, "A", jugglerAPosition));
+                jugglerBView = (new JugglerView(svgRoot, "B", jugglerBPosition));
 
-                curPosition.x = 90;
-                curPosition.angle = 180;
-                jugglerView.animateToPosition(curPosition);
-                DisplayPosition(jugglerView.position);
+                let handA = jugglerAView.position.transformPoint(jugglerAView.rightHand.cx(), jugglerAView.rightHand.cy());
+                let handB = jugglerBView.position.transformPoint(jugglerBView.leftHand.cx(), jugglerBView.leftHand.cy());
+                DisplayLine(handA, handB);
+                //let lineObject = {x1:handA.x, y1:handA.y, x2:handB.x, y2:handB.y};
+                let lineArray =  [handA.x, handA.y, handB.x, handB.y];
+                let tossLineElement = new SVG.Line;
+                tossLineElement.addClass("jugglerArms");
+                tossLineElement.plot(handA.x, handA.y, handB.x, handB.y);
+                svgRoot.add(tossLineElement, 0);
+                // //svgRoot.line(handA.x, handA.y, handB.x, handB.y).addClass("jugglerArms");
 
             } catch (err) {
                 DisplayError("Error creating JugglerView because: " + err.message);
                 return;
             }
 
-            //jugglerView.animateToAngle(45, 1);
+            //jugglerAView.animateToAngle(45, 1);
 
         }
     </script>
@@ -201,17 +57,6 @@
 <body>
     <h2>Animation of a juggler torso</h2>
     <div id="jugglerImage"></div>
-    <p>
-        <button id="leftTurn" type="button" onclick="onLeftTurn()">Turn Left</button>
-        <button id="rightTurn" type="button" onclick="onRightTurn()">Turn Right</button>
-    </p>
-    <p>
-
-        &emsp;<button id="up" type="button" onclick="onMoveUp()">&uarr;</button><br>
-        <button id="left" type="button" onclick="onMoveLeft()">&larr;</button>
-        <button id="right" type="button" onclick="onMoveRight()">&rarr;</button><br>
-        &emsp;<button id="down" type="button" onclick="onMoveDown()">&darr;</button>
-    </p>
 
 
     <p id="positionDisplay" style="white-space:pre"></p>
