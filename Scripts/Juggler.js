@@ -347,7 +347,9 @@ Juggler.prototype.toString = function() {
 }
 
 
-
+// Utility function to check if a CSS class style exists
+// param: the string name of the class to check for
+// return: boolean; true if the class exists else false
 function CSSClassExists(className_){
     let ret = false;
     for(var i = 0; i < document.styleSheets.length && !ret; ++i){
@@ -360,12 +362,16 @@ function CSSClassExists(className_){
     return ret;
 }
 
-
+// class holding the position of the juggler and the angle it is facing
+// param: x_ - the x coordinate of the position
+// param: y_ - the y coordinate of the position
+// param: angle_ - the angle of the front of the juggler
 function JugglerPosition(x_, y_, angle_) {
     this.x = x_ || 0;
     this.y = y_ || 0;
     this.angle = angle_ || 0;
 
+    // translate the relative to the juggler point given to global coordinates
     this.transformPoint = function(x_, y_){
         let rads = this.angle * (Math.PI / 180);
         let sin = Math.sin(rads);
@@ -378,7 +384,7 @@ function JugglerPosition(x_, y_, angle_) {
 }
 
 
-
+// The object to manage the display of a Juggler
 function JugglerView(svgRoot_, name_, position_) {
     // build a juggler svg group
     if(!CSSClassExists(".jugglerArms")){
@@ -414,6 +420,7 @@ function JugglerView(svgRoot_, name_, position_) {
     this.torso.rotate(position_.angle, 0, 0);
 }
 
+// animate the rotation of the juggler to the given angle
 JugglerView.prototype.animateToAngle = function(angle_, time_) {
     var time = time_ || 1000;
      var relativeAngle = angle_ - this.position.angle || 0;
@@ -431,7 +438,7 @@ JugglerView.prototype.animateToAngle = function(angle_, time_) {
 
     }
 }
-
+// animate the movement of the juggler to a given location
 JugglerView.prototype.animateToLocation = function(x_, y_, time_){
     var time = time_ || 1000;
     var x = x_ || 0;
@@ -440,7 +447,7 @@ JugglerView.prototype.animateToLocation = function(x_, y_, time_){
     this.position.y = y;
     this.juggler.animate(time, ">", 0).move(x,y);
 }
-
+// animate the the juggler to the given position in a straght line
 JugglerView.prototype.animateToPosition = function(position_, time_) {
     var time = time_ || 1000;
 
@@ -448,7 +455,14 @@ JugglerView.prototype.animateToPosition = function(position_, time_) {
     this.animateToAngle(position_.angle, time);
 
 }
-
+// Get the Point in global coordinates of the center of the right hand
+JugglerView.prototype.getRightHandPoint = function(){
+    return this.position.transformPoint(this.rightHand.cx(), this.rightHand.cy());
+}
+// Get the Point in global coordinates of the center of the left hand
+JugglerView.prototype.getLeftHandPoint = function(){
+    return this.position.transformPoint(this.leftHand.cx(), this.leftHand.cy());
+}
 
 //-------------------------------------------------------------------------------------
 
