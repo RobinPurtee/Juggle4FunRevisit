@@ -1,11 +1,11 @@
 // hand strings
-var RightHand = "R";
-var LeftHand = "L";
+const RightHand = "R";
+const LeftHand = "L";
 // Toss direction strings
-var Pass = "P";
-var Diagonal = "D";
-var Self = "S";
-var Heff = "H";
+const Pass = "P";
+const Diagonal = "D";
+const Self = "S";
+const Heff = "H";
 
 
 //-----------------------------------------------------------------------------
@@ -243,7 +243,7 @@ function Juggler(id_, tossRow_, name_) {
     this.hasHurrys = false;
     this.isHanded = true;
     this.tosses = new Array(this.rhythmLength);
-    for (var i = 0; i < this.rhythmLength; ++i) {
+    for (let i = 0; i < this.rhythmLength; ++i) {
         let tossStr = tossRow_[i].textContent;
         let toss = new Toss(tossStr);
         toss.setOrigin(this.id, this.tossHand)
@@ -297,7 +297,7 @@ Juggler.prototype.peekInComingProp = function() {
 
 // catch the in coming prop
 Juggler.prototype.Catch = function() {
-    var propCaught = null;
+    let propCaught = null;
     if (this.inComingProps.length > 0) {
         let curProp = this.inComingProps.shift();
         if (curProp != undefined) {
@@ -321,7 +321,7 @@ Juggler.prototype.Toss = function() {
     let isHurryComing = false;
     let toss = this.getCurrentToss();
     // if there is an in comming toss that has a destination hand (in case there is not origin)
-    var inComingProp = this.peekInComingProp();
+    let inComingProp = this.peekInComingProp();
     if (inComingProp != null && inComingProp.location.destinationHand() != undefined) {
         isHurryComing = inComingProp.location.destinationHand() != this.tossHand;
         if (isHurryComing) {
@@ -352,10 +352,10 @@ Juggler.prototype.toString = function() {
 // return: boolean; true if the class exists else false
 function CSSClassExists(className_){
     let ret = false;
-    for(var i = 0; i < document.styleSheets.length && !ret; ++i){
-        var styleSheet = document.styleSheets[i];
-        var rules = styleSheet.rules ? styleSheet.rules : styleSheet.cssRules;
-        for(var j = 0; j < rules.length && !ret; ++j){
+    for(let i = 0; i < document.styleSheets.length && !ret; ++i){
+        let styleSheet = document.styleSheets[i];
+        let rules = styleSheet.rules ? styleSheet.rules : styleSheet.cssRules;
+        for(let j = 0; j < rules.length && !ret; ++j){
             ret = className_ === rules[j].selectorText;
         }
     }
@@ -422,11 +422,11 @@ function JugglerView(svgRoot_, name_, position_) {
 
 // animate the rotation of the juggler to the given angle
 JugglerView.prototype.animateToAngle = function(angle_, time_) {
-    var time = time_ || 1000;
-     var relativeAngle = angle_ - this.position.angle || 0;
+    let time = time_ || 1000;
+     let relativeAngle = angle_ - this.position.angle || 0;
     if(relativeAngle !== 0){
         this.position.angle = angle_;
-        var rotateTransform = {
+        let rotateTransform = {
             rotation: relativeAngle,
             cx:0,
             cy:0,
@@ -440,16 +440,16 @@ JugglerView.prototype.animateToAngle = function(angle_, time_) {
 }
 // animate the movement of the juggler to a given location
 JugglerView.prototype.animateToLocation = function(x_, y_, time_){
-    var time = time_ || 1000;
-    var x = x_ || 0;
-    var y = y_ || 0;
+    let time = time_ || 1000;
+    let x = x_ || 0;
+    let y = y_ || 0;
     this.position.x = x;
     this.position.y = y;
     this.juggler.animate(time, ">", 0).move(x,y);
 }
 // animate the the juggler to the given position in a straght line
 JugglerView.prototype.animateToPosition = function(position_, time_) {
-    var time = time_ || 1000;
+    let time = time_ || 1000;
 
     this.animateToLocation(position_.x, position_.y, time)
     this.animateToAngle(position_.angle, time);
@@ -470,7 +470,7 @@ function Pattern(numberOfJugglers_, numberOfProps_, rhythmTable_) {
     // create the jugglers
     this.jugglers = new Array(numberOfJugglers_);
     let jugglerIdIndex = 65; // charater code for 'A'
-    for (var i = 0; i < numberOfJugglers_; ++i) {
+    for (let i = 0; i < numberOfJugglers_; ++i) {
         let tableRow = rhythmTable_.rows[i];
         if (tableRow === undefined) {
             tableRow = rhythmTable_.rows[0];
@@ -487,13 +487,13 @@ function Pattern(numberOfJugglers_, numberOfProps_, rhythmTable_) {
     // create the props
     this.props = new Array(numberOfProps_);
     let propNameIndex = 97; // charater code for 'a'
-    for (var i = 0; i < numberOfProps_; ++i) {
+    for (let i = 0; i < numberOfProps_; ++i) {
         this.props[i] = new Prop(String.fromCharCode(propNameIndex));
         ++propNameIndex;
     }
     // distribute the props
-    var curHand = RightHand;
-    var jugglerIndex = 0;
+    let curHand = RightHand;
+    let jugglerIndex = 0;
     this.props.forEach(function(prop_) {
         this.jugglers[jugglerIndex].pickup(curHand, prop_);
         ++jugglerIndex;
@@ -512,7 +512,7 @@ Pattern.prototype.Toss = function() {
     this.jugglers.forEach(function(juggler_, index_, jugglers_) {
         let prop = juggler_.Toss();
         tosses.push(prop);
-        var receivingJuggler = jugglers_.find(function(j_) {
+        let receivingJuggler = jugglers_.find(function(j_) {
             return j_.id === prop.location.juggler;
         });
         receivingJuggler.addInComingProp(prop);
@@ -538,7 +538,7 @@ Pattern.prototype.Catch = function() {
 
 
 Pattern.prototype.RunForCycle = function(limit) {
-    for (var toss = 0; toss < limit; ++toss) {
+    for (let toss = 0; toss < limit; ++toss) {
         let tossedProps = this.pattern.Toss();
         assert.equal(tossedProps.length, 2, "2 props tossed");
         assert.ok(arePropsValid(toss, tossedProps), "The correct props where tossed");
