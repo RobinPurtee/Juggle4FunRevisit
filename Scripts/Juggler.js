@@ -175,21 +175,21 @@ Prop.prototype.toString = function() {
         }
         return retStr;
     }
-    //-----------------------------------------------------------------------------
-    // Manager for the state of a hand
-    // Properties:
-    // jugglerId - the id of the juggler
-    //  hand - the hand id under each juggler (value should be RightHand or LeftHand)
-    //  props - an array of objects currently held by the hand
-    // Methods:
-    //  isVacant() - test if the prop array is empty
-    //  Toss() - returns the prop it removes from the top of the prop array
-    //  Catch(prop_) - causes the prop to be added the bottom of the prop array
-    // Remarks:
-    //  The state of the hand toggles based
-    // Parameters:
-    //      hand_ - the hand of this object
-    //      props_ - optional list of the props that are currently held by the hand
+//-----------------------------------------------------------------------------
+// Manager for the state of a hand
+// Properties:
+// jugglerId - the id of the juggler
+//  hand - the hand id under each juggler (value should be RightHand or LeftHand)
+//  props - an array of objects currently held by the hand
+// Methods:
+//  isVacant() - test if the prop array is empty
+//  Toss() - returns the prop it removes from the top of the prop array
+//  Catch(prop_) - causes the prop to be added the bottom of the prop array
+// Remarks:
+//  The state of the hand toggles based
+// Parameters:
+//      hand_ - the hand of this object
+//      props_ - optional list of the props that are currently held by the hand
 function Hand(jugglerId_, hand_) {
     this.jugglerId = jugglerId_;
     this.hand = hand_;
