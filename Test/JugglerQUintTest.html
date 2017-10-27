@@ -9,13 +9,37 @@
     <script src="https://code.jquery.com/qunit/qunit-2.4.0.js"></script>
     <script src="../Scripts/Juggler.js"></script>
     <script>
-        var jugglerPasses = [
+        let jugglerPasses = [
             ["AR-3PBL", "AL-3SAR", "AR-3SAL", "AL-3SAR", "AR-3PBL", "AL-3PBR", "AR-3SAL", "AL-3SAR"],
             ["BR-3PAL", "BL-3SBR", "BR-3SBL", "BL-3SBR", "BR-3PAL", "BL-3PAR", "BR-3SBL", "BL-3SBR"]
         ];
 
-        var props = null;
+        let props = null;
 
+        function createPropList(numberOfProps_) {
+            let propNameIndex = 97
+            let propList = new Array(numberOfProps_);
+            for (let i = 0; i < numberOfProps_; ++i) {
+                let propCurrentName = String.fromCharCode(propNameIndex);
+                propList[i] = new Prop(propCurrentName);
+                ++propNameIndex;
+            }
+            return propList;
+        }
+
+        function distributeProps(jugglers_, props_) {
+            let curHand = RightHand;
+            let jugglerIndex = 0;
+            props_.forEach(function(prop_) {
+                jugglers_[jugglerIndex].pickup(curHand, prop_);
+                ++jugglerIndex;
+                if (jugglerIndex >= jugglers_.length) {
+                    jugglerIndex = 0;
+                    curHand = (curHand === RightHand) ? LeftHand : RightHand;
+                }
+
+            }, this);
+        }
 
 
         QUnit.test("Juggler constructor Tests", function(assert) {
@@ -23,15 +47,15 @@
             let tableRow = table.rows[0].cells;
             let rhythmLength = tableRow.length;
 
-            var juggler = new Juggler("A", tableRow, "fred");
+            let juggler = new Juggler("A", tableRow, "fred");
             juggler.setPartnerId("B");
 
             assert.equal(juggler.id, "A", "The Juggler id is " + juggler.id);
             assert.equal(juggler.name, "fred", "The Jugger name is " + juggler.name);
-            assert.equal(juggler.cycleLength, rhythmLength, "Juggler has the correct number of tosses: " + juggler.cycleLength);
+            assert.equal(juggler.rhythmLength, rhythmLength, "Juggler has the correct number of tosses: " + juggler.cycleLength);
 
 
-            for (var i = 0; i < rhythmLength; ++i) {
+            for (let i = 0; i < rhythmLength; ++i) {
                 assert.equal(juggler.tosses[i].toFullString(), jugglerPasses[0][i], "Pass " + i + " is " + juggler.tosses[i].toString());
             }
         });
@@ -67,64 +91,64 @@
         }, this);
 
 
-        QUnit.test("Juggle 2 cycles", function(assert) {
-            function countPropsInFlight(props_) {
-                let numberPropsInFlight = 0;
-                props.forEach(function(prop_, index_) {
-                    if (prop_.isInFlight()) {
-                        ++numberPropsInFlight;
-                    }
-                }, this);
-                return numberPropsInFlight;
-            }
 
-            numberOfProps = 6;
-            props = createPropList(numberOfProps);
-            let table = document.getElementById("everyothereveryother");
-            let tableRow = table.rows[0].cells;
-            let rhythmLength = tableRow.length;
-
-            var jugglers = [new Juggler("A", tableRow, "fred"), new Juggler("B", tableRow, "drew")];
-            jugglers[0].setPartnerId(jugglers[1].id);
-            jugglers[1].setPartnerId(jugglers[0].id);
-
-            distributeProps(jugglers, props);
-
-            let propTossedIndex = 0;
-            for (var i = 0; i < (rhythmLength * 2); ++i) {
-                // toss the current toss for each juggler
-                jugglers.forEach(function(juggler_, index_, jugglers_) {
-                    let prop = juggler_.Toss();
-                    assert.equal(prop.toss.toFullString(), jugglerPasses[index_][i % rhythmLength], "Juggler " + juggler_.id + " tossed " + jugglerPasses[index_][i % rhythmLength]);
-                    // As there are only 2 juggler this adding 1 and mod it by 2 will flip the index
-                    var receivingJuggler = jugglers_.find(function(j_) {
-                        return j_.id == prop.toss.juggler;
-                    });
-                    receivingJuggler.addInComingProp(prop);
-                    assert.equal(receivingJuggler.inComingProps[prop.toss.magnitude - 2].id, prop.id, "Prop " + prop.id + " added to incoming list of Juggler " + receivingJuggler.id);
-                    ++propTossedIndex;
-                }, this);
-
-                let numberPropsInFlight = countPropsInFlight(props);
-                if (propTossedIndex > 2) {
-                    assert.equal(numberPropsInFlight, 4, "There are 4 clubs in flight");
-                } else {
-                    assert.equal(numberPropsInFlight, 2, "There are 2 clubs in flight");
+    QUnit.test("Juggle 2 cycles", function(assert) {
+        function countPropsInFlight(props_) {
+            let numberPropsInFlight = 0;
+            props.forEach(function(prop_, index_) {
+                if (prop_.isInFlight()) {
+                    ++numberPropsInFlight;
                 }
+            }, this);
+            return numberPropsInFlight;
+        }
 
-                jugglers.forEach(function(juggler_, index_) {
-                    let prop = juggler_.Catch();
-                    if (i < 1) {
-                        assert.equal(prop, null, "Waiting for first catch");
-                    }
-                }, this);
+        numberOfProps = 6;
+        props = createPropList(numberOfProps);
+        let table = document.getElementById("everyothereveryother");
+        let tableRow = table.rows[0].cells;
+        let rhythmLength = tableRow.length;
 
-                numberPropsInFlight = countPropsInFlight(props);
-                assert.equal(numberPropsInFlight, 2, "After catch there are only 2 props in flight");
+        var jugglers = [new Juggler("A", tableRow, "fred"), new Juggler("B", tableRow, "drew")];
+        jugglers[0].setPartnerId(jugglers[1].id);
+        jugglers[1].setPartnerId(jugglers[0].id);
 
+        distributeProps(jugglers, props);
+
+        let propTossedIndex = 0;
+        for (let i = 0; i < (rhythmLength * 2); ++i) {
+            // toss the current toss for each juggler
+            jugglers.forEach(function(juggler_, index_, jugglers_) {
+                let prop = juggler_.Toss();
+                assert.equal(prop.location.toFullString(), jugglerPasses[index_][i % rhythmLength], "Juggler " + juggler_.id + " tossed " + jugglerPasses[index_][i % rhythmLength]);
+                // As there are only 2 juggler this adding 1 and mod it by 2 will flip the index
+                var receivingJuggler = jugglers_.find(function(j_) {
+                    return j_.id == prop.location.juggler;
+                });
+                receivingJuggler.addInComingProp(prop);
+                assert.equal(receivingJuggler.inComingProps[prop.location.magnitude - 2].id, prop.id, "Prop " + prop.id + " added to incoming list of Juggler " + receivingJuggler.id);
+                ++propTossedIndex;
+            }, this);
+
+            let numberPropsInFlight = countPropsInFlight(props);
+            if (propTossedIndex > 2) {
+                assert.equal(numberPropsInFlight, 4, "There are 4 clubs in flight");
+            } else {
+                assert.equal(numberPropsInFlight, 2, "There are 2 clubs in flight");
             }
 
+            jugglers.forEach(function(juggler_, index_) {
+                let prop = juggler_.Catch();
+                if (i < 1) {
+                    assert.equal(prop, null, "Waiting for first catch");
+                }
+            }, this);
+
+            numberPropsInFlight = countPropsInFlight(props);
+            assert.equal(numberPropsInFlight, 2, "After catch there are only 2 props in flight");
+            }
         }, this);
+
     </script>
 </head>
 
