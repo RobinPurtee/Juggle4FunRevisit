@@ -16,29 +16,37 @@
 
         let props = null;
 
-        function createPropList(numberOfProps_) {
+        function PropList(numberOfProps_) {
             let propNameIndex = 97
-            let propList = new Array(numberOfProps_);
+            this.list = new Array(numberOfProps_);
+            this.length = this.list.length;
             for (let i = 0; i < numberOfProps_; ++i) {
-                let propCurrentName = String.fromCharCode(propNameIndex);
-                propList[i] = new Prop(propCurrentName);
+                this.list[i] = new Prop(String.fromCharCode(propNameIndex));
                 ++propNameIndex;
             }
-            return propList;
         }
 
-        function distributeProps(jugglers_, props_) {
+        PropList.prototype.distribute = function(jugglers_) {
             let curHand = RightHand;
             let jugglerIndex = 0;
-            props_.forEach(function(prop_) {
-                jugglers_[jugglerIndex].pickup(curHand, prop_);
+            for(let i = 0; i < this.list.length; ++i) {
+                jugglers_[jugglerIndex].pickup(curHand, this.list[i]);
                 ++jugglerIndex;
                 if (jugglerIndex >= jugglers_.length) {
                     jugglerIndex = 0;
                     curHand = (curHand === RightHand) ? LeftHand : RightHand;
                 }
 
+            }
+        }
+        PropList.prototype.inFlightCount = function() {
+            let numberPropsInFlight = 0;
+            this.list.forEach(function(prop_, index_) {
+                if (prop_.isInFlight()) {
+                    ++numberPropsInFlight;
+                }
             }, this);
+            return numberPropsInFlight;
         }
 
 
@@ -61,24 +69,24 @@
         });
 
         QUnit.test("Prop List creation", function(assert) {
-            props = createPropList(6);
+            let props = new PropList(6);
             assert.equal(props.length, 6, "PropList created with the correct length")
             let propNameIndex = 97
-            props.forEach(function(prop_, index_) {
-                assert.equal(prop_.id, String.fromCharCode(propNameIndex), "Prop " + index_ + " is named " + prop_.id);
+            for(let i = 0 ; i < props.length ; ++i) {
+                assert.equal(props.list[i].id, String.fromCharCode(propNameIndex), "Prop " + i + " is named " + props.list[i].id);
                 ++propNameIndex;
-            }, this);
+            }
         });
 
         QUnit.test("Prop List distribution", function(assert) {
-            props = createPropList(6);
+            let props = new PropList(6);
             let table = document.getElementById("everyothereveryother");
             let tableRow = table.rows[0].cells;
             let rhythmLength = tableRow.length;
 
-            var jugglers = [new Juggler("A", tableRow, "fred"), new Juggler("B", tableRow, "drew")]
+            let jugglers = [new Juggler("A", tableRow, "fred"), new Juggler("B", tableRow, "drew")]
 
-            distributeProps(jugglers, props);
+            props.distribute(jugglers);
 
             assert.equal(jugglers[0].hands.get(RightHand).props[0].id, "a", "Juggler A's right hand contains prop 'a'");
             assert.equal(jugglers[1].hands.get(RightHand).props[0].id, "b", "Juggler B's right hand contains prop 'b'");
@@ -93,18 +101,8 @@
 
 
     QUnit.test("Juggle 2 cycles", function(assert) {
-        function countPropsInFlight(props_) {
-            let numberPropsInFlight = 0;
-            props.forEach(function(prop_, index_) {
-                if (prop_.isInFlight()) {
-                    ++numberPropsInFlight;
-                }
-            }, this);
-            return numberPropsInFlight;
-        }
 
-        numberOfProps = 6;
-        props = createPropList(numberOfProps);
+        props = new PropList(6);
         let table = document.getElementById("everyothereveryother");
         let tableRow = table.rows[0].cells;
         let rhythmLength = tableRow.length;
@@ -113,7 +111,7 @@
         jugglers[0].setPartnerId(jugglers[1].id);
         jugglers[1].setPartnerId(jugglers[0].id);
 
-        distributeProps(jugglers, props);
+        props.distribute(jugglers);
 
         let propTossedIndex = 0;
         for (let i = 0; i < (rhythmLength * 2); ++i) {
@@ -130,7 +128,7 @@
                 ++propTossedIndex;
             }, this);
 
-            let numberPropsInFlight = countPropsInFlight(props);
+            let numberPropsInFlight = props.inFlightCount();
             if (propTossedIndex > 2) {
                 assert.equal(numberPropsInFlight, 4, "There are 4 clubs in flight");
             } else {
@@ -144,7 +142,7 @@
                 }
             }, this);
 
-            numberPropsInFlight = countPropsInFlight(props);
+            numberPropsInFlight = props.inFlightCount();
             assert.equal(numberPropsInFlight, 2, "After catch there are only 2 props in flight");
             }
         }, this);
