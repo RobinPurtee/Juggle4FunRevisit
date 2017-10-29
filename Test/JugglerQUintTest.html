@@ -16,38 +16,6 @@
 
         let props = null;
 
-        function PropList(numberOfProps_) {
-            let propNameIndex = 97
-            this.list = new Array(numberOfProps_);
-            this.length = this.list.length;
-            for (let i = 0; i < numberOfProps_; ++i) {
-                this.list[i] = new Prop(String.fromCharCode(propNameIndex));
-                ++propNameIndex;
-            }
-        }
-
-        PropList.prototype.distribute = function(jugglers_) {
-            let curHand = RightHand;
-            let jugglerIndex = 0;
-            for(let i = 0; i < this.list.length; ++i) {
-                jugglers_[jugglerIndex].pickup(curHand, this.list[i]);
-                ++jugglerIndex;
-                if (jugglerIndex >= jugglers_.length) {
-                    jugglerIndex = 0;
-                    curHand = (curHand === RightHand) ? LeftHand : RightHand;
-                }
-
-            }
-        }
-        PropList.prototype.inFlightCount = function() {
-            let numberPropsInFlight = 0;
-            this.list.forEach(function(prop_, index_) {
-                if (prop_.isInFlight()) {
-                    ++numberPropsInFlight;
-                }
-            }, this);
-            return numberPropsInFlight;
-        }
 
 
         QUnit.test("Juggler constructor Tests", function(assert) {

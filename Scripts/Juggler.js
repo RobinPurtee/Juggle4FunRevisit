@@ -68,12 +68,11 @@ function Toss(direction_, magnitude_, juggler_) {
         }
     }
 }
-
 // Test if this toss has an origin juggler and hand
 Toss.prototype.hasOrigin = function() {
     return this.originJuggler != null;
 }
-
+//set the hand the toss is from
 Toss.prototype.setOrigin = function(juggler_, hand_) {
     this.originJuggler = juggler_;
     this.originHand = hand_;
@@ -81,7 +80,6 @@ Toss.prototype.setOrigin = function(juggler_, hand_) {
         this.juggler = this.originJuggler;
     }
 }
-
 // Calculate the hand of the destination juggler
 // return: The destination hand if this toss has an origin juggler and hand, else undefined
 Toss.prototype.destinationHand = function() {
@@ -95,7 +93,6 @@ Toss.prototype.destinationHand = function() {
     }
     return hand;
 }
-
 // Get a string containing just the optional magnitude and direction but no juggler
 Toss.prototype.toDirectionString = function() {
     let retStr = new String();
@@ -105,7 +102,6 @@ Toss.prototype.toDirectionString = function() {
     retStr += this.direction;
     return retStr;
 }
-
 // Get a string containing the magnutude (optionally), direction, and juggler of the toss
 Toss.prototype.toJugglerDirectionString = function() {
     let retStr = this.toDirectionString();
@@ -167,14 +163,55 @@ Prop.prototype.isOnFloor = function() {
 }
 
 Prop.prototype.toString = function() {
-        let retStr = this.id.toString();
-        if (this.isOnFloor()) {
-            retStr += " - Floor";
-        } else {
-            retStr += " - " + this.location.toString();
-        }
-        return retStr;
+    let retStr = this.id.toString();
+    if (this.isOnFloor()) {
+        retStr += " - Floor";
+    } else {
+        retStr += " - " + this.location.toString();
     }
+    return retStr;
+}
+// A list of props
+// Properties:
+//      list - the array of props
+//      length - the number of props
+// Methods:
+//      distribute(jugglers) - distribute the props amoung the given jugglers
+//      inFlightCount() -  
+function PropList(numberOfProps_) {
+    let propNameIndex = 97
+    this.list = new Array(numberOfProps_);
+    this.length = this.list.length;
+    for (let i = 0; i < numberOfProps_; ++i) {
+        this.list[i] = new Prop(String.fromCharCode(propNameIndex));
+        ++propNameIndex;
+    }
+}
+// Distribute the clubs amoung the jugglers
+PropList.prototype.distribute = function(jugglers_) {
+    let curHand = RightHand;
+    let jugglerIndex = 0;
+    for(let i = 0; i < this.list.length; ++i) {
+        jugglers_[jugglerIndex].pickup(curHand, this.list[i]);
+        ++jugglerIndex;
+        if (jugglerIndex >= jugglers_.length) {
+            jugglerIndex = 0;
+            curHand = (curHand === RightHand) ? LeftHand : RightHand;
+        }
+
+    }
+}
+// get the current number of props that are in the air
+PropList.prototype.inFlightCount = function() {
+    let numberPropsInFlight = 0;
+    this.list.forEach(function(prop_, index_) {
+        if (prop_.isInFlight()) {
+            ++numberPropsInFlight;
+        }
+    }, this);
+    return numberPropsInFlight;
+}
+
 //-----------------------------------------------------------------------------
 // Manager for the state of a hand
 // Properties:
@@ -346,7 +383,6 @@ Juggler.prototype.toString = function() {
     return ret;
 }
 
-
 // Utility function to check if a CSS class style exists
 // param: the string name of the class to check for
 // return: boolean; true if the class exists else false
@@ -367,22 +403,27 @@ function CSSClassExists(className_){
 // param: y_ - the y coordinate of the position
 // param: angle_ - the angle of the front of the juggler
 function JugglerPosition(x_, y_, angle_) {
-    this.x = x_ || 0;
-    this.y = y_ || 0;
-    this.angle = angle_ || 0;
-
-    // translate the relative to the juggler point given to global coordinates
-    this.transformPoint = function(x_, y_){
-        let rads = this.angle * (Math.PI / 180);
-        let sin = Math.sin(rads);
-        let cos = Math.cos(rads);
-        return {
-            x: ((x_ * cos) - (y_ * sin)) + this.x
-          , y: ((x_ * sin) + (y_ * cos)) + this.y
-        }
+    if(typeof x_ == 'object'){
+        this.x = x_.x;
+        this.y = x_.y;
+        this.angle = x_.angle;
+    }else{
+        this.x = x_ || 0;
+        this.y = y_ || 0;
+        this.angle = angle_ || 0;
     }
-}
 
+}
+// translate the relative to the juggler point given to global coordinates
+JugglerPosition.prototype.transformPoint = function(x_, y_){
+    let rads = this.angle * (Math.PI / 180);
+    let sin = Math.sin(rads);
+    let cos = Math.cos(rads);
+    return {
+        x: ((x_ * cos) - (y_ * sin)) + this.x
+      , y: ((x_ * sin) + (y_ * cos)) + this.y
+    }
+} 
 
 // The object to manage the display of a Juggler
 function JugglerView(svgRoot_, name_, position_) {
@@ -400,7 +441,7 @@ function JugglerView(svgRoot_, name_, position_) {
         document.styleSheets[0].insertRule(".jugglerHead {fill:#ebebeb;stroke:#000000;stroke-width:1;}")
     }
     if(!CSSClassExists(".jugglerName")){
-        document.styleSheets[0].insertRule(".jugglerHead {font-size:15px}")
+        document.styleSheets[0].insertRule(".jugglerName {font-size:15px}")
     }
 
     this.juggler = svgRoot_.group();
@@ -468,6 +509,8 @@ JugglerView.prototype.getLeftHandPoint = function(){
 
 function Pattern(numberOfJugglers_, numberOfProps_, rhythmTable_) {
     // create the jugglers
+    this.numberOfJugglers = numberOfJugglers_;
+    this.numberOfProps = numberOfProps_;
     this.jugglers = new Array(numberOfJugglers_);
     let jugglerIdIndex = 65; // charater code for 'A'
     for (let i = 0; i < numberOfJugglers_; ++i) {
@@ -485,24 +528,9 @@ function Pattern(numberOfJugglers_, numberOfProps_, rhythmTable_) {
         this.jugglers[1].setPartnerId(this.jugglers[0].id);
     }
     // create the props
-    this.props = new Array(numberOfProps_);
-    let propNameIndex = 97; // charater code for 'a'
-    for (let i = 0; i < numberOfProps_; ++i) {
-        this.props[i] = new Prop(String.fromCharCode(propNameIndex));
-        ++propNameIndex;
-    }
+    this.props = new PropList(numberOfProps_);
     // distribute the props
-    let curHand = RightHand;
-    let jugglerIndex = 0;
-    this.props.forEach(function(prop_) {
-        this.jugglers[jugglerIndex].pickup(curHand, prop_);
-        ++jugglerIndex;
-        if (jugglerIndex >= this.jugglers.length) {
-            jugglerIndex = 0;
-            curHand = (curHand === RightHand) ? LeftHand : RightHand;
-        }
-
-    }, this);
+    this.props.distribute(this.jugglers);
 }
 
 // execute the next toss in the rhythm for all jugglers
