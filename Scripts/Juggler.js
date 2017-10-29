@@ -21,124 +21,125 @@ function TossException(toss_, message_) {
 //      magnitude_ - This siteswap value of the pass (optional: defaults to 3)
 //      juggler_   - The name of the destination juggler (optional: defaults to "A")
 
-function Toss(direction_, magnitude_, juggler_) {
-    this.originJuggler = null;
-    this.originHand = null;
-    this.magnitude = magnitude_;
-    this.direction = direction_;
-    this.juggler = juggler_;
-    this.tossPath = null;
+class Toss{
+    constructor(direction_, magnitude_, juggler_) {
+        this.originJuggler = null;
+        this.originHand = null;
+        this.magnitude = magnitude_;
+        this.direction = direction_;
+        this.juggler = juggler_;
+        this.tossPath = null;
 
-    if (direction_ != undefined && direction_.length > 1) {
-        let length = direction_.length;
-        let i = 0;
-        // if the Toss string has more than 3 charaters then it has an origin section
-        if (length > 3) {
-            this.originJuggler = direction_[i].toUpperCase();
+        if (direction_ != undefined && direction_.length > 1) {
+            let length = direction_.length;
+            let i = 0;
+            // if the Toss string has more than 3 charaters then it has an origin section
+            if (length > 3) {
+                this.originJuggler = direction_[i].toUpperCase();
+                ++i;
+                this.originHand = direction_[i].toUpperCase();
+                ++i;
+                ++i; // increment past the "-"
+            }
+            // if the next charater is a not a number
+            this.magnitude = Number.parseInt(direction_[i]);
+            if (Number.isNaN(this.magnitude)) {
+                this.magnitude = 3; // set the magnitude to default
+            } else {
+                ++i; // go to the next charater to get the direction
+            }
+            this.direction = direction_[i].toUpperCase();
             ++i;
-            this.originHand = direction_[i].toUpperCase();
-            ++i;
-            ++i; // increment past the "-"
-        }
-        // if the next charater is a not a number
-        this.magnitude = Number.parseInt(direction_[i]);
-        if (Number.isNaN(this.magnitude)) {
-            this.magnitude = 3; // set the magnitude to default
+            if (i < length) {
+                this.juggler = direction_[i].toUpperCase();
+            }
+            if (this.direction === Self || this.direction === Heff) {
+                this.juggler = this.originJuggler;
+            }
+
         } else {
-            ++i; // go to the next charater to get the direction
+            if (direction_ === undefined) {
+                this.direction = Self;
+            }
+            if (this.magnitude === undefined || isNaN(this.magnitude)) {
+                this.magnitude = 3;
+            }
+            if (juggler_ === undefined) {
+                this.juggler = null;
+            }
         }
-        this.direction = direction_[i].toUpperCase();
-        ++i;
-        if (i < length) {
-            this.juggler = direction_[i].toUpperCase();
-        }
+    }
+// Test if this toss has an origin juggler and hand
+    hasOrigin() {
+        return this.originJuggler != null;
+    }
+//set the hand the toss is from
+    setOrigin(juggler_, hand_) {
+        this.originJuggler = juggler_;
+        this.originHand = hand_;
         if (this.direction === Self || this.direction === Heff) {
             this.juggler = this.originJuggler;
         }
-
-    } else {
-        if (direction_ === undefined) {
-            this.direction = Self;
-        }
-        if (this.magnitude === undefined || isNaN(this.magnitude)) {
-            this.magnitude = 3;
-        }
-        if (juggler_ === undefined) {
-            this.juggler = null;
-        }
     }
-}
-// Test if this toss has an origin juggler and hand
-Toss.prototype.hasOrigin = function() {
-    return this.originJuggler != null;
-}
-//set the hand the toss is from
-Toss.prototype.setOrigin = function(juggler_, hand_) {
-    this.originJuggler = juggler_;
-    this.originHand = hand_;
-    if (this.direction === Self || this.direction === Heff) {
-        this.juggler = this.originJuggler;
-    }
-}
 // Calculate the hand of the destination juggler
 // return: The destination hand if this toss has an origin juggler and hand, else undefined
-Toss.prototype.destinationHand = function() {
-    let hand = undefined;
-    if (this.hasOrigin()) {
-        if (this.direction == Pass || this.direction == Self) {
-            hand = (this.originHand === RightHand) ? LeftHand : RightHand;
-        } else {
-            hand = this.originHand;
+    destinationHand() {
+        let hand = undefined;
+        if (this.hasOrigin()) {
+            if (this.direction == Pass || this.direction == Self) {
+                hand = (this.originHand === RightHand) ? LeftHand : RightHand;
+            } else {
+                hand = this.originHand;
+            }
         }
+        return hand;
     }
-    return hand;
-}
 // Get a string containing just the optional magnitude and direction but no juggler
-Toss.prototype.toDirectionString = function() {
-    let retStr = new String();
-    if (this.magnitude != 3) {
-        retStr = this.magnitude.toString();
+    toDirectionString() {
+        let retStr = new String();
+        if (this.magnitude != 3) {
+            retStr = this.magnitude.toString();
+        }
+        retStr += this.direction;
+        return retStr;
     }
-    retStr += this.direction;
-    return retStr;
-}
 // Get a string containing the magnutude (optionally), direction, and juggler of the toss
-Toss.prototype.toJugglerDirectionString = function() {
-    let retStr = this.toDirectionString();
-    if (this.juggler != null && this.direction != Self && this.direction != Heff)
-        retStr += this.juggler;
-    return retStr;
-}
+    toJugglerDirectionString() {
+        let retStr = this.toDirectionString();
+        if (this.juggler != null && this.direction != Self && this.direction != Heff)
+            retStr += this.juggler;
+        return retStr;
+    }
 
 // Get a string that contains all properties of the toss object
-Toss.prototype.toFullString = function() {
-    let retStr = this.toString();
-    if (this.hasOrigin()) {
-        retStr += this.destinationHand();
+    toFullString() {
+        let retStr = this.toString();
+        if (this.hasOrigin()) {
+            retStr += this.destinationHand();
+        }
+        return retStr;
     }
-    return retStr;
-}
 
 // Get a string representation of the property values of the toss
-Toss.prototype.toString = function() {
-    let retStr = new String();
-    if (this.originJuggler != null) {
-        retStr = this.originJuggler;
-        retStr += this.originHand;
-        retStr += "-";
-    }
-    retStr += this.magnitude.toString();
-    retStr += this.direction;
-    if ((this.direction === Self || this.direction === Heff)) {
+    toString() {
+        let retStr = new String();
         if (this.originJuggler != null) {
-            retStr += this.originJuggler;
+            retStr = this.originJuggler;
+            retStr += this.originHand;
+            retStr += "-";
         }
-    } else if (this.juggler != null) {
-        retStr += this.juggler;
+        retStr += this.magnitude.toString();
+        retStr += this.direction;
+        if ((this.direction === Self || this.direction === Heff)) {
+            if (this.originJuggler != null) {
+                retStr += this.originJuggler;
+            }
+        } else if (this.juggler != null) {
+            retStr += this.juggler;
+        }
+        return retStr;
     }
-    return retStr;
 }
-
 //-----------------------------------------------------------------------------
 // The Prop class represents a prop in the pattern
 // Properties:
@@ -177,7 +178,7 @@ Prop.prototype.toString = function() {
 //      length - the number of props
 // Methods:
 //      distribute(jugglers) - distribute the props amoung the given jugglers
-//      inFlightCount() -  
+//      inFlightCount() -
 function PropList(numberOfProps_) {
     let propNameIndex = 97
     this.list = new Array(numberOfProps_);
@@ -423,7 +424,7 @@ JugglerPosition.prototype.transformPoint = function(x_, y_){
         x: ((x_ * cos) - (y_ * sin)) + this.x
       , y: ((x_ * sin) + (y_ * cos)) + this.y
     }
-} 
+}
 
 // The object to manage the display of a Juggler
 function JugglerView(svgRoot_, name_, position_) {
