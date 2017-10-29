@@ -29,8 +29,8 @@
 
         function testPattern(assert, patternTableElement_, outputElement_) {
             function arePropsValid(tossIndex, props_) {
-                let propIndex = (tossIndex * 2) % pattern.props.length;
-                let propIds = [pattern.props[propIndex].id, pattern.props[propIndex + 1].id];
+                let propIndex = (tossIndex * 2) % props_.length;
+                let propIds = [props_[propIndex].id, props_[propIndex + 1].id];
                 let isValid = true;
                 while (isValid && propIndex < props_.length) {
                     isValid = propIds.find(function(tossedProp_) {
@@ -45,7 +45,7 @@
             let tossedProps = null;
             let caughtProps = null;
             let propIndex = 0;
-            let output = "Pattern name: ";
+            let output = "<p>Pattern name: " + patternTableElement_.id + "<br>";
             for (var toss = 0; toss < 12; ++toss) {
                 tossedProps = pattern.Toss();
                 assert.equal(tossedProps.length, 2, "2 props tossed");
@@ -68,7 +68,8 @@
                 }
                 output += "<br/>";
             }
-            outputElement_.textContent = output;
+            output += "</p>"
+            outputElement_.innerHTML = output;
         }
 
         QUnit.test("Pattern Run 3 count Test", function(assert) {
