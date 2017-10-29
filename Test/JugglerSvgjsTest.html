@@ -17,26 +17,69 @@
             document.getElementById("positionDisplay").textContent = "line start: x:" + start.x + " y:" + start.y + " end: x:" + end.x + " y:" + end.y;
         }
 
+
+        let RhythmLayout = {
+            viewbox: [0, 0, 250, 250]
+          , numberJugglers: 2
+          , numberProps: 6
+          , jugglerPositions: [
+              {x:20, y:45, angle:0}
+            , {x:200, y:45, angle:180}
+            ]
+        }
+        function PatternView(parentElementName_, rhythmTable_, layout_){
+            let parentElem = document.getElementById(parentElementName_);
+            let rhythmTable = document.getElementById(rhythmTable_);
+
+            this.svgRoot = SVG(parentElementName_);
+            let imgSize = {width: parentElem.getAttribute("item-width"), height:parentElem.getAttribute("item-height")};
+            this.svgRoot.rect(layout_.viewbox[2], layout_.viewbox[3]).addClass("jugglerArms");
+            this.svgRoot.size(parentElem.getAttribute("item-width"), parentElem.getAttribute("item-height"));
+            this.svgRoot.viewbox(layout_.viewbox);
+            this.pattern = new Pattern(layout_.numberJugglers, layout_.numberProps, rhythmTable)
+
+            this.jugglerViews = new Array(layout_.numberJugglers);
+            for(let i = 0; i < layout_.numberJugglers; ++i){
+                this.jugglerViews[i] = new JugglerView(this.svgRoot, this.pattern.jugglers[i].id, layout_.jugglerPositions[i]);
+            }
+            this.ensureStyles();
+        }
+
+        PatternView.prototype.ensureStyles = function(){
+            if(!CSSClassExists(".jugglerArms")){
+                document.styleSheets[0].insertRule(".jugglerArms {fill:none;stroke:#000000;stroke-width:1;}")
+            }
+            if(!CSSClassExists(".jugglerRightHand")){
+                document.styleSheets[0].insertRule(".jugglerRightHand {fill:#e80000;stroke:#000000;stroke-width:1;}")
+            }
+            if(!CSSClassExists(".jugglerLeftHand")){
+                document.styleSheets[0].insertRule(".jugglerLeftHand {fill:#00e800;stroke:#000000;stroke-width:1;}")
+            }
+            if(!CSSClassExists(".jugglerHead")){
+                document.styleSheets[0].insertRule(".jugglerHead {fill:#ebebeb;stroke:#000000;stroke-width:1;}")
+            }
+            if(!CSSClassExists(".jugglerName")){
+                document.styleSheets[0].insertRule(".jugglerName {font-size:15px}")
+            }
+            if(!CSSClassExists(".toss")){
+                document.styleSheets[0].insertRule(".toss {fill:none;stroke:#000000;stroke-width:1;stroke-dasharray:10;stroke-dashoffset:0;}")
+            }
+        }
+
         window.onload = function() {
-            svgRoot = SVG("jugglerImage").size(600, 400).viewbox(0, 0, 250, 200);
 
             try {
-                //curPosition = new JugglerPosition(40, 45, 0)
-                var jugglerAPosition = new JugglerPosition(20, 45, 0);
-                var jugglerBPosition = new JugglerPosition(200, 45, 180);
-                jugglerAView = (new JugglerView(svgRoot, "A", jugglerAPosition));
-                jugglerBView = (new JugglerView(svgRoot, "B", jugglerBPosition));
-
-                let handA = jugglerAView.position.transformPoint(jugglerAView.rightHand.cx(), jugglerAView.rightHand.cy());
-                let handB = jugglerBView.position.transformPoint(jugglerBView.leftHand.cx(), jugglerBView.leftHand.cy());
-                DisplayLine(handA, handB);
-                //let lineObject = {x1:handA.x, y1:handA.y, x2:handB.x, y2:handB.y};
-                let lineArray =  [handA.x, handA.y, handB.x, handB.y];
-                let tossLineElement = new SVG.Line;
-                tossLineElement.addClass("jugglerArms");
-                tossLineElement.plot(handA.x, handA.y, handB.x, handB.y);
-                svgRoot.add(tossLineElement, 0);
-                // //svgRoot.line(handA.x, handA.y, handB.x, handB.y).addClass("jugglerArms");
+                patternView = new PatternView("jugglerImage", "jims3count", RhythmLayout);
+                // let handA = jugglerView[0].getRightHandPoint();
+                // let handB = jugglerView[1].getLeftHandPoint();
+                // DisplayLine(handA, handB);
+                // //let lineObject = {x1:handA.x, y1:handA.y, x2:handB.x, y2:handB.y};
+                // let lineArray =  [handA.x, handA.y, handB.x, handB.y];
+                // let tossLineElement = new SVG.Line;
+                // tossLineElement.addClass("toss");
+                // tossLineElement.plot(handA.x, handA.y, handB.x, handB.y);
+                // svgRoot.add(tossLineElement, 0);
+                // // //svgRoot.line(handA.x, handA.y, handB.x, handB.y).addClass("jugglerArms");
 
             } catch (err) {
                 DisplayError("Error creating JugglerView because: " + err.message);
@@ -56,11 +99,24 @@
 
 <body>
     <h2>Animation of a juggler torso</h2>
-    <div id="jugglerImage"></div>
+    <div id="jugglerImage" item-width="600" item-height="400"></div>
 
 
     <p id="positionDisplay" style="white-space:pre"></p>
     <p id="errorDisplay" style="white-space:pre"></p>
+
+    <table id="jims3count">
+        <tr>
+            <td>P</td>
+            <td>S</td>
+            <td>S</td>
+        </tr>
+        <tr>
+            <td>D</td>
+            <td>S</td>
+            <td>S</td>
+        </tr>
+    </table>
 
 
 </body>
