@@ -1,11 +1,12 @@
+"use strict"
 // hand strings
-const RightHand = "R";
-const LeftHand = "L";
+const RIGHT_HAND = "R";
+const LEFT_HAND = "L";
 // Toss direction strings
-const Pass = "P";
-const Diagonal = "D";
-const Self = "S";
-const Heff = "H";
+const PASS = "P";
+const DIAGONAL = "D";
+const SELF = "S";
+const HEFF = "H";
 
 
 //-----------------------------------------------------------------------------
@@ -30,7 +31,7 @@ class Toss{
         this.juggler = juggler_;
         this.tossPath = null;
 
-        if (direction_ != undefined && direction_.length > 1) {
+        if (direction_ != null && direction_.length > 1) {
             let length = direction_.length;
             let i = 0;
             // if the Toss string has more than 3 charaters then it has an origin section
@@ -53,18 +54,18 @@ class Toss{
             if (i < length) {
                 this.juggler = direction_[i].toUpperCase();
             }
-            if (this.direction === Self || this.direction === Heff) {
+            if (this.direction === SELF || this.direction === HEFF) {
                 this.juggler = this.originJuggler;
             }
 
         } else {
-            if (direction_ === undefined) {
-                this.direction = Self;
+            if (direction_ === null) {
+                this.direction = SELF;
             }
-            if (this.magnitude === undefined || isNaN(this.magnitude)) {
+            if (this.magnitude === null || isNaN(this.magnitude)) {
                 this.magnitude = 3;
             }
-            if (juggler_ === undefined) {
+            if (juggler_ === null) {
                 this.juggler = null;
             }
         }
@@ -77,7 +78,7 @@ class Toss{
     setOrigin(juggler_, hand_) {
         this.originJuggler = juggler_;
         this.originHand = hand_;
-        if (this.direction === Self || this.direction === Heff) {
+        if (this.direction === SELF || this.direction === HEFF) {
             this.juggler = this.originJuggler;
         }
     }
@@ -86,8 +87,8 @@ class Toss{
     destinationHand() {
         let hand = undefined;
         if (this.hasOrigin()) {
-            if (this.direction == Pass || this.direction == Self) {
-                hand = (this.originHand === RightHand) ? LeftHand : RightHand;
+            if (this.direction == PASS || this.direction == SELF) {
+                hand = (this.originHand === RIGHT_HAND) ? LEFT_HAND : RIGHT_HAND;
             } else {
                 hand = this.originHand;
             }
@@ -106,7 +107,7 @@ class Toss{
 // Get a string containing the magnutude (optionally), direction, and juggler of the toss
     toJugglerDirectionString() {
         let retStr = this.toDirectionString();
-        if (this.juggler != null && this.direction != Self && this.direction != Heff)
+        if (this.juggler != null && this.direction != SELF && this.direction != HEFF)
             retStr += this.juggler;
         return retStr;
     }
@@ -130,7 +131,7 @@ class Toss{
         }
         retStr += this.magnitude.toString();
         retStr += this.direction;
-        if ((this.direction === Self || this.direction === Heff)) {
+        if ((this.direction === SELF || this.direction === HEFF)) {
             if (this.originJuggler != null) {
                 retStr += this.originJuggler;
             }
@@ -193,14 +194,14 @@ class PropList {
     }
     // Distribute the clubs amoung the jugglers
     distribute(jugglers_) {
-        let curHand = RightHand;
+        let curHand = RIGHT_HAND;
         let jugglerIndex = 0;
         for(let i = 0; i < this.list.length; ++i) {
             jugglers_[jugglerIndex].pickup(curHand, this.list[i]);
             ++jugglerIndex;
             if (jugglerIndex >= jugglers_.length) {
                 jugglerIndex = 0;
-                curHand = (curHand === RightHand) ? LeftHand : RightHand;
+                curHand = (curHand === RIGHT_HAND) ? LEFT_HAND : RIGHT_HAND;
             }
 
         }
@@ -221,7 +222,7 @@ class PropList {
 // Manager for the state of a hand
 // Properties:
 // jugglerId - the id of the juggler
-//  hand - the hand id under each juggler (value should be RightHand or LeftHand)
+//  hand - the hand id under each juggler (value should be RIGHT_HAND or LEFT_HAND)
 //  props - an array of objects currently held by the hand
 // Methods:
 //  isVacant() - test if the prop array is empty
@@ -277,9 +278,9 @@ class Juggler{
         this.id = id_;
         this.name = name_;
         this.hands = new Map();
-        this.hands.set(RightHand, new Hand(this.id, RightHand));
-        this.hands.set(LeftHand, new Hand(this.id, LeftHand));
-        this.tossHand = RightHand;
+        this.hands.set(RIGHT_HAND, new Hand(this.id, RIGHT_HAND));
+        this.hands.set(LEFT_HAND, new Hand(this.id, LEFT_HAND));
+        this.tossHand = RIGHT_HAND;
         this.rhythmLength = tossRow_.length;
         this.currentToss = 0;
         this.inComingProps = new Array();
@@ -291,10 +292,10 @@ class Juggler{
             let tossStr = tossRow_[i].textContent;
             let toss = new Toss(tossStr);
             toss.setOrigin(this.id, this.tossHand)
-            this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
+            this.tossHand = (this.tossHand === RIGHT_HAND) ? LEFT_HAND : RIGHT_HAND;
             this.tosses[i] = toss;
         }
-        this.tossHand = RightHand;
+        this.tossHand = RIGHT_HAND;
     }
 
     // place the given prop into the given hand
@@ -308,7 +309,7 @@ class Juggler{
     // Set the destination juggler for all Passes and Diagonals to the given id;
     setPartnerId(id_) {
         this.tosses.forEach(function(toss_) {
-            if (toss_.direction == Pass || toss_.direction == Diagonal) {
+            if (toss_.direction == PASS || toss_.direction == DIAGONAL) {
                 toss_.juggler = id_;
             }
         }, this);
@@ -320,7 +321,7 @@ class Juggler{
     addInComingProp(prop_) {
         if (prop_.location instanceof Toss) {
             let insertIndex = prop_.location.magnitude - 2; // subtract one to convert to 0 base and one because it is caught a before thrown
-            if (this.inComingProps[insertIndex] != undefined) {
+            if (this.inComingProps[insertIndex] != null) {
                 throw new TossException(prop_.location, "Toss from " + prop_.location.toString() + " and " + this.inComingProps[insertIndex] + " will arrive at the same time");
             }
             this.inComingProps[insertIndex] = prop_;
@@ -333,7 +334,7 @@ class Juggler{
     // Get the the incoming prop but do not remove it from the queue
     peekInComingProp() {
         let ret = null;
-        if (this.inComingProps.length > 0 && this.inComingProps[0] != undefined) {
+        if (this.inComingProps.length > 0 && this.inComingProps[0] != null) {
             ret = this.inComingProps[0];
         }
         return ret;
@@ -344,7 +345,7 @@ class Juggler{
         let propCaught = null;
         if (this.inComingProps.length > 0) {
             let curProp = this.inComingProps.shift();
-            if (curProp != undefined) {
+            if (curProp != null) {
                 if (curProp.isInFlight()) {
                     this.hands.get(curProp.location.destinationHand()).Catch(curProp);
                     propCaught = curProp;
@@ -366,7 +367,7 @@ class Juggler{
         let toss = this.getCurrentToss();
         // if there is an in comming toss that has a destination hand (in case there is not origin)
         let inComingProp = this.peekInComingProp();
-        if (inComingProp != null && inComingProp.location.destinationHand() != undefined) {
+        if (inComingProp != null && inComingProp.location.destinationHand() != null) {
             isHurryComing = inComingProp.location.destinationHand() != this.tossHand;
             if (isHurryComing) {
                 this.tossHand = this.inComingProps[0].location.destinationHand();
@@ -377,7 +378,7 @@ class Juggler{
         toss.originHand = this.tossHand;
         prop.location = toss;
 
-        this.tossHand = (this.tossHand === RightHand) ? LeftHand : RightHand;
+        this.tossHand = (this.tossHand === RIGHT_HAND) ? LEFT_HAND : RIGHT_HAND;
         ++this.currentToss;
         if (this.currentToss === this.rhythmLength) {
             this.currentToss = 0;
@@ -591,7 +592,7 @@ class Pattern{
 
     hasCycled() {
         let propIndex = 0;
-        let currentHand = RightHand;
+        let currentHand = RIGHT_HAND;
         let isComplete = true;
         for (let i = 0; i < 2 && isComplete; ++i) {
             for (let jugglerIndex = 0; jugglerIndex < this.jugglers.length && propIndex < this.props.length && isComplete; ++jugglerIndex) {
@@ -601,10 +602,10 @@ class Pattern{
                 ++propIndex;
             }
             if (isComplete) {
-                currentHand = LeftHand;
+                currentHand = LEFT_HAND;
             }
         }
-        currentHand = RightHand;
+        currentHand = RIGHT_HAND;
         for (let jugglerIndex = 0; jugglerIndex < this.jugglers.length && propIndex < this.props.length && isComplete; ++jugglerIndex) {
             isComplete = this.props[propIndex].isInFlight() &&
                 this.props[propIndex].location.juggler == this.jugglers[jugglerIndex].id &&
