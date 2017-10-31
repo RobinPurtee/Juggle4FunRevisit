@@ -10,9 +10,11 @@ const HEFF = "H";
 
 
 //-----------------------------------------------------------------------------
-function TossException(toss_, message_) {
-    this.toss = toss_;
-    this.message = message_;
+class TossException{
+    constructor(toss_, message_) {
+        this.toss = toss_;
+        this.message = message_;
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -209,7 +211,7 @@ class PropList {
     // get the current number of props that are in the air
     inFlightCount() {
         let numberPropsInFlight = 0;
-        this.list.forEach(function(prop_, index_) {
+        this.list.forEach((prop_) => {
             if (prop_.isInFlight()) {
                 ++numberPropsInFlight;
             }
