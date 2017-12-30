@@ -1,4 +1,4 @@
-import {RIGHT_HAND, LEFT_HAND, PASS, DIAGONAL, SELF, HEFF, TossException, Toss} from 'Toss'
+import {RIGHT_HAND, LEFT_HAND, PASS, DIAGONAL, SELF, HEFF, TossException, Toss} from './Toss.js'
 
 
 //-----------------------------------------------------------------------------
@@ -47,5 +47,3 @@ export class Hand {
         return this.jugglerId.toString() + this.hand.toString();
     }
 }
-
-export {Hand}

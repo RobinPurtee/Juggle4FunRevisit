@@ -1,6 +1,6 @@
 import {RIGHT_HAND, LEFT_HAND} from 'Toss'
 import Juggler from 'Juggler'
-import PropList from 'PropList'
+import PropList from 'Prop'
 
 export class Pattern{
     constructor(numberOfJugglers_, numberOfProps_, rhythmTable_) {

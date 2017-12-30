@@ -1,6 +1,6 @@
 "use strict"
-import {RIGHT_HAND, LEFT_HAND, PASS, DIAGONAL, SELF, HEFF, TossException, Toss} from 'Toss'
-import Hand from 'Hand'
+import {RIGHT_HAND, LEFT_HAND, PASS, DIAGONAL, SELF, HEFF, TossException, Toss} from './Toss.js'
+import {Hand} from './Hand.js'
 //-------------------------------------------------------------------------------------
 // Object that represents a Juggler
 // parameters:

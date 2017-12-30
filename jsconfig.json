@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "checkJs": true
+
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*",
+        "NodeJuggler"
+    ],
+    "include":[
+        "Scripts",
+        "src"
+    ]
+}

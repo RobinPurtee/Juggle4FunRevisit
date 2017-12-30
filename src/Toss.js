@@ -19,12 +19,18 @@ export class TossException{
 
 //-----------------------------------------------------------------------------
 // The object that represents a Toss
+//  Properties;
+//        originJuggler;
+//        originHand = null;
+//        magnitude = magnitude_;
+//        direction = direction_;
+//        juggler = juggler_;
+
+export class Toss{
 // parameters:
 //      direction_ - A Toss direction string (maybe a full Toss string)
 //      magnitude_ - This siteswap value of the pass (optional: defaults to 3)
 //      juggler_   - The name of the destination juggler (optional: defaults to "A")
-
-export class Toss{
     constructor(direction_, magnitude_, juggler_) {
         this.originJuggler = null;
         this.originHand = null;

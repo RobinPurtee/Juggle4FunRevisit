@@ -1,6 +1,6 @@
 "use strict"
 import {Toss, RIGHT_HAND, LEFT_HAND} from 'Toss'
-import {Hand} from 'Hand'
+//import {Hand} from 'Hand'
 //-----------------------------------------------------------------------------
 // The Prop class represents a prop in the pattern
 // Properties:

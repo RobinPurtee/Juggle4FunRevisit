@@ -2,8 +2,9 @@
   "name": "passing_pattern_simulator",
   "version": "1.0.0",
   "description": "A package to animate club passing patterns on a web site using vector graphics.",
-  "main": "src\\index.js",
+  "main": "src/index.js",
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,11 +22,13 @@
     "url": "https://github.com/JugglerRick/Juggle4FunRevisit/issues"
   },
   "homepage": "https://github.com/JugglerRick/Juggle4FunRevisit#readme",
-
-"compilerOptions": {
+  "compilerOptions": {
     "target": "ES2015"
-},
-"include": [
+  },
+  "include": [
     "src/**/*"
-]
+  ],
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
 }
