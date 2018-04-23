@@ -1,4 +1,4 @@
-import JugglerPosition from "./JugglerPosition.js"
+import {JugglerPosition} from "./JugglerPosition.js"
 
 // The object to manage the display of a Juggler
 export class JugglerView{

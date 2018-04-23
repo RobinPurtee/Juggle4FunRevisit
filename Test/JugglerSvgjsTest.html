@@ -7,7 +7,8 @@
     <title>SVGjs Animation Test</title>
     <!-- <script type="text/javascript" src="../Scripts/svgjs/svg.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.js"></script>
-    <script src="../Scripts/Juggler.js"></script>
+    <!-- <script  type="text/javascript" src="../Scripts/Juggler.js"></script> -->
+    <script  type="module" src="../src/index.js"></script>
     <script>
         function DisplayError(message_) {
             document.getElementById("errorDisplay").textContent = message_;
@@ -20,11 +21,12 @@
 
         let RhythmLayout = {
             viewbox: [0, 0, 250, 250]
-          , numberJugglers: 2
+          , numberJugglers: 3
           , numberProps: 6
           , jugglerPositions: [
-              {x:20, y:45, angle:0}
-            , {x:200, y:45, angle:180}
+              {x:30, y:45, angle:30}
+            , {x:210, y:45, angle:140}
+            , {x:120, y:180, angle:270}
             ]
         }
         function PatternView(parentElementName_, rhythmTable_, layout_){
@@ -66,13 +68,18 @@
             }
         }
 
+        // get the canvas point of the hand for the given toss
+        // param: toss_ - the toss object to get the location of the hand for
+        PatternView.prototype.getTossHandPoint = function(toss_){
+            let jugglerIndex = toss_.originJuggler
+        }
         window.onload = function() {
 
             try {
                 patternView = new PatternView("jugglerImage", "jims3count", RhythmLayout);
-                // let handA = jugglerView[0].getRightHandPoint();
-                // let handB = jugglerView[1].getLeftHandPoint();
-                // DisplayLine(handA, handB);
+                let handA = jugglerView[0].getRightHandPoint();
+                let handB = jugglerView[1].getLeftHandPoint();
+                DisplayLine(handA, handB);
                 // //let lineObject = {x1:handA.x, y1:handA.y, x2:handB.x, y2:handB.y};
                 // let lineArray =  [handA.x, handA.y, handB.x, handB.y];
                 // let tossLineElement = new SVG.Line;
